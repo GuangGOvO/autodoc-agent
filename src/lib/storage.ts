@@ -183,27 +183,29 @@ export async function getDiagnosisSessions(): Promise<DiagnosisSession[]> {
 
   if (error || !sessions) return [];
 
-  // 获取每个会话的消息
+  // 获取每个会话的消息 — 空 sessionIds 时跳过查询，避免 PostgREST 无效 .in() 挂起
   const sessionIds = sessions.map(s => s.id);
-  const { data: messages } = await supabase
-    .from('diagnosis_messages')
-    .select('*')
-    .in('session_id', sessionIds)
-    .order('created_at', { ascending: true });
-
-  // 按 session_id 分组消息
   const messagesBySession = new Map<string, ChatMessage[]>();
-  (messages || []).forEach(m => {
-    if (!messagesBySession.has(m.session_id)) {
-      messagesBySession.set(m.session_id, []);
-    }
-    messagesBySession.get(m.session_id)!.push({
-      id: m.id,
-      role: m.role as 'user' | 'assistant' | 'system',
-      content: m.content,
-      timestamp: m.created_at,
+
+  if (sessionIds.length > 0) {
+    const { data: messages } = await supabase
+      .from('diagnosis_messages')
+      .select('*')
+      .in('session_id', sessionIds)
+      .order('created_at', { ascending: true });
+
+    (messages || []).forEach(m => {
+      if (!messagesBySession.has(m.session_id)) {
+        messagesBySession.set(m.session_id, []);
+      }
+      messagesBySession.get(m.session_id)!.push({
+        id: m.id,
+        role: m.role as 'user' | 'assistant' | 'system',
+        content: m.content,
+        timestamp: m.created_at,
+      });
     });
-  });
+  }
 
   return sessions.map(s => ({
     id: s.id,

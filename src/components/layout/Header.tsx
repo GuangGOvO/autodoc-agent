@@ -91,11 +91,11 @@ export function Header() {
       {/* 移动端抽屉菜单 */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-[60]" onClick={() => setMobileMenuOpen(false)}>
-          {/* 遮罩 */}
-          <div className="absolute inset-0 bg-black/40 animate-in fade-in duration-200" />
+          {/* 遮罩 — 不依赖 tw-animate-css，使用静态透明度 */}
+          <div className="absolute inset-0 bg-black/40" />
           {/* 抽屉 */}
           <div
-            className="absolute right-0 top-0 bottom-0 w-[280px] bg-white shadow-xl animate-in slide-in-from-right duration-300"
+            className="absolute right-0 top-0 bottom-0 w-[280px] bg-white shadow-xl drawer-slide-in"
             onClick={e => e.stopPropagation()}
           >
             {/* 顶部：用户信息 + 关闭按钮 */}
