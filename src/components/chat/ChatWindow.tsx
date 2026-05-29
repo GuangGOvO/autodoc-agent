@@ -4,10 +4,9 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Send, RotateCcw, MessageSquareQuote } from 'lucide-react';
+import { Send, RotateCcw, MessageSquareQuote, Square } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { MessageBubble } from './MessageBubble';
 import { TypingIndicator } from './TypingIndicator';
@@ -43,6 +42,9 @@ export function ChatWindow() {
   const [followUpContext, setFollowUpContext] = useState<string>('');
   const [followUpSummary, setFollowUpSummary] = useState<string>('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isNearBottomRef = useRef(true);
+  const abortControllerRef = useRef<AbortController | null>(null);
   // 用于首页快速体验：存储待自动发送的症状
   const pendingSymptomRef = useRef<string | null>(null);
   const initDoneRef = useRef(false);
@@ -105,14 +107,19 @@ export function ChatWindow() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 自动滚动到底部
-  const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // 智能自动滚动：检测用户是否在底部附近
+  const handleScroll = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    isNearBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 100;
   }, []);
 
+  // 消息变化时，如果用户在底部附近才自动滚动
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, scrollToBottom]);
+    if (isNearBottomRef.current && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   // 标记会话完成（仅非追问模式）
   const markComplete = useCallback(async (sid: string) => {
@@ -129,6 +136,7 @@ export function ChatWindow() {
 
     const decoder = new TextDecoder();
     let fullContent = '';
+    let wasAborted = false;
 
     const assistantMsg: ChatMessage = {
       id: assistantId,
@@ -141,7 +149,19 @@ export function ChatWindow() {
 
     try {
       while (true) {
-        const { done, value } = await reader.read();
+        let done: boolean;
+        let value: Uint8Array | undefined;
+        try {
+          const result = await reader.read();
+          done = result.done;
+          value = result.value;
+        } catch (err) {
+          if (err instanceof Error && err.name === 'AbortError') {
+            wasAborted = true;
+            break;
+          }
+          throw err;
+        }
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
@@ -168,20 +188,23 @@ export function ChatWindow() {
         }
       }
 
-      // 流完成后，持久化完整消息到 Supabase
-      const finalMsg: ChatMessage = {
-        id: assistantId,
-        role: 'assistant',
-        content: fullContent,
-        timestamp: new Date().toISOString(),
-      };
-      await addMessageToSession(sid, finalMsg);
+      // 流完成后（或中断后），持久化消息到 Supabase
+      if (fullContent) {
+        const finalMsg: ChatMessage = {
+          id: assistantId,
+          role: 'assistant',
+          content: fullContent + (wasAborted ? '\n\n*(已中断)*' : ''),
+          timestamp: new Date().toISOString(),
+        };
+        await addMessageToSession(sid, finalMsg);
 
-      // 检测是否包含诊断报告（追问模式下不标记完成）
-      if (isDiagnosisReport(fullContent)) {
-        await markComplete(sid);
+        // 检测是否包含诊断报告（追问模式下不标记完成）
+        if (!wasAborted && isDiagnosisReport(fullContent)) {
+          await markComplete(sid);
+        }
       }
     } finally {
+      abortControllerRef.current = null;
       setIsLoading(false);
     }
   };
@@ -225,6 +248,8 @@ export function ChatWindow() {
     await addMessageToSession(sid, userMessage);
 
     const assistantId = generateId();
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
 
     try {
       // 追问模式：始终走 chat 接口，带上 followUpContext
@@ -238,6 +263,7 @@ export function ChatWindow() {
             turnCount,
             followUpContext,
           }),
+          signal: controller.signal,
         });
 
         if (!response.ok) {
@@ -253,6 +279,7 @@ export function ChatWindow() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ symptom: augmentedContent }),
+          signal: controller.signal,
         });
 
         if (!response.ok) {
@@ -270,6 +297,7 @@ export function ChatWindow() {
             message: trimmed,
             turnCount,
           }),
+          signal: controller.signal,
         });
 
         if (!response.ok) {
@@ -281,6 +309,11 @@ export function ChatWindow() {
         await handleStreamResponse(response, assistantId, sid);
       }
     } catch (error) {
+      // AbortError 不算真正的错误（用户主动中断）
+      if (error instanceof Error && error.name === 'AbortError') {
+        setIsLoading(false);
+        return;
+      }
       setIsLoading(false);
       const errorMsg: ChatMessage = {
         id: assistantId,
@@ -350,7 +383,7 @@ export function ChatWindow() {
       )}
 
       {/* 消息列表 */}
-      <ScrollArea className="chat-messages-scroll flex-1">
+      <div ref={scrollContainerRef} onScroll={handleScroll} className="flex-1 overflow-auto">
         <div className="py-4">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center py-20 text-center px-4">
@@ -409,7 +442,7 @@ export function ChatWindow() {
 
           <div ref={messagesEndRef} />
         </div>
-      </ScrollArea>
+      </div>
 
       {/* 输入区域 */}
       <div className="chat-input-area border-t bg-white p-4 sticky bottom-0">
@@ -460,14 +493,25 @@ export function ChatWindow() {
               rows={1}
               disabled={isLoading}
             />
-            <Button
-              onClick={() => sendMessage()}
-              disabled={isLoading || input.length === 0}
-              size="icon"
-              className="h-[44px] w-[44px] flex-shrink-0"
-            >
-              <Send className="h-4 w-4" />
-            </Button>
+            {isLoading ? (
+              <Button
+                onClick={() => abortControllerRef.current?.abort()}
+                variant="destructive"
+                size="icon"
+                className="h-[44px] w-[44px] flex-shrink-0"
+              >
+                <Square className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Button
+                onClick={() => sendMessage()}
+                disabled={input.length === 0}
+                size="icon"
+                className="h-[44px] w-[44px] flex-shrink-0"
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            )}
           </div>
           <p className="text-xs text-muted-foreground mt-2 text-center">
             按 Enter 发送，Shift+Enter 换行 | 诊断结果仅供参考，具体请咨询专业技师

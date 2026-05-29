@@ -12,6 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { getUserProfile, saveUserProfile, getStats, getDiagnosisSessions } from '@/lib/storage';
 import type { UserProfile } from '@/lib/storage';
 import type { DiagnosisSession } from '@/types/diagnosis';
+import { DetailSkeleton } from '@/components/ui/page-skeleton';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile>({ name: '', phone: '', email: '', avatarUrl: '' });
@@ -43,8 +44,8 @@ export default function ProfilePage() {
 
   if (!loaded) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <p className="text-muted-foreground">加载中...</p>
+      <div className="container mx-auto px-4 py-8 max-w-2xl">
+        <DetailSkeleton />
       </div>
     );
   }

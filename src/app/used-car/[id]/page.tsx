@@ -12,6 +12,7 @@ import { UsedCarReportView } from '@/components/report/UsedCarReportView';
 import { getUsedCarEvaluationById } from '@/lib/storage';
 import { parseUsedCarReport } from '@/lib/usedCarParser';
 import type { UsedCarEvaluation } from '@/types/usedCar';
+import { DetailSkeleton } from '@/components/ui/page-skeleton';
 
 export default function UsedCarDetailPage() {
   const params = useParams();
@@ -32,8 +33,9 @@ export default function UsedCarDetailPage() {
 
   if (!loaded) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <p className="text-muted-foreground">加载中...</p>
+      <div className="container mx-auto px-4 py-6 max-w-4xl">
+        <div className="h-5 bg-muted rounded w-24 mb-4 animate-pulse" />
+        <DetailSkeleton />
       </div>
     );
   }

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { VehicleForm } from '@/components/vehicle/VehicleForm';
 import { getVehicleById, saveVehicle, type Vehicle } from '@/lib/storage';
+import { DetailSkeleton } from '@/components/ui/page-skeleton';
 
 export default function EditVehiclePage() {
   const router = useRouter();
@@ -32,8 +33,8 @@ export default function EditVehiclePage() {
 
   if (!loaded) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <p className="text-muted-foreground">加载中...</p>
+      <div className="container mx-auto px-4 py-8">
+        <DetailSkeleton />
       </div>
     );
   }

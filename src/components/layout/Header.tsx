@@ -88,82 +88,105 @@ export function Header() {
         </button>
       </div>
 
-      {/* 移动端导航菜单 */}
+      {/* 移动端抽屉菜单 */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t bg-white px-4 py-4 space-y-3">
-          {user && (
-            <>
-              <Link
-                href="/diagnose"
-                className="block text-sm font-medium text-muted-foreground hover:text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                智能问诊
-              </Link>
-              <Link
-                href="/vehicles"
-                className="block text-sm font-medium text-muted-foreground hover:text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                我的车辆
-              </Link>
-              <Link
-                href="/history"
-                className="block text-sm font-medium text-muted-foreground hover:text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                诊断历史
-              </Link>
-              <Link
-                href="/used-car"
-                className="block text-sm font-medium text-muted-foreground hover:text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                二手车评估
-              </Link>
-              <Link
-                href="/diagnose"
-                className={buttonVariants({ className: 'w-full justify-center' })}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                开始诊断
-              </Link>
-              <Link
-                href="/profile"
-                className="block text-sm font-medium text-muted-foreground hover:text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                个人中心
-              </Link>
-              <button
-                onClick={() => {
-                  handleSignOut();
-                  setMobileMenuOpen(false);
-                }}
-                className="block w-full text-left text-sm font-medium text-red-600 hover:text-red-700"
-              >
-                退出登录
+        <div className="md:hidden fixed inset-0 z-[60]" onClick={() => setMobileMenuOpen(false)}>
+          {/* 遮罩 */}
+          <div className="absolute inset-0 bg-black/40 animate-in fade-in duration-200" />
+          {/* 抽屉 */}
+          <div
+            className="absolute right-0 top-0 bottom-0 w-[280px] bg-white shadow-xl animate-in slide-in-from-right duration-300"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* 顶部：用户信息 + 关闭按钮 */}
+            <div className="flex items-center justify-between p-4 border-b">
+              <div className="flex items-center gap-2">
+                {user && (
+                  <span className="text-sm font-medium">{user.username || user.email}</span>
+                )}
+              </div>
+              <button onClick={() => setMobileMenuOpen(false)} className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-muted">
+                <X className="h-5 w-5" />
               </button>
-            </>
-          )}
-          {!user && !loading && (
-            <>
-              <Link
-                href="/login"
-                className="block text-sm font-medium text-muted-foreground hover:text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                登录
-              </Link>
-              <Link
-                href="/register"
-                className="block text-sm font-medium text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                注册
-              </Link>
-            </>
-          )}
+            </div>
+
+            {/* 菜单项 */}
+            <nav className="p-4 space-y-1">
+              {user && (
+                <>
+                  <Link
+                    href="/diagnose"
+                    className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    智能问诊
+                  </Link>
+                  <Link
+                    href="/vehicles"
+                    className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    我的车辆
+                  </Link>
+                  <Link
+                    href="/history"
+                    className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    诊断历史
+                  </Link>
+                  <Link
+                    href="/used-car"
+                    className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    二手车评估
+                  </Link>
+                  <Link
+                    href="/diagnose"
+                    className={buttonVariants({ className: 'w-full justify-center mt-4' })}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    开始诊断
+                  </Link>
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    个人中心
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleSignOut();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 w-full min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50"
+                  >
+                    退出登录
+                  </button>
+                </>
+              )}
+              {!user && !loading && (
+                <>
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    登录
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-primary hover:bg-muted"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    注册
+                  </Link>
+                </>
+              )}
+            </nav>
+          </div>
         </div>
       )}
     </header>

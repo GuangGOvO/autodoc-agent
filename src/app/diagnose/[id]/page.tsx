@@ -15,6 +15,7 @@ import { DiagnosisReportView } from '@/components/report/DiagnosisReportView';
 import { getDiagnosisSessionById } from '@/lib/storage';
 import type { DiagnosisSession } from '@/types/diagnosis';
 import { parseDiagnosisReport, isDiagnosisReport } from '@/lib/reportParser';
+import { DetailSkeleton } from '@/components/ui/page-skeleton';
 
 export default function DiagnosisDetailPage() {
   const params = useParams();
@@ -35,8 +36,9 @@ export default function DiagnosisDetailPage() {
 
   if (!loaded) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <p className="text-muted-foreground">加载中...</p>
+      <div className="container mx-auto px-4 py-6 max-w-4xl">
+        <div className="h-5 bg-muted rounded w-24 mb-4 animate-pulse" />
+        <DetailSkeleton />
       </div>
     );
   }

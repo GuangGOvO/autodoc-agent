@@ -5,7 +5,7 @@ import { ChatWindow } from '@/components/chat/ChatWindow';
 
 export default function DiagnosePage() {
   return (
-    <div className="chat-container h-[calc(100vh-8rem)]">
+    <div className="chat-container h-[calc(100vh-8rem)] max-md:h-[calc(100dvh-4rem)]">
       <Suspense
         fallback={
           <div className="flex items-center justify-center h-full">

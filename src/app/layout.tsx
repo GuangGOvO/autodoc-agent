@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MobileDetector } from "@/components/layout/MobileDetector";
+import { MobileNav } from "@/components/layout/MobileNav";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 
 const geistSans = Geist({
@@ -67,9 +69,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>
+          <MobileDetector />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <MobileNav />
         </AuthProvider>
       </body>
     </html>

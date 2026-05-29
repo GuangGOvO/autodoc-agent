@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { getVehicles, deleteVehicle, type Vehicle } from '@/lib/storage';
+import { ListSkeleton } from '@/components/ui/page-skeleton';
 
 export default function VehiclesPage() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -33,8 +34,15 @@ export default function VehiclesPage() {
 
   if (!loaded) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <p className="text-muted-foreground">加载中...</p>
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <div className="h-8 bg-muted rounded w-32 mb-2 animate-pulse" />
+            <div className="h-4 bg-muted rounded w-64 animate-pulse" />
+          </div>
+          <div className="h-9 w-24 bg-muted rounded-lg animate-pulse" />
+        </div>
+        <ListSkeleton rows={3} />
       </div>
     );
   }
