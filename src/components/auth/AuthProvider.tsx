@@ -47,14 +47,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const result = await withTimeout(supabase.auth.getUser(), 8000);
 
       if (!result) {
-        // 超时：视为未登录，避免永久卡住
+        // 超时：清除过期 session，视为未登录
+        await supabase.auth.signOut();
         setUser(null);
         return;
       }
 
-      const { data: { user: authUser } } = result;
+      const { data: { user: authUser }, error } = result;
 
-      if (!authUser) {
+      if (error || !authUser) {
+        // getUser 返回错误（token 过期/无效）或无用户 → 清理 session
+        if (error) {
+          console.warn('[AuthProvider] getUser error, clearing session:', error.message);
+          await supabase.auth.signOut();
+        }
         setUser(null);
         return;
       }
@@ -79,6 +85,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
     } catch (err) {
       console.error('[AuthProvider] fetchUser error:', err);
+      // 出错时彻底清理客户端 session，避免残留的无效 cookie
+      try {
+        await supabase.auth.signOut();
+      } catch {
+        // signOut 本身也可能失败（比如 token 已无效），忽略
+      }
       setUser(null);
     } finally {
       setLoading(false);
@@ -91,14 +103,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 监听认证状态变化
+  // 监听认证状态变化 — 包括 TOKEN_REFRESHED 失败处理
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_OUT') {
         setUser(null);
         router.push('/login');
       } else if (event === 'SIGNED_IN') {
         await fetchUser();
+      } else if (event === 'TOKEN_REFRESHED') {
+        // Token 刷新成功 — 正常情况，无需额外操作
       }
     });
 

@@ -30,11 +30,6 @@ export async function proxy(request: NextRequest) {
     }
   );
 
-  // 获取当前用户
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   // 受保护的路径
   const protectedPaths = ['/diagnose', '/vehicles', '/history', '/profile', '/used-car', '/admin'];
 
@@ -42,6 +37,39 @@ export async function proxy(request: NextRequest) {
   const isProtectedPath = protectedPaths.some(path =>
     request.nextUrl.pathname.startsWith(path)
   );
+
+  // 获取当前用户 — 处理 error（token 过期/无效/部署后 cookie 不一致）
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    // Session 无效：清除所有 Supabase cookie，让客户端重新建立 session
+    const clearResponse = isProtectedPath
+      ? NextResponse.redirect(new URL('/login', request.url))
+      : NextResponse.next({ request });
+
+    // 删除所有 sb- 开头的 cookie（Supabase 项目特定的 cookie 名格式）
+    request.cookies.getAll().forEach(cookie => {
+      if (cookie.name.startsWith('sb-')) {
+        clearResponse.cookies.delete(cookie.name);
+      }
+    });
+
+    // 显式删除标准 Supabase cookie
+    clearResponse.cookies.delete('sb-access-token');
+    clearResponse.cookies.delete('sb-refresh-token');
+
+    // 保护路径附带的重定向参数
+    if (isProtectedPath && clearResponse instanceof Response && clearResponse.headers.get('location')) {
+      const url = new URL(clearResponse.headers.get('location')!);
+      url.searchParams.set('redirect', request.nextUrl.pathname);
+      return NextResponse.redirect(url);
+    }
+
+    return clearResponse;
+  }
 
   // 未登录访问受保护路径 → 重定向到登录页
   if (!user && isProtectedPath) {

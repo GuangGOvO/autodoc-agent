@@ -5,6 +5,14 @@ import { getSupabaseBrowserClient } from './supabase';
 import type { ChatMessage, DiagnosisSession } from '@/types/diagnosis';
 import type { UsedCarEvaluation, UsedCarInput } from '@/types/usedCar';
 
+// ==================== JWT/Session 错误检测 ====================
+
+function isSessionError(error: { message: string } | null): boolean {
+  if (!error) return false;
+  const msg = error.message.toLowerCase();
+  return msg.includes('jwt') || msg.includes('token') || msg.includes('expired') || msg.includes('unauthorized');
+}
+
 // ==================== 类型定义 ====================
 
 export interface Vehicle {
@@ -41,7 +49,10 @@ export async function getVehicles(): Promise<Vehicle[]> {
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
-  if (error || !data) return [];
+  if (error || !data) {
+    if (isSessionError(error)) console.warn('[storage] getVehicles: session error, returning empty');
+    return [];
+  }
 
   return data.map(v => ({
     id: v.id,
@@ -181,7 +192,10 @@ export async function getDiagnosisSessions(): Promise<DiagnosisSession[]> {
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
-  if (error || !sessions) return [];
+  if (error || !sessions) {
+    if (isSessionError(error)) console.warn('[storage] getDiagnosisSessions: session error, returning empty');
+    return [];
+  }
 
   // 获取每个会话的消息 — 空 sessionIds 时跳过查询，避免 PostgREST 无效 .in() 挂起
   const sessionIds = sessions.map(s => s.id);
@@ -325,7 +339,10 @@ export async function getUsedCarEvaluations(): Promise<UsedCarEvaluation[]> {
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
-  if (error || !data) return [];
+  if (error || !data) {
+    if (isSessionError(error)) console.warn('[storage] getUsedCarEvaluations: session error, returning empty');
+    return [];
+  }
 
   return data.map(e => ({
     id: e.id,
