@@ -1,0 +1,211 @@
+[
+  {
+    "id": "steering-001",
+    "category": "steering",
+    "subcategory": "方向盘抖动",
+    "symptoms": [
+      {
+        "description": "跑高速的时候方向盘抖得厉害，80-120码最明显，手都麻了",
+        "keywords": ["方向盘抖", "高速方向盘抖", "方向盘震动", "手麻"],
+        "conditions": ["高速行驶时", "80-120km/h"],
+        "severity": "warning"
+      },
+      {
+        "description": "某个速度区间方向盘抖，过了这个速度就好了",
+        "keywords": ["特定速度抖动", "区间抖动", "共振", "方向盘共振"],
+        "conditions": ["特定车速时", "匀速行驶时"],
+        "severity": "warning"
+      },
+      {
+        "description": "踩刹车的时候方向盘抖，高速刹车更明显",
+        "keywords": ["刹车方向盘抖", "制动抖动", "踩刹车方向抖"],
+        "conditions": ["刹车时", "高速刹车时"],
+        "severity": "warning"
+      },
+      {
+        "description": "低速行驶方向盘就有轻微抖动，跟路面没关系",
+        "keywords": ["低速方向盘抖", "持续抖动", "方向盘一直抖"],
+        "conditions": ["低速行驶时", "怠速时"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "轮胎动平衡失准",
+        "probability": 0.50,
+        "explanation": "轮胎配重块脱落、轮胎磨损不均或补胎后未做动平衡都会导致轮胎高速旋转时产生振动，通过转向系统传递到方向盘。这是方向盘高速抖动的最常见原因。",
+        "checkItems": ["检查轮胎配重块有无脱落", "检查轮胎有无鼓包和异常磨损", "上动平衡机检测不平衡量", "检查轮毂有无变形"],
+        "repairMethod": "做四轮动平衡，必要时更换异常磨损的轮胎。补胎后必须重新做动平衡。",
+        "parts": [
+          { "name": "动平衡服务（单轮）", "oemPrice": 50, "aftermarketPrice": 20, "brandPrice": 30 },
+          { "name": "轮胎（经济型205/55R16）", "oemPrice": 600, "aftermarketPrice": 250, "brandPrice": 400 }
+        ],
+        "laborHours": 0.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "动平衡一般20-50元/个轮，四个全做80-200元，很便宜",
+          "换轮胎或补胎后一定要做动平衡，这是基本操作不应该额外收费太多",
+          "不要被建议换转向机或做四轮定位，动平衡和四轮定位是两码事",
+          "如果做完动平衡还抖，再检查轮毂变形和刹车盘"
+        ]
+      },
+      {
+        "name": "刹车盘变形（DTV超标）",
+        "probability": 0.25,
+        "explanation": "如果只在踩刹车时方向盘抖动，大概率是前刹车盘变形（厚度不均DTV超标）。刹车片夹紧变形盘面时产生脉动力传递到方向盘。",
+        "checkItems": ["用百分表测量刹车盘端面跳动量", "检查刹车盘厚度", "检查盘面有无沟槽和蓝斑"],
+        "repairMethod": "光磨修复或更换前刹车盘，同时更换刹车片。",
+        "parts": [
+          { "name": "前刹车盘（单个）", "oemPrice": 600, "aftermarketPrice": 200, "brandPrice": 350 },
+          { "name": "刹车盘光磨（单个）", "oemPrice": 150, "aftermarketPrice": 80, "brandPrice": 100 }
+        ],
+        "laborHours": 1.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "只在刹车时抖就查刹车盘，别被忽悠做一堆不相关的项目",
+          "光磨（80-150元）比换新盘便宜很多，先看看能不能磨",
+          "品牌刹车盘（布雷博/Brembo、天合/TRW）质量可靠，价格只有原厂的一半"
+        ]
+      },
+      {
+        "name": "轮毂变形",
+        "probability": 0.10,
+        "explanation": "轮毂因过坑、撞马路牙子或碾压大石块导致变形，旋转时不圆产生振动。铝合金轮毂比钢轮毂更容易因冲击变形。",
+        "checkItems": ["目视检查轮毂有无明显变形和裂纹", "上动平衡机观察轮毂径向和轴向跳动", "检查轮胎有无鼓包"],
+        "repairMethod": "铝合金轮毂可以专业修复（整形+焊接），严重变形或裂纹需要更换。",
+        "parts": [
+          { "name": "铝合金轮毂修复", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 300 },
+          { "name": "轮毂（原厂）", "oemPrice": 1500, "aftermarketPrice": 500, "brandPrice": 900 }
+        ],
+        "laborHours": 1.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "铝合金轮毂可以修复！修复费用200-500元，不需要换新轮毂",
+          "副厂轮毂价格便宜但可能精度和强度不如原厂，影响安全",
+          "如果轮胎也鼓包了需要一起换，否则做了平衡也没用"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众朗逸", "丰田卡罗拉", "本田思域", "日产轩逸", "福特福克斯", "别克英朗", "现代伊兰特"],
+    "tsbReferences": []
+  },
+  {
+    "id": "steering-002",
+    "category": "steering",
+    "subcategory": "转向异响/沉重",
+    "symptoms": [
+      {
+        "description": "打方向的时候有'咯噔咯噔'的声音，特别是原地打方向",
+        "keywords": ["转向异响", "打方向响", "咯噔声", "原地打方向响"],
+        "conditions": ["转弯时", "原地打方向时", "低速泊车时"],
+        "severity": "warning"
+      },
+      {
+        "description": "方向盘越来越重了，打方向特别费劲，低速的时候更明显",
+        "keywords": ["方向盘重", "转向沉重", "打方向费劲", "转向费力"],
+        "conditions": ["低速行驶时", "原地打方向时", "停车入位时"],
+        "severity": "warning"
+      },
+      {
+        "description": "方向盘有虚位，要转一点角度车轮才有反应，感觉不精准了",
+        "keywords": ["方向盘虚位", "转向间隙大", "方向不精准", "松旷"],
+        "conditions": ["直线行驶时", "微调方向时"],
+        "severity": "warning"
+      },
+      {
+        "description": "转弯的时候方向盘有'嗡嗡'的声音，像电机在响",
+        "keywords": ["转向嗡嗡响", "助力泵响", "转向电机声"],
+        "conditions": ["转弯时", "打死方向时"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "转向拉杆球头磨损",
+        "probability": 0.35,
+        "explanation": "转向拉杆内外球头磨损产生间隙，导致转向异响和虚位增大。球头磨损严重时可能导致转向失控，是重要的安全隐患。",
+        "checkItems": ["举升车辆检查拉杆球头间隙", "检查球头防尘套有无破损", "检查转向拉杆有无弯曲变形", "检查转向机输出端间隙"],
+        "repairMethod": "更换转向拉杆球头或总成，建议左右一起更换。更换后必须做四轮定位。",
+        "parts": [
+          { "name": "转向拉杆球头（单个）", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 },
+          { "name": "转向横拉杆总成", "oemPrice": 500, "aftermarketPrice": 180, "brandPrice": 320 }
+        ],
+        "laborHours": 1.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "球头配件不贵（100-300元），但关乎安全，建议用品牌件（猫头鹰/Lemforder、天合/TRW）",
+          "换完必须做四轮定位（100-200元），否则可能跑偏",
+          "不需要换整个转向机！球头和转向机是分开的部件",
+          "有些修理厂会建议同时更换转向机（2000-5000元），这是过度维修"
+        ]
+      },
+      {
+        "name": "转向助力系统故障（助力液不足/助力泵故障/EPS故障）",
+        "probability": 0.30,
+        "explanation": "液压助力转向系统（HPS）助力液不足或助力泵磨损会导致转向沉重和嗡嗡声。电子助力转向系统（EPS）的电机或传感器故障也会导致转向沉重。需要先确认是液压助力还是电子助力。",
+        "checkItems": ["确认转向助力类型（液压/电子）", "液压助力：检查助力液液位和颜色", "液压助力：检查助力泵皮带和泵体", "电子助力：用诊断仪读取EPS故障码和数据"],
+        "repairMethod": "液压助力：补充或更换助力液，维修或更换助力泵。电子助力：根据故障码维修或更换EPS模块。",
+        "parts": [
+          { "name": "转向助力液", "oemPrice": 80, "aftermarketPrice": 30, "brandPrice": 50 },
+          { "name": "转向助力泵", "oemPrice": 1500, "aftermarketPrice": 500, "brandPrice": 900 },
+          { "name": "EPS转向电机", "oemPrice": 3000, "aftermarketPrice": 1000, "brandPrice": 2000 }
+        ],
+        "laborHours": 2.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "液压助力液很便宜（30-80元），自己检查液位和添加都可以",
+          "电子助力转向（EPS）不需要助力液！别被忽悠加不需要的东西",
+          "助力泵坏了可以先试试换皮带（如果是皮带驱动的），皮带打滑也会有嗡嗡声",
+          "EPS故障如果还在质保期内，去4S店免费维修"
+        ]
+      },
+      {
+        "name": "转向机（方向机）内部磨损",
+        "probability": 0.20,
+        "explanation": "转向机内部齿轮齿条磨损导致间隙变大，产生虚位和异响。部分转向机可以通过调整预紧螺栓减小间隙，严重时需更换。",
+        "checkItems": ["检查转向机有无漏油（液压助力型）", "检查转向机安装螺栓是否紧固", "检查转向机内部间隙是否可调", "检查转向柱万向节有无松旷"],
+        "repairMethod": "先尝试调整转向机预紧间隙，无效则维修或更换转向机总成。",
+        "parts": [
+          { "name": "转向机总成", "oemPrice": 4000, "aftermarketPrice": 1200, "brandPrice": 2500 },
+          { "name": "转向柱万向节", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 }
+        ],
+        "laborHours": 4.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先试调整间隙！很多转向机有预紧调整螺栓，调一下虚位就小了，不花钱",
+          "品牌再制造转向机（博世、TRW）质量可靠，价格只有原厂新件的1/3",
+          "转向机是重要安全部件，更换后必须做四轮定位",
+          "4S店换转向机报价5000-10000元，修理厂用品牌件2000-4000元"
+        ]
+      },
+      {
+        "name": "转向柱/方向管柱异响",
+        "probability": 0.10,
+        "explanation": "转向柱上的轴承、衬套或万向节磨损会产生转动时的异响。部分车型的方向管柱有已知异响通病（如大众MQB平台车型）。",
+        "checkItems": ["检查转向柱轴承和衬套", "检查转向柱万向节", "检查转向柱与方向盘的连接", "检查管柱护板有无干涉"],
+        "repairMethod": "更换磨损的轴承、衬套或万向节。部分通病车型有改进型零件可供更换。",
+        "parts": [
+          { "name": "转向柱轴承", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 },
+          { "name": "转向柱万向节", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 }
+        ],
+        "laborHours": 2.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "转向柱异响有时候只是护板松动或方向盘下方饰板卡扣松了，不用拆转向柱",
+          "如果是大众MQB平台车型，检查一下是否有TSB（技术服务通报），可能有免费解决方案"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["C1511", "C1512", "C1521", "C1531"],
+    "commonInModels": ["大众朗逸", "大众宝来", "丰田卡罗拉", "本田思域", "日产轩逸", "别克英朗", "福特福克斯"],
+    "tsbReferences": ["VW-TPI-2048091"]
+  }
+]

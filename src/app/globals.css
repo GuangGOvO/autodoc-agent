@@ -1,0 +1,453 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(0.985 0.002 247);
+  --foreground: oklch(0.145 0.01 247);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.01 247);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.01 247);
+  --primary: oklch(0.33 0.09 247);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.96 0.005 247);
+  --secondary-foreground: oklch(0.33 0.09 247);
+  --muted: oklch(0.96 0.005 247);
+  --muted-foreground: oklch(0.556 0.02 247);
+  --accent: oklch(0.75 0.18 55);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.912 0.01 247);
+  --input: oklch(0.912 0.01 247);
+  --ring: oklch(0.33 0.09 247);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 优化移动端触摸体验 */
+@media (hover: none) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a {
+    touch-action: manipulation;
+  }
+}
+
+/* 防止 iOS 输入框缩放 */
+@supports (-webkit-touch-callout: none) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* 平滑过渡 */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* 卡片悬停效果增强 */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+}
+
+/* 渐变文字 */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 骨架屏动画 */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--muted) 0%,
+    var(--muted-foreground) 50%,
+    var(--muted) 100%
+  );
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+/* 危险卡片脉冲动画 */
+@keyframes danger-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 oklch(0.577 0.245 27.325 / 40%);
+  }
+  50% {
+    box-shadow: 0 0 0 8px oklch(0.577 0.245 27.325 / 0%);
+  }
+}
+
+.animate-danger-pulse {
+  animation: danger-pulse 2s ease-in-out infinite;
+}
+
+/* 警告图标闪烁 */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.animate-blink {
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+/* 打印样式优化 */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+  }
+
+  .container {
+    max-width: none;
+  }
+}
+
+/* ==================== 聊天气泡 Markdown 样式 ==================== */
+
+.chat-markdown {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: inherit;
+  word-break: break-word;
+}
+
+.chat-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.chat-markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+/* 标题 */
+.chat-markdown h1,
+.chat-markdown h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  color: inherit;
+}
+
+.chat-markdown h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.375rem;
+  line-height: 1.4;
+  color: inherit;
+}
+
+.chat-markdown h4 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin-top: 0.875rem;
+  margin-bottom: 0.375rem;
+  line-height: 1.4;
+  color: inherit;
+}
+
+/* 段落 */
+.chat-markdown p {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
+/* 列表 */
+.chat-markdown ul,
+.chat-markdown ol {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+  padding-left: 1.5rem;
+}
+
+.chat-markdown ul {
+  list-style-type: disc;
+}
+
+.chat-markdown ol {
+  list-style-type: decimal;
+}
+
+.chat-markdown li {
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+.chat-markdown li > ul,
+.chat-markdown li > ol {
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+/* 加粗 / 强调 */
+.chat-markdown strong {
+  font-weight: 600;
+  color: inherit;
+}
+
+/* 分隔线 */
+.chat-markdown hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-color: oklch(0.912 0.01 247);
+}
+
+/* 行内代码 */
+.chat-markdown code {
+  font-size: 0.8125rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  background: oklch(0.96 0.005 247);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* 代码块 */
+.chat-markdown pre {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: oklch(0.96 0.005 247);
+  overflow-x: auto;
+}
+
+.chat-markdown pre code {
+  padding: 0;
+  background: transparent;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* 表格 */
+.chat-markdown table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.chat-markdown th,
+.chat-markdown td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid oklch(0.912 0.01 247);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.chat-markdown th {
+  background: oklch(0.96 0.005 247);
+  font-weight: 600;
+}
+
+/* 引用块 */
+.chat-markdown blockquote {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid oklch(0.75 0.18 55);
+  color: oklch(0.556 0.02 247);
+  font-style: italic;
+}
+
+/* ==================== 移动端虚拟键盘适配 ==================== */
+
+/* 使用 dvh 替代 vh，适配移动端虚拟键盘 */
+@supports (height: 100dvh) {
+  .chat-container {
+    height: calc(100dvh - 8rem) !important;
+  }
+}
+
+/* 虚拟键盘弹出时，固定底部输入区域 */
+@media (max-width: 768px) {
+  /* 输入区域底部安全区适配 */
+  .chat-input-area {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* 虚拟键盘弹出时的布局调整 */
+  @supports (height: 100dvh) {
+    .chat-input-area {
+      /* 使用 visual viewport API 适配键盘高度 */
+      position: sticky;
+      bottom: 0;
+    }
+  }
+
+  /* 消息区域滚动到底部时留出输入区域空间 */
+  .chat-messages-scroll {
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* Visual Viewport API 适配（现代浏览器） */
+@supports (height: 100dvh) {
+  html {
+    /* 确保 body 不会超出视口 */
+    overflow: hidden;
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+    overflow: auto;
+  }
+}
+
+/* 移动端输入框聚焦时的额外优化 */
+@media (max-width: 768px) {
+  textarea:focus,
+  input:focus {
+    /* 防止 iOS 自动滚动 */
+    scroll-margin-top: 100px;
+  }
+}

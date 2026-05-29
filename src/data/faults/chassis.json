@@ -1,0 +1,260 @@
+[
+  {
+    "id": "chassis-001",
+    "category": "chassis",
+    "subcategory": "悬挂异响",
+    "symptoms": [
+      {
+        "description": "过减速带或者走烂路的时候底盘'咯噔咯噔'响",
+        "keywords": ["过减速带响", "底盘咯噔响", "过坑响", "颠簸异响"],
+        "conditions": ["过减速带时", "走颠簸路面时", "低速过坑时"],
+        "severity": "warning"
+      },
+      {
+        "description": "转弯的时候底盘有'嘎嘣'或'咯噔'的声音",
+        "keywords": ["转弯异响", "打方向响", "底盘嘎嘣响", "转向底盘响"],
+        "conditions": ["转弯时", "低速打方向时", "掉头时"],
+        "severity": "warning"
+      },
+      {
+        "description": "起步或者刹车的时候底盘有'咚'的一声",
+        "keywords": ["起步异响", "刹车底盘响", "底盘咚一声"],
+        "conditions": ["起步时", "刹车时", "急加速时"],
+        "severity": "info"
+      },
+      {
+        "description": "原地打方向的时候前面有'嘎吱嘎吱'的声音",
+        "keywords": ["原地打方向响", "嘎吱声", "打方向嘎吱响", "转向柱异响"],
+        "conditions": ["原地打方向时", "低速泊车时"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "平衡杆胶套/球头磨损",
+        "probability": 0.40,
+        "explanation": "平衡杆（防倾杆）通过橡胶胶套和球头连接到悬挂系统，胶套老化和球头磨损是底盘异响最常见的原因。过减速带和颠簸路面时的咯噔声多数与此有关。",
+        "checkItems": ["举升车辆检查平衡杆球头有无松旷", "用手晃动平衡杆检查间隙", "检查平衡杆胶套有无老化开裂", "检查球头防尘套有无破损"],
+        "repairMethod": "更换平衡杆球头和/或胶套，通常左右两侧一起更换。",
+        "parts": [
+          { "name": "平衡杆球头（小吊杆）", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 },
+          { "name": "平衡杆胶套", "oemPrice": 60, "aftermarketPrice": 15, "brandPrice": 30 }
+        ],
+        "laborHours": 1.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "平衡杆球头是最常见的底盘异响原因，配件便宜（60-200元/个），工时费也不高",
+          "有些修理厂会建议更换整个平衡杆，通常只需要换球头或胶套",
+          "品牌件（猫头鹰/Lemforder、天合/TRW）质量好，不需要买原厂件",
+          "过减速带响不一定是大问题，但如果长期不修会影响操控稳定性"
+        ]
+      },
+      {
+        "name": "下摆臂球头/衬套老化",
+        "probability": 0.30,
+        "explanation": "下摆臂（控制臂）通过球头和衬套连接车架和转向节，球头磨损会产生转弯异响，衬套老化会导致起步和刹车时的'咚'声。德系车衬套老化问题较为普遍。",
+        "checkItems": ["检查下摆臂球头有无松旷", "检查衬套有无开裂和变形", "用撬棍检查球头间隙", "检查防尘套有无破损漏油"],
+        "repairMethod": "更换下摆臂总成（含球头和衬套）或单独更换衬套/球头。更换后需做四轮定位。",
+        "parts": [
+          { "name": "下摆臂总成（含球头衬套）", "oemPrice": 800, "aftermarketPrice": 250, "brandPrice": 450 },
+          { "name": "下摆臂衬套（单独）", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 2.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "如果衬套单独能换，不需要换整个摆臂，但工时费差不多",
+          "大众/奥迪的铝合金摆臂衬套更换比较贵，4S店单个报价1500-2500元",
+          "换完摆臂/球头必须做四轮定位（100-200元），否则可能跑偏或吃胎",
+          "有些修理厂会建议换左右两边的摆臂，如果另一边没问题可以先不换"
+        ]
+      },
+      {
+        "name": "平面轴承/压力轴承损坏",
+        "probability": 0.20,
+        "explanation": "前减震器顶部的平面轴承（麦弗逊悬挂）承受转向和减震的双重载荷，磨损后原地打方向会发出嘎吱或咯噔声。",
+        "checkItems": ["原地打方向时听减震器顶部有无异响", "检查减震器顶部有无渗油", "拆下减震器检查平面轴承转动是否顺畅"],
+        "repairMethod": "更换平面轴承，建议同时检查减震器状态，如果减震器也需要更换则一起施工。",
+        "parts": [
+          { "name": "平面轴承", "oemPrice": 300, "aftermarketPrice": 80, "brandPrice": 160 },
+          { "name": "减震器顶胶", "oemPrice": 150, "aftermarketPrice": 40, "brandPrice": 80 }
+        ],
+        "laborHours": 2.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "平面轴承更换需要拆装减震器，工时费和换减震器差不多，如果减震器也快到期了建议一起换",
+          "品牌件（SKF、FAG）的轴承质量非常好，比原厂件便宜很多"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众朗逸", "大众宝来", "丰田卡罗拉", "本田思域", "日产轩逸", "福特福克斯", "马自达3"],
+    "tsbReferences": []
+  },
+  {
+    "id": "chassis-002",
+    "category": "chassis",
+    "subcategory": "减震器漏油",
+    "symptoms": [
+      {
+        "description": "过减速带感觉车子上下晃好几次才停，像坐船一样",
+        "keywords": ["减震效果差", "车身晃动多", "过坎晃", "像坐船", "回弹多次"],
+        "conditions": ["过减速带时", "走颠簸路面时", "快速过弯时"],
+        "severity": "warning"
+      },
+      {
+        "description": "检查底盘发现减震器上面有油渍，黑乎乎的",
+        "keywords": ["减震器漏油", "减震器有油", "减震器表面油渍"],
+        "conditions": ["检查底盘时", "保养时"],
+        "severity": "warning"
+      },
+      {
+        "description": "轮胎有不均匀的磨损，一块一块的像搓衣板一样",
+        "keywords": ["轮胎偏磨", "轮胎磨损不均", "搓板磨损", "吃胎"],
+        "conditions": ["检查轮胎时", "行驶一定里程后"],
+        "severity": "warning"
+      },
+      {
+        "description": "高速行驶时车身不稳，发飘，遇到侧风特别明显",
+        "keywords": ["高速不稳", "发飘", "侧风不稳", "高速飘"],
+        "conditions": ["高速行驶时", "遇侧风时", "过桥时"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "减震器油封老化/活塞杆磨损",
+        "probability": 0.60,
+        "explanation": "减震器内部的液压油通过油封密封，长期使用后油封老化硬化或活塞杆表面磨损会导致液压油泄漏，减震器失效。一般8-12万公里后需要关注减震器状态。",
+        "checkItems": ["目视检查减震器表面有无油渍", "按压车身测试回弹次数（正常1-1.5次）", "检查轮胎有无不规则磨损", "试车检查过弯侧倾和过坎表现"],
+        "repairMethod": "更换减震器，必须左右成对更换。更换后建议做四轮定位。",
+        "parts": [
+          { "name": "前减震器（单支）", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 },
+          { "name": "后减震器（单支）", "oemPrice": 600, "aftermarketPrice": 200, "brandPrice": 380 }
+        ],
+        "laborHours": 3.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "减震器必须成对更换（左右各一支），否则两侧阻尼不同会影响操控安全",
+          "品牌减震器（KYB、蒙诺/Monroe、倍适登/Bilstein）质量很好，价格只有原厂的一半",
+          "4S店换一对前减震器可能报价3000-5000元，修理厂用品牌件1500-2500元就搞定了",
+          "换完减震器做一次四轮定位（100-200元）即可，不需要其他额外服务"
+        ]
+      },
+      {
+        "name": "减震器弹簧疲劳/断裂",
+        "probability": 0.20,
+        "explanation": "减震弹簧长期使用后会疲劳，弹力下降导致车身高度降低，严重时弹簧可能断裂。车身明显降低或一侧高一侧低是典型表现。",
+        "checkItems": ["测量四个轮拱到地面的高度是否一致", "检查弹簧有无断裂", "检查车身有无明显倾斜", "检查弹簧座有无锈蚀"],
+        "repairMethod": "更换弹簧，建议同时更换减震器（因为拆装工序一样）。",
+        "parts": [
+          { "name": "减震弹簧（单支）", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 250 }
+        ],
+        "laborHours": 2.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "弹簧和减震器一起换只多几十块工时费，比分开换省钱",
+          "不要只换弹簧不换减震器，旧减震器可能无法匹配新弹簧的阻尼需求"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众途观", "丰田RAV4", "本田CR-V", "日产奇骏", "别克昂科威", "福特翼虎", "现代途胜"],
+    "tsbReferences": []
+  },
+  {
+    "id": "chassis-003",
+    "category": "chassis",
+    "subcategory": "底盘松动",
+    "symptoms": [
+      {
+        "description": "跑高速的时候方向盘很轻，感觉车身不太稳，有点飘",
+        "keywords": ["高速发飘", "方向轻", "车身不稳", "高速不稳"],
+        "conditions": ["高速行驶时", "120km/h以上"],
+        "severity": "critical"
+      },
+      {
+        "description": "转弯的时候感觉车身侧倾很大，像要翻了一样",
+        "keywords": ["侧倾大", "过弯不稳", "车身晃", "过弯侧倾"],
+        "conditions": ["转弯时", "匝道行驶时"],
+        "severity": "warning"
+      },
+      {
+        "description": "走烂路的时候感觉底盘松散，各种异响一起来，不像以前那么整",
+        "keywords": ["底盘松散", "底盘不整", "走烂路响", "底盘感觉松"],
+        "conditions": ["颠簸路面", "烂路行驶"],
+        "severity": "info"
+      },
+      {
+        "description": "方向盘不正，直行时方向盘是歪的，或者车子老是跑偏",
+        "keywords": ["方向盘歪", "跑偏", "方向不正", "直线跑偏"],
+        "conditions": ["直行时", "平坦路面行驶时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "悬挂连接件磨损松旷（球头/衬套/拉杆）",
+        "probability": 0.40,
+        "explanation": "底盘的各种球头（转向拉杆球头、下摆臂球头）、衬套（控制臂衬套）、连接件长期使用后磨损松旷，导致悬挂几何变化，操控性下降。10万公里以上的老车常见。",
+        "checkItems": ["全面检查底盘所有球头和衬套", "检查转向拉杆有无松旷", "检查控制臂衬套有无开裂", "检查副车架螺栓扭矩"],
+        "repairMethod": "逐项检查并更换磨损的部件，完成后做四轮定位。可能需要更换多个部件。",
+        "parts": [
+          { "name": "转向拉杆球头", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 },
+          { "name": "控制臂衬套", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 },
+          { "name": "转向横拉杆总成", "oemPrice": 500, "aftermarketPrice": 180, "brandPrice": 320 }
+        ],
+        "laborHours": 4.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "底盘松散的维修可能需要更换多个部件，费用会累积，建议先让修理厂列出所有需要更换的项目和优先级",
+          "不必一次性全部更换，可以按优先级分批处理",
+          "四轮定位（100-200元）是必须做的，不要省这个钱",
+          "如果底盘件磨损严重，车辆残值可能低于维修费用，需要权衡"
+        ]
+      },
+      {
+        "name": "四轮定位参数偏差",
+        "probability": 0.30,
+        "explanation": "长时间行驶后悬挂几何参数会逐渐偏移，或经过碰撞、过坑后定位失准，导致跑偏、吃胎和操控不稳。",
+        "checkItems": ["做四轮定位检查各参数", "检查轮胎气压是否一致", "检查轮胎磨损是否均匀", "检查悬挂部件有无变形"],
+        "repairMethod": "做四轮定位调整，如参数无法调到标准值需检查悬挂部件是否变形。",
+        "parts": [],
+        "laborHours": 1.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "四轮定位一般收费100-300元，4S店可能收500+，实际上设备都一样",
+          "如果定位参数偏差很大且调不过来，说明有部件变形，不是定位的问题",
+          "换轮胎后建议做一次四轮定位",
+          "不要被忽悠做'四轮定位+动平衡+轮胎换位'的套餐，根据实际需要选择"
+        ]
+      },
+      {
+        "name": "副车架/稳定杆连接松动",
+        "probability": 0.15,
+        "explanation": "副车架固定螺栓松动或副车架衬套老化会导致底盘整体刚性下降，走烂路时感觉松散。",
+        "checkItems": ["检查副车架螺栓扭矩", "检查副车架衬套状态", "检查副车架有无变形或裂纹"],
+        "repairMethod": "紧固副车架螺栓至标准扭矩，衬套老化则更换。",
+        "parts": [
+          { "name": "副车架衬套", "oemPrice": 200, "aftermarketPrice": 80, "brandPrice": 130 }
+        ],
+        "laborHours": 3.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "有时候只需要紧一下螺栓就能改善，先检查扭矩再考虑更换衬套",
+          "副车架衬套更换需要较大工时，费用1000-2000元合理"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众帕萨特", "丰田凯美瑞", "本田雅阁", "日产天籁", "别克君威", "马自达6", "现代索纳塔"],
+    "tsbReferences": []
+  }
+]

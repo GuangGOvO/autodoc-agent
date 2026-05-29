@@ -1,0 +1,142 @@
+[
+  {
+    "brand": "大众",
+    "series": "朗逸",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019", "2018"],
+    "engines": ["1.5L", "1.4T", "1.2T"],
+    "transmissions": ["6AT", "7DCT", "5MT"]
+  },
+  {
+    "brand": "大众",
+    "series": "速腾",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019", "2018"],
+    "engines": ["1.4T", "1.2T", "1.5T"],
+    "transmissions": ["7DCT", "5MT"]
+  },
+  {
+    "brand": "大众",
+    "series": "帕萨特",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019"],
+    "engines": ["2.0T", "1.4T"],
+    "transmissions": ["7DCT"]
+  },
+  {
+    "brand": "大众",
+    "series": "迈腾",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019"],
+    "engines": ["2.0T", "1.4T"],
+    "transmissions": ["7DCT"]
+  },
+  {
+    "brand": "大众",
+    "series": "途观L",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019"],
+    "engines": ["2.0T", "1.4T"],
+    "transmissions": ["7DCT"]
+  },
+  {
+    "brand": "丰田",
+    "series": "卡罗拉",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019", "2018"],
+    "engines": ["1.8L双擎", "1.2T", "1.5L"],
+    "transmissions": ["E-CVT", "CVT", "6MT"]
+  },
+  {
+    "brand": "丰田",
+    "series": "凯美瑞",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019"],
+    "engines": ["2.5L双擎", "2.5L", "2.0L"],
+    "transmissions": ["E-CVT", "8AT", "CVT"]
+  },
+  {
+    "brand": "丰田",
+    "series": "RAV4荣放",
+    "years": ["2024", "2023", "2022", "2021", "2020"],
+    "engines": ["2.5L双擎", "2.0L"],
+    "transmissions": ["E-CVT", "CVT"]
+  },
+  {
+    "brand": "本田",
+    "series": "思域",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019"],
+    "engines": ["1.5T", "2.0L"],
+    "transmissions": ["CVT", "6MT"]
+  },
+  {
+    "brand": "本田",
+    "series": "雅阁",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019"],
+    "engines": ["2.0L混动", "1.5T"],
+    "transmissions": ["E-CVT", "CVT"]
+  },
+  {
+    "brand": "本田",
+    "series": "CR-V",
+    "years": ["2024", "2023", "2022", "2021", "2020"],
+    "engines": ["2.0L混动", "1.5T"],
+    "transmissions": ["E-CVT", "CVT"]
+  },
+  {
+    "brand": "本田",
+    "series": "飞度",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019"],
+    "engines": ["1.5L"],
+    "transmissions": ["CVT", "5MT"]
+  },
+  {
+    "brand": "日产",
+    "series": "轩逸",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019", "2018"],
+    "engines": ["1.6L", "1.2T"],
+    "transmissions": ["CVT", "5MT"]
+  },
+  {
+    "brand": "日产",
+    "series": "天籁",
+    "years": ["2024", "2023", "2022", "2021", "2020"],
+    "engines": ["2.0T", "2.0L"],
+    "transmissions": ["CVT"]
+  },
+  {
+    "brand": "比亚迪",
+    "series": "秦PLUS",
+    "years": ["2024", "2023", "2022", "2021"],
+    "engines": ["1.5L DM-i", "1.5T DM-i", "纯电"],
+    "transmissions": ["E-CVT", "单速变速箱"]
+  },
+  {
+    "brand": "比亚迪",
+    "series": "宋PLUS",
+    "years": ["2024", "2023", "2022", "2021"],
+    "engines": ["1.5L DM-i", "1.5T DM-i", "纯电"],
+    "transmissions": ["E-CVT", "单速变速箱"]
+  },
+  {
+    "brand": "比亚迪",
+    "series": "汉",
+    "years": ["2024", "2023", "2022", "2021", "2020"],
+    "engines": ["2.0T DM-p", "1.5T DM-i", "纯电"],
+    "transmissions": ["6DCT", "E-CVT", "单速变速箱"]
+  },
+  {
+    "brand": "特斯拉",
+    "series": "Model 3",
+    "years": ["2024", "2023", "2022", "2021", "2020"],
+    "engines": ["后驱标准版", "长续航版", "高性能版"],
+    "transmissions": ["单速变速箱"]
+  },
+  {
+    "brand": "特斯拉",
+    "series": "Model Y",
+    "years": ["2024", "2023", "2022", "2021"],
+    "engines": ["后驱标准版", "长续航版", "高性能版"],
+    "transmissions": ["单速变速箱"]
+  },
+  {
+    "brand": "哈弗",
+    "series": "H6",
+    "years": ["2024", "2023", "2022", "2021", "2020", "2019"],
+    "engines": ["1.5T", "2.0T"],
+    "transmissions": ["7DCT", "6MT"]
+  }
+]

@@ -1,0 +1,356 @@
+[
+  {
+    "id": "transmission-001",
+    "category": "transmission",
+    "subcategory": "换挡顿挫",
+    "symptoms": [
+      {
+        "description": "车子换挡的时候猛地一顿，像被人踹了一脚似的",
+        "keywords": ["换挡顿挫", "换挡冲击", "顿挫感", "换挡像被踹", "闯挡"],
+        "conditions": ["升挡时", "降挡时", "低速行驶时"],
+        "severity": "warning"
+      },
+      {
+        "description": "低速跟车的时候一冲一冲的，油门踩深了窜，踩浅了不走",
+        "keywords": ["低速顿挫", "跟车一冲一冲", "油门不线性", "低速闯动"],
+        "conditions": ["堵车时", "低速跟车时", "1-2挡切换时"],
+        "severity": "info"
+      },
+      {
+        "description": "急加速的时候变速箱换挡很慢，发动机转速拉到很高才换挡",
+        "keywords": ["换挡延迟", "转速高才换挡", "换挡慢", "急加速顿挫"],
+        "conditions": ["急加速时", "超车时"],
+        "severity": "warning"
+      },
+      {
+        "description": "挂D挡或R挡的时候车身明显抖一下，有时候还有'哐当'一声",
+        "keywords": ["挂挡冲击", "挂D挡抖动", "挂R挡冲击", "入挡顿挫"],
+        "conditions": ["停车挂挡时", "D挡和R挡切换时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "变速箱油老化/液位不正确",
+        "probability": 0.35,
+        "explanation": "变速箱油（ATF）随使用时间增长会氧化变质，润滑和液力传递性能下降，导致换挡品质恶化。液位过高或过低也会影响换挡平顺性。很多车主从未更换过变速箱油。",
+        "checkItems": ["检查变速箱油液位和颜色（正常应为红色/粉色透明）", "闻油液有无焦糊味", "检查油中是否有金属碎屑", "确认上次更换时间"],
+        "repairMethod": "更换变速箱油（推荐循环机换油比放油更彻底），同时更换变速箱油滤芯。",
+        "parts": [
+          { "name": "变速箱油（ATF，4L）", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 250 },
+          { "name": "变速箱油滤芯", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 }
+        ],
+        "laborHours": 2.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "循环机换油一般800-1500元（含油），重力放油400-800元，差价合理",
+          "4S店可能推荐'变速箱深度养护'套餐2000+，其实就是换油，没必要",
+          "CVT变速箱必须用专用CVT油，不能用普通ATF，否则会损坏变速箱",
+          "有些车型变速箱油号称'终身免维护'，但实际建议8-10万公里更换"
+        ]
+      },
+      {
+        "name": "变速箱阀体/电磁阀故障",
+        "probability": 0.25,
+        "explanation": "自动变速箱的阀体和电磁阀控制液压实现换挡，阀体内部磨损或电磁阀卡滞会导致换挡油压异常，引起顿挫和冲击。爱信6AT和大众DSG的阀体问题较为常见。",
+        "checkItems": ["用诊断仪读取变速箱油压数据", "检查各电磁阀工作状态", "检查变速箱油中是否有金属碎屑", "读取变速箱自适应值"],
+        "repairMethod": "先尝试做变速箱自适应学习/重置，无效则维修或更换阀体。",
+        "parts": [
+          { "name": "阀体总成", "oemPrice": 8000, "aftermarketPrice": 3000, "brandPrice": 5000 },
+          { "name": "电磁阀（单个）", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 350 }
+        ],
+        "laborHours": 5.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先做自适应学习/重置！这个不花钱或很少钱（100-200元），很多时候能解决",
+          "阀体可以维修不一定要换总成，维修费用通常2000-4000元",
+          "有些修理厂会直接建议换变速箱总成（2-5万），实际可能只需要修阀体",
+          "大众DSG变速箱有延保政策，先查是否在延保范围内"
+        ]
+      },
+      {
+        "name": "双离合变速箱离合器片磨损",
+        "probability": 0.25,
+        "explanation": "大众DSG、福特PowerShift等双离合变速箱在频繁低速走走停停工况下，离合器片磨损较快，表现为低速顿挫和起步抖动。干式双离合问题尤为突出。",
+        "checkItems": ["读取变速箱离合器磨损数据", "检查离合器接合点位置", "试车检查起步有无抖动", "检查变速箱有无故障码"],
+        "repairMethod": "更换离合器片/离合器总成，更换后需做匹配学习。严重拥堵路况建议切换为手动模式减少磨损。",
+        "parts": [
+          { "name": "双离合离合器片套装", "oemPrice": 5000, "aftermarketPrice": 2000, "brandPrice": 3500 },
+          { "name": "离合器分离轴承", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 }
+        ],
+        "laborHours": 6.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "大众DSG离合器更换，4S店报价8000-15000元，专业变速箱维修店4000-8000元",
+          "堵车时改用手动模式（S挡/M挡）可以有效延长离合器寿命",
+          "如果只是低速顿挫，先尝试软件升级和自适应学习",
+          "干式双离合（DQ200）有延长质保政策，先查车架号确认"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0700", "P0730", "P0741", "P0776", "P17BF", "P189C"],
+    "commonInModels": ["大众高尔夫", "大众速腾", "大众帕萨特", "福特福克斯", "别克威朗", "现代菲斯塔", "吉利星瑞"],
+    "tsbReferences": ["VW-TPI-2043553", "FORD-TSB-19-2175"]
+  },
+  {
+    "id": "transmission-002",
+    "category": "transmission",
+    "subcategory": "变速箱异响",
+    "symptoms": [
+      {
+        "description": "变速箱有'嗡嗡'的声音，车速越快声音越大",
+        "keywords": ["变速箱嗡嗡响", "变速箱异响", "随车速异响"],
+        "conditions": ["行驶中", "加速时"],
+        "severity": "warning"
+      },
+      {
+        "description": "挂空挡的时候变速箱有'沙沙'的声音，踩下离合器就没了",
+        "keywords": ["空挡异响", "踩离合异响消失", "变速箱沙沙响"],
+        "conditions": ["空挡怠速时", "踩离合后消失"],
+        "severity": "warning"
+      },
+      {
+        "description": "加速或减速时变速箱有'呜呜'或'嗷嗷'的声音，像吹口哨一样",
+        "keywords": ["变速箱啸叫", "呜呜声", "齿轮异响", "加速异响"],
+        "conditions": ["加速时", "减速时", "特定车速时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "变速箱轴承磨损",
+        "probability": 0.40,
+        "explanation": "变速箱内部的支撑轴承（输入轴轴承、输出轴轴承、差速器轴承）长期使用后磨损，间隙增大会产生嗡嗡声或呜呜声。磨损严重时会发展为金属碎裂声。",
+        "checkItems": ["在不同挡位和车速下听异响变化", "举升车辆空转听诊定位异响源", "检查变速箱油中有无金属碎屑", "检查半轴和传动轴状态"],
+        "repairMethod": "拆解变速箱更换磨损轴承，同时检查齿轮和其他部件状态。",
+        "parts": [
+          { "name": "变速箱轴承（单个）", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 200 },
+          { "name": "变速箱密封件套装", "oemPrice": 500, "aftermarketPrice": 150, "brandPrice": 300 }
+        ],
+        "laborHours": 8.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先确认异响确实来自变速箱而不是轮毂轴承或差速器",
+          "变速箱拆解工时费高是正常的（1500-3000元），但配件费用要核实",
+          "如果车龄较长且维修费用较高，考虑更换拆车变速箱可能更划算",
+          "有些修理厂会夸大问题，建议多找几家对比报价"
+        ]
+      },
+      {
+        "name": "变速箱油不足/劣化",
+        "probability": 0.30,
+        "explanation": "变速箱油液位不足或严重劣化会导致齿轮和轴承润滑不良，产生异响。检查是否伴随换挡异常。",
+        "checkItems": ["检查变速箱油液位", "检查油液颜色和气味", "检查有无渗漏点"],
+        "repairMethod": "补充或更换变速箱油，如有渗漏需修复漏点。",
+        "parts": [
+          { "name": "变速箱油（4L）", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 250 }
+        ],
+        "laborHours": 1.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "换油后异响如果没有改善，说明问题不是油的问题，别反复换油浪费钱",
+          "检查油中有没有金属碎屑，如果有说明内部零件已有磨损"
+        ]
+      },
+      {
+        "name": "齿轮磨损/损伤（手动变速箱）",
+        "probability": 0.20,
+        "explanation": "手动变速箱的同步器磨损或齿轮齿面损伤会在特定挡位产生异响，挂挡也可能变得困难。",
+        "checkItems": ["各挡位异响对比测试", "检查挂挡是否顺畅", "检查变速箱油中金属碎屑"],
+        "repairMethod": "拆解变速箱更换磨损的同步器或齿轮。",
+        "parts": [
+          { "name": "同步器", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 350 },
+          { "name": "齿轮副", "oemPrice": 2000, "aftermarketPrice": 800, "brandPrice": 1200 }
+        ],
+        "laborHours": 10.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "手动变速箱异响如果只在某个挡位出现，可能只是那个挡位的同步器问题",
+          "拆解维修费用较高时，对比更换拆车变速箱的价格"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0700", "P0720", "P0791"],
+    "commonInModels": ["大众宝来", "丰田卡罗拉", "本田思域", "福特福克斯", "现代朗动", "雪佛兰迈锐宝", "吉利博越"],
+    "tsbReferences": []
+  },
+  {
+    "id": "transmission-003",
+    "category": "transmission",
+    "subcategory": "离合器打滑",
+    "symptoms": [
+      {
+        "description": "踩油门发动机转速上去了，但是车速不怎么涨，感觉光吼不走",
+        "keywords": ["离合器打滑", "转速上去车速不上", "光吼不走", "加速无力"],
+        "conditions": ["急加速时", "上坡时", "高挡位低速时"],
+        "severity": "warning"
+      },
+      {
+        "description": "起步的时候离合器接合很高，要抬很高车才走",
+        "keywords": ["离合器高", "接合点高", "抬很高才走", "离合器行程大"],
+        "conditions": ["起步时"],
+        "severity": "info"
+      },
+      {
+        "description": "能闻到一股焦糊味，特别是频繁起步停车之后",
+        "keywords": ["焦糊味", "离合器烧", "烧焦味", "离合器过热"],
+        "conditions": ["频繁起步后", "长时间半联动后", "坡道起步后"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "离合器片磨损到极限",
+        "probability": 0.55,
+        "explanation": "离合器片是摩擦材料，正常使用也会逐渐磨损。一般手动挡车型6-10万公里需要更换。驾驶习惯（频繁半联动、长时间踩离合）会加速磨损。",
+        "checkItems": ["检查离合器踏板自由行程", "测试高挡位起步是否熄火", "检查离合器片厚度（需拆解）", "检查飞轮和压盘表面状态"],
+        "repairMethod": "更换离合器三件套（离合器片、压盘、分离轴承），同时检查飞轮表面是否需要光磨。",
+        "parts": [
+          { "name": "离合器三件套（片+压盘+分离轴承）", "oemPrice": 1500, "aftermarketPrice": 500, "brandPrice": 800 },
+          { "name": "飞轮光磨/更换", "oemPrice": 1200, "aftermarketPrice": 500, "brandPrice": 800 }
+        ],
+        "laborHours": 4.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "离合器三件套建议一起换，工时费一样，分开换等于多花一次工时费",
+          "品牌件（法雷奥/Valeo、LUK）质量很好，价格只有原厂件的一半",
+          "飞轮如果没有明显沟槽和烧蚀，不需要光磨或更换",
+          "手动挡换离合器工时费800-1500元合理，4S店可能收到2000+元"
+        ]
+      },
+      {
+        "name": "离合器压盘弹簧疲劳/变形",
+        "probability": 0.25,
+        "explanation": "压盘膜片弹簧长期使用后弹力减弱，无法提供足够的压紧力，导致离合器片打滑。通常与离合器片一起更换。",
+        "checkItems": ["检查离合器踏板力度是否变轻", "拆解后检查压盘膜片弹簧指端磨损", "检查压盘表面有无烧蚀和变形"],
+        "repairMethod": "更换压盘，通常包含在三件套更换中。",
+        "parts": [
+          { "name": "离合器压盘", "oemPrice": 600, "aftermarketPrice": 200, "brandPrice": 350 }
+        ],
+        "laborHours": 4.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "压盘很少单独坏，通常和离合器片一起更换",
+          "如果修理厂单独报压盘的费用，确认是否在套装价格内"
+        ]
+      },
+      {
+        "name": "离合器液压系统故障（分泵/总泵漏油）",
+        "probability": 0.15,
+        "explanation": "离合器液压总泵或分泵泄漏会导致离合器分离不彻底或接合力不足，表现为换挡困难或打滑。",
+        "checkItems": ["检查离合器油液位", "检查离合器分泵有无渗漏", "检查离合器踏板回弹是否正常", "排空离合器液压系统中的空气"],
+        "repairMethod": "更换泄漏的总泵或分泵，重新加注制动液并排空。",
+        "parts": [
+          { "name": "离合器总泵", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 250 },
+          { "name": "离合器分泵", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 }
+        ],
+        "laborHours": 2.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先检查离合器油液位！有时候只是缺油了，加一点就好",
+          "离合器油和刹车油共用，换刹车油时注意同时排空离合器系统"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0805", "P0806", "P0810"],
+    "commonInModels": ["大众捷达", "大众桑塔纳", "丰田花冠", "本田锋范", "现代悦动", "长安逸动", "吉利帝豪"],
+    "tsbReferences": []
+  },
+  {
+    "id": "transmission-004",
+    "category": "transmission",
+    "subcategory": "变速箱漏油",
+    "symptoms": [
+      {
+        "description": "停车的地方地上有红色的油渍，变速箱附近也有油迹",
+        "keywords": ["变速箱漏油", "地上有红色油", "变速箱渗油", "ATF泄漏"],
+        "conditions": ["停车后发现", "检查底盘时"],
+        "severity": "warning"
+      },
+      {
+        "description": "变速箱油越来越少，需要经常添加",
+        "keywords": ["变速箱油减少", "需要加变速箱油", "油位下降"],
+        "conditions": ["检查油位时", "保养时"],
+        "severity": "warning"
+      },
+      {
+        "description": "变速箱油位低之后开始出现换挡顿挫和异响",
+        "keywords": ["换挡异常", "低油位报警", "变速箱异响"],
+        "conditions": ["油位偏低时"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "变速箱油封老化泄漏",
+        "probability": 0.45,
+        "explanation": "变速箱输入轴油封、输出轴油封、半轴油封等随时间和温度老化硬化后会出现渗漏。半轴油封和输出轴油封是最常见的泄漏点。",
+        "checkItems": ["举升车辆检查变速箱各油封位置", "检查半轴油封处有无油渍", "检查变速箱与发动机结合处有无渗漏", "确认泄漏油液为ATF（红色）而非机油"],
+        "repairMethod": "更换泄漏的油封，更换时注意检查轴表面有无磨损沟槽。",
+        "parts": [
+          { "name": "半轴油封", "oemPrice": 80, "aftermarketPrice": 20, "brandPrice": 40 },
+          { "name": "输入轴油封", "oemPrice": 60, "aftermarketPrice": 15, "brandPrice": 30 },
+          { "name": "输出轴油封", "oemPrice": 60, "aftermarketPrice": 15, "brandPrice": 30 }
+        ],
+        "laborHours": 3.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "油封本身很便宜（20-80元），但工时费可能较高（500-1500元），因为需要拆半轴等部件",
+          "更换输入轴油封需要拆变速箱，工时费更高",
+          "轻微渗油可以先观察，不一定要立即修理",
+          "确认漏的确实是变速箱油而不是发动机油或转向助力油"
+        ]
+      },
+      {
+        "name": "变速箱油底壳密封不良",
+        "probability": 0.30,
+        "explanation": "自动变速箱油底壳密封垫老化或螺栓松动会导致渗漏。之前做过变速箱油更换的话，也可能是密封垫未正确安装或螺栓未按要求紧固。",
+        "checkItems": ["检查油底壳周围有无油渍", "检查油底壳螺栓扭矩", "检查密封垫状态"],
+        "repairMethod": "重新打胶或更换密封垫，按标准扭矩紧固螺栓。",
+        "parts": [
+          { "name": "变速箱油底壳密封垫", "oemPrice": 150, "aftermarketPrice": 50, "brandPrice": 90 },
+          { "name": "密封胶", "oemPrice": 80, "aftermarketPrice": 30, "brandPrice": 50 }
+        ],
+        "laborHours": 2.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "如果是刚换过变速箱油之后开始漏，很可能是安装问题，回去让修理厂重新处理",
+          "密封垫/胶很便宜，工时费也不应该太高（200-400元）",
+          "有些修理厂会建议换整个油底壳，通常只需要换密封垫"
+        ]
+      },
+      {
+        "name": "变速箱散热器/管路泄漏",
+        "probability": 0.15,
+        "explanation": "变速箱油通过管路连接到散热器（通常在主水箱内部或旁边）进行冷却。管路接头松动或散热器内部腐蚀穿孔会导致泄漏。",
+        "checkItems": ["检查变速箱油冷却管路和接头", "检查散热器有无渗漏", "检查冷却液中是否混入变速箱油（呈粉红色奶昔状）"],
+        "repairMethod": "更换损坏的管路或散热器。如果散热器内部穿孔，冷却液中会混入变速箱油，需同时冲洗冷却系统。",
+        "parts": [
+          { "name": "变速箱油冷却管", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 },
+          { "name": "变速箱油散热器", "oemPrice": 1000, "aftermarketPrice": 400, "brandPrice": 650 }
+        ],
+        "laborHours": 3.0,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "如果发现冷却液变粉红色，必须立即停车！变速箱油混入冷却系统会同时损坏变速箱和发动机",
+          "这种情况需要同时冲洗冷却系统和变速箱，费用较高但是必须的"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0730", "P0741", "P0868"],
+    "commonInModels": ["大众途观", "奥迪Q5", "别克昂科威", "丰田RAV4", "福特翼虎", "日产奇骏", "本田CR-V"],
+    "tsbReferences": []
+  }
+]

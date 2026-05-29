@@ -1,0 +1,1701 @@
+[
+  {
+    "id": "engine-001",
+    "category": "engine",
+    "subcategory": "点火系统",
+    "symptoms": [
+      {
+        "description": "早上冷车启动的时候要打好几次才能着车，有时候打半天也打不着",
+        "keywords": ["打不着火", "冷车难启动", "启动困难", "打火费劲", "要打好几次"],
+        "conditions": ["冷车状态", "气温低于10度", "停放超过8小时"],
+        "severity": "warning"
+      },
+      {
+        "description": "车子开着开着突然感觉一抖一抖的，加速的时候特别明显，像缺缸了一样",
+        "keywords": ["发动机抖动", "加速顿挫", "缺缸", "一冲一冲", "动力不稳"],
+        "conditions": ["加速时", "匀速行驶中"],
+        "severity": "warning"
+      },
+      {
+        "description": "怠速的时候发动机抖得厉害，坐在车里能明显感觉到方向盘和座椅都在震",
+        "keywords": ["怠速抖动", "车身震动", "方向盘抖", "座椅抖动", "怠速不稳"],
+        "conditions": ["怠速状态", "等红灯时", "挂D挡踩刹车时"],
+        "severity": "info"
+      },
+      {
+        "description": "仪表盘上发动机故障灯亮了，有时候一闪一闪的",
+        "keywords": ["发动机故障灯", "故障灯亮", "黄灯亮", "发动机灯闪烁"],
+        "conditions": ["行驶中", "启动后"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "火花塞老化/积碳严重",
+        "probability": 0.45,
+        "explanation": "火花塞是点火系统最易损耗的部件，一般3-5万公里就需要检查更换。电极间隙变大或积碳覆盖会导致点火能量不足，引起启动困难和缺缸抖动。",
+        "checkItems": ["拆检火花塞查看电极磨损情况", "检查电极间隙是否在标准范围内", "检查火花塞陶瓷体是否开裂", "用诊断仪读取各缸失火数据"],
+        "repairMethod": "更换全套火花塞（建议同品牌同型号整套更换），清理或检查点火线圈。如果积碳严重建议同时清洗节气门和进气道。",
+        "parts": [
+          { "name": "火花塞（单支）", "oemPrice": 80, "aftermarketPrice": 25, "brandPrice": 45 },
+          { "name": "火花塞套装（4支装）", "oemPrice": 280, "aftermarketPrice": 80, "brandPrice": 150 }
+        ],
+        "laborHours": 0.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "火花塞更换工时费不应超过100元（4缸发动机），有些店会收取200+的工时费",
+          "普通镍合金火花塞成本仅20-30元/支，不要接受超过80元/支的报价",
+          "不是所有抖动都需要换火花塞，先让修理厂读取失火数据确认是哪个缸的问题",
+          "部分修理厂会推荐'铱金火花塞升级'，普通家用车没有必要，原厂规格即可"
+        ]
+      },
+      {
+        "name": "点火线圈故障",
+        "probability": 0.30,
+        "explanation": "点火线圈负责将低压电转换为高压电供给火花塞，老化后输出电压不足会导致间歇性缺火。某些品牌（如大众EA888、别克 Ecotec）的点火线圈故障率偏高。",
+        "checkItems": ["用诊断仪读取各缸失火计数", "对调点火线圈看失火是否跟随转移", "检查点火线圈插头是否氧化松动", "测量点火线圈初级和次级电阻"],
+        "repairMethod": "更换故障缸的点火线圈，建议同时检查其他线圈状态，如果里程较高可考虑整套预防性更换。",
+        "parts": [
+          { "name": "点火线圈（单个）", "oemPrice": 350, "aftermarketPrice": 120, "brandPrice": 200 }
+        ],
+        "laborHours": 0.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "如果只有1个线圈坏了，不需要全部更换（除非里程超过10万公里预防性更换）",
+          "有些店会建议4个线圈一起换，对于里程较低的车型属于过度维修",
+          "品牌件（如德尔福、博世）质量可靠，不必非用原厂件"
+        ]
+      },
+      {
+        "name": "高压线/分电器老化（老款车型）",
+        "probability": 0.10,
+        "explanation": "老款车型使用高压线传输点火能量，绝缘层老化会导致漏电，分电器磨损导致点火时序不准。",
+        "checkItems": ["暗处观察高压线有无电弧闪络", "检查高压线电阻值", "检查分电器盖和转子磨损"],
+        "repairMethod": "更换高压线套装或分电器总成",
+        "parts": [
+          { "name": "高压线套装", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 },
+          { "name": "分电器总成", "oemPrice": 600, "aftermarketPrice": 250, "brandPrice": 400 }
+        ],
+        "laborHours": 1,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "2010年后的车型基本都用独立点火线圈，没有高压线和分电器",
+          "如果修理厂说要换分电器，先确认你的车型是否真的配有分电器"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0300", "P0301", "P0302", "P0303", "P0304", "P0351", "P0352"],
+    "commonInModels": ["大众朗逸", "大众速腾", "别克英朗", "丰田卡罗拉", "本田思域", "福特福克斯"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-002",
+    "category": "engine",
+    "subcategory": "燃油系统",
+    "symptoms": [
+      {
+        "description": "加速的时候感觉没劲，踩油门车不怎么走，动力明显下降",
+        "keywords": ["动力不足", "加速无力", "踩油门不走", "提速慢", "没劲"],
+        "conditions": ["加速时", "上坡", "满载", "开空调时"],
+        "severity": "warning"
+      },
+      {
+        "description": "油耗明显升高了，以前一箱油跑500公里，现在只能跑400",
+        "keywords": ["油耗升高", "费油", "油耗大", "百公里油耗高"],
+        "conditions": ["日常使用", "综合工况"],
+        "severity": "info"
+      },
+      {
+        "description": "发动机怠速忽高忽低，转速表指针来回摆动",
+        "keywords": ["怠速不稳", "转速波动", "怠速忽高忽低", "游车"],
+        "conditions": ["怠速状态", "冷车怠速", "热车怠速"],
+        "severity": "warning"
+      },
+      {
+        "description": "急加速时发动机有顿挫感，甚至会出现熄火的情况",
+        "keywords": ["加速顿挫", "急加速熄火", "供油不足", "断油"],
+        "conditions": ["急加速", "高速行驶"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "喷油嘴堵塞/积碳",
+        "probability": 0.40,
+        "explanation": "长期使用劣质燃油或保养不当导致喷油嘴积碳堵塞，喷油量不准、雾化不良，引起动力下降和油耗升高。",
+        "checkItems": ["检查喷油嘴喷油量一致性", "用内窥镜检查喷油嘴积碳情况", "读取燃油修正值"],
+        "repairMethod": "喷油嘴清洗（超声波清洗）或更换",
+        "parts": [
+          { "name": "喷油嘴（单个）", "oemPrice": 500, "aftermarketPrice": 180, "brandPrice": 320 }
+        ],
+        "laborHours": 2,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先尝试清洗（200-400元），清洗无效再考虑更换",
+          "很多修理厂不管堵没堵都建议换新的，其实大多数清洗就能解决",
+          "添加燃油添加剂（燃油宝）有一定预防效果，但不能替代清洗"
+        ]
+      },
+      {
+        "name": "燃油泵压力不足",
+        "probability": 0.30,
+        "explanation": "燃油泵磨损或滤网堵塞导致供油压力不足，急加速时供油跟不上消耗，出现顿挫甚至熄火。",
+        "checkItems": ["测量燃油系统压力（正常应在250-400kPa）", "检查燃油泵继电器和保险丝", "检查燃油滤清器是否堵塞"],
+        "repairMethod": "更换燃油泵总成或燃油泵芯，同时更换燃油滤清器",
+        "parts": [
+          { "name": "燃油泵总成", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 },
+          { "name": "燃油滤清器", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 2,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "有些车型可以只换泵芯不换总成，成本差几百元",
+          "先换燃油滤清器试试，很多时候只是滤芯堵了",
+          "油箱内置油泵更换需要拆油箱，工时费较高属正常"
+        ]
+      },
+      {
+        "name": "燃油压力调节器故障",
+        "probability": 0.15,
+        "explanation": "燃油压力调节器膜片破裂或卡滞导致燃油压力异常，影响喷油量精准控制。",
+        "checkItems": ["测量燃油压力（怠速和急加速工况）", "拔掉真空管检查有无燃油泄漏", "检查回油管"],
+        "repairMethod": "更换燃油压力调节器",
+        "parts": [
+          { "name": "燃油压力调节器", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 200 }
+        ],
+        "laborHours": 1,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "不是所有油压问题都是调节器的毛病，先排除油泵和滤芯问题",
+          "配件不贵，但要注意工时费是否合理"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0171", "P0172", "P0174", "P0175", "P0087", "P0088", "P0190"],
+    "commonInModels": ["大众帕萨特", "别克君威", "福特蒙迪欧", "雪佛兰科鲁兹", "现代索纳塔"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-003",
+    "category": "engine",
+    "subcategory": "冷却系统",
+    "symptoms": [
+      {
+        "description": "水温表指针偏高，快要到红线区域了，或者水温报警灯亮了",
+        "keywords": ["水温高", "水温报警", "开锅", "温度过高", "水温表高"],
+        "conditions": ["行驶中", "堵车", "夏季", "开空调"],
+        "severity": "critical"
+      },
+      {
+        "description": "停车后地面有绿色或红色的液体，防冻液在慢慢减少",
+        "keywords": ["防冻液漏", "冷却液漏", "漏水", "地面有液体", "防冻液少"],
+        "conditions": ["停车后", "保养检查时"],
+        "severity": "warning"
+      },
+      {
+        "description": "发动机舱有白色蒸汽冒出，伴有甜味",
+        "keywords": ["冒白烟", "蒸汽", "甜味", "发动机舱冒烟"],
+        "conditions": ["行驶后", "开锅时"],
+        "severity": "critical"
+      },
+      {
+        "description": "暖风不热了，开暖风出来的是凉风",
+        "keywords": ["暖风不热", "暖风凉", "暖气不热"],
+        "conditions": ["冬季", "开暖风时"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "节温器故障",
+        "probability": 0.35,
+        "explanation": "节温器卡死在关闭位置导致冷却液无法进行大循环，发动机热量无法散出，水温快速升高。",
+        "checkItems": ["触摸上下水管温差（正常应相近）", "检查节温器开闭温度", "读取冷却液温度数据流"],
+        "repairMethod": "更换节温器，排空冷却系统空气",
+        "parts": [
+          { "name": "节温器", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 },
+          { "name": "节温器壳体", "oemPrice": 150, "aftermarketPrice": 50, "brandPrice": 100 }
+        ],
+        "laborHours": 1.5,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "节温器本身很便宜，但如果位置刁钻工时费会高一些",
+          "不要长时间不装节温器行驶，会导致发动机暖机过慢、油耗升高",
+          "有些店会建议同时换水泵，如果水泵没问题就没必要"
+        ]
+      },
+      {
+        "name": "散热器（水箱）泄漏/堵塞",
+        "probability": 0.30,
+        "explanation": "散热器因腐蚀、碰撞或老化出现渗漏，或者内部水垢堵塞影响散热效率。",
+        "checkItems": ["目视检查散热器有无渗漏痕迹", "检查散热器外部有无柳絮灰尘堵塞", "压力测试检查密封性"],
+        "repairMethod": "小漏可焊接修复，大面积渗漏或内部堵塞需更换散热器",
+        "parts": [
+          { "name": "散热器总成", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 }
+        ],
+        "laborHours": 3,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "散热器品牌件质量完全够用，不必非用原厂件",
+          "柳絮堵塞散热器很常见，清洗就行不需要换",
+          "补漏剂是临时措施，不能根治"
+        ]
+      },
+      {
+        "name": "水泵故障",
+        "probability": 0.20,
+        "explanation": "水泵叶轮腐蚀或轴承磨损，导致冷却液循环不畅或水泵漏水。",
+        "checkItems": ["检查水泵轴承有无异响", "检查水泵密封有无泄漏", "检查皮带张紧度"],
+        "repairMethod": "更换水泵总成，同时更换防冻液",
+        "parts": [
+          { "name": "水泵总成", "oemPrice": 500, "aftermarketPrice": 180, "brandPrice": 320 }
+        ],
+        "laborHours": 2,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "有些车型水泵由正时皮带驱动，更换时需要拆正时皮带，工时费较高属正常",
+          "如果是正时皮带驱动车型，建议水泵和正时皮带一起换（省一次工时费）"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0128", "P0217", "P2181", "P0118"],
+    "commonInModels": ["大众途观", "奥迪A4L", "宝马3系", "别克昂科威", "雪佛兰科鲁兹"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-004",
+    "category": "engine",
+    "subcategory": "润滑系统",
+    "symptoms": [
+      {
+        "description": "仪表盘机油压力报警灯亮了，红色油壶图标",
+        "keywords": ["机油灯亮", "机油报警", "油壶灯亮", "机油压力低"],
+        "conditions": ["行驶中", "怠速时", "启动后"],
+        "severity": "critical"
+      },
+      {
+        "description": "机油消耗特别快，1000公里就要加一次机油",
+        "keywords": ["烧机油", "机油消耗大", "少机油", "机油不够", "冒蓝烟"],
+        "conditions": ["日常使用", "高速行驶后"],
+        "severity": "warning"
+      },
+      {
+        "description": "排气管冒蓝色烟雾，特别是冷启动或急加速时",
+        "keywords": ["冒蓝烟", "蓝烟", "排气冒蓝", "烧机油蓝烟"],
+        "conditions": ["冷启动", "急加速", "怠速"],
+        "severity": "warning"
+      },
+      {
+        "description": "发动机噪音变大，有哒哒哒的敲击声",
+        "keywords": ["发动机异响", "哒哒响", "敲缸", "噪音大", "气门响"],
+        "conditions": ["冷启动", "怠速", "加速时"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "机油泵磨损/油压传感器故障",
+        "probability": 0.30,
+        "explanation": "机油泵内部磨损导致泵油压力不足，或机油压力传感器误报导致报警灯误亮。",
+        "checkItems": ["用机械油压表实测机油压力", "检查机油液位和品质", "检查机油压力传感器"],
+        "repairMethod": "机油压力正常则更换传感器；压力偏低则更换机油泵",
+        "parts": [
+          { "name": "机油压力传感器", "oemPrice": 150, "aftermarketPrice": 50, "brandPrice": 100 },
+          { "name": "机油泵", "oemPrice": 600, "aftermarketPrice": 250, "brandPrice": 400 }
+        ],
+        "laborHours": 2,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "机油灯亮第一时间停车检查机油液位，不要继续行驶",
+          "先确认是传感器误报还是真的油压低（用机械表测）",
+          "传感器坏了换传感器就行，不要被建议换机油泵"
+        ]
+      },
+      {
+        "name": "活塞环/气门油封老化（烧机油）",
+        "probability": 0.40,
+        "explanation": "活塞环弹性下降或气门油封老化硬化，机油渗入燃烧室被烧掉，导致机油消耗增大和冒蓝烟。大众EA888、宝马N20等机型较常见。",
+        "checkItems": ["测量缸压", "做缸漏率测试", "检查废气阀（PCV）是否窜机油", "内窥镜检查气缸壁和活塞顶部"],
+        "repairMethod": "轻度：免拆治理（化学清洗）；重度：大修更换活塞环和气门油封",
+        "parts": [
+          { "name": "活塞环套装", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 },
+          { "name": "气门油封套装", "oemPrice": 200, "aftermarketPrice": 80, "brandPrice": 130 }
+        ],
+        "laborHours": 12,
+        "severity": "critical",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先排除废气阀（PCV）故障，它也可能导致烧机油且修理费用低很多",
+          "免拆治理（1000-3000元）可以先试，不一定非要大修（8000-15000元）",
+          "轻微烧机油（每1000公里消耗0.3L以内）属于正常范围",
+          "大修是最后手段，很多修理厂为了利润会过早建议大修"
+        ]
+      },
+      {
+        "name": "机油品质问题/保养不当",
+        "probability": 0.20,
+        "explanation": "使用劣质机油或超过保养周期未换油，机油氧化变质失去润滑性能，导致发动机异响和磨损加剧。",
+        "checkItems": ["检查机油颜色和气味（正常应为金黄色，无焦味）", "检查保养记录", "用机油试纸检测机油品质"],
+        "repairMethod": "立即更换机油和机油滤清器，使用厂家推荐粘度等级的正品机油",
+        "parts": [
+          { "name": "全合成机油（4L）", "oemPrice": 400, "aftermarketPrice": 180, "brandPrice": 280 },
+          { "name": "机油滤清器", "oemPrice": 60, "aftermarketPrice": 20, "brandPrice": 40 }
+        ],
+        "laborHours": 0.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "4S店的机油加价严重，可以在外边换同级别机油",
+          "注意机油粘度要符合厂家要求（如5W-30、0W-20等）",
+          "全合成机油1万公里换一次即可，不必5000公里就换"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0520", "P0522", "P0524", "P0521"],
+    "commonInModels": ["大众帕萨特", "大众迈腾", "奥迪A4L", "宝马3系", "宝马5系", "别克君威"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-005",
+    "category": "engine",
+    "subcategory": "进气系统",
+    "symptoms": [
+      {
+        "description": "怠速的时候发动机抖动，转速忽高忽低不稳定",
+        "keywords": ["怠速抖动", "怠速不稳", "转速波动", "游车", "怠速忽高忽低"],
+        "conditions": ["怠速状态", "冷车怠速", "开空调怠速"],
+        "severity": "warning"
+      },
+      {
+        "description": "发动机故障灯亮，读码显示混合气过稀或过浓",
+        "keywords": ["混合气过稀", "混合气过浓", "P0171", "空燃比异常", "燃油修正"],
+        "conditions": ["行驶中", "故障灯亮时"],
+        "severity": "warning"
+      },
+      {
+        "description": "加速时发动机有嘶嘶的漏气声，动力也下降了",
+        "keywords": ["漏气声", "嘶嘶声", "进气管漏", "真空泄漏", "动力下降"],
+        "conditions": ["加速时", "怠速时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "节气门积碳/脏污",
+        "probability": 0.45,
+        "explanation": "节气门阀板边缘积碳导致开度不准，ECU无法精准控制进气量，引起怠速不稳和油耗升高。城市低速行驶多的车辆特别容易积碳。",
+        "checkItems": ["拆下进气管目视检查节气门", "读取节气门开度数据", "检查怠速空气量"],
+        "repairMethod": "清洗节气门，清洗后需要用诊断仪做节气门匹配（重新学习）",
+        "parts": [
+          { "name": "节气门清洗剂", "oemPrice": 30, "aftermarketPrice": 15, "brandPrice": 25 }
+        ],
+        "laborHours": 0.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "清洗节气门费用一般在100-200元（含匹配），超过300元偏贵",
+          "有些店会建议更换节气门总成（1000+元），绝大多数情况下清洗就够了",
+          "清洗后如果不做匹配可能导致怠速更高，属于正常，行驶一段后会自适应"
+        ]
+      },
+      {
+        "name": "进气系统真空泄漏",
+        "probability": 0.30,
+        "explanation": "进气歧管垫、真空管、废气管等老化开裂导致额外空气进入，ECU计算的进气量不准，混合气偏稀。",
+        "checkItems": ["用烟雾测试仪检查进气管路密封性", "怠速时喷水听转速变化", "检查所有真空管和接头"],
+        "repairMethod": "更换破损的管路或密封垫",
+        "parts": [
+          { "name": "进气歧管垫", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 },
+          { "name": "真空管", "oemPrice": 50, "aftermarketPrice": 15, "brandPrice": 30 }
+        ],
+        "laborHours": 1,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "真空管很便宜，有时候用胶带临时缠一下也能应急",
+          "不要被建议更换整个进气歧管，通常只是密封垫或管子的问题"
+        ]
+      },
+      {
+        "name": "空气滤芯严重脏堵",
+        "probability": 0.15,
+        "explanation": "空气滤芯长期未更换导致进气阻力增大，发动机进气量不足，动力下降。",
+        "checkItems": ["取出空气滤芯检查脏污程度", "检查进气口有无异物堵塞"],
+        "repairMethod": "更换空气滤芯",
+        "parts": [
+          { "name": "空气滤芯", "oemPrice": 80, "aftermarketPrice": 20, "brandPrice": 45 }
+        ],
+        "laborHours": 0.1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "空气滤芯可以自己更换，非常简单，网购20-40元",
+          "4S店换一个空气滤芯连工带料可能收100+元，性价比很低",
+          "每1-2万公里换一次，恶劣环境适当缩短"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0171", "P0174", "P0101", "P0102", "P0505", "P0507"],
+    "commonInModels": ["丰田卡罗拉", "本田思域", "大众朗逸", "日产轩逸", "马自达3"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-006",
+    "category": "engine",
+    "subcategory": "排气系统/排放控制",
+    "symptoms": [
+      {
+        "description": "发动机故障灯亮，读码显示三元催化效率低或氧传感器故障",
+        "keywords": ["三元催化", "催化效率低", "P0420", "氧传感器", "排放超标"],
+        "conditions": ["故障灯亮时", "年检时"],
+        "severity": "warning"
+      },
+      {
+        "description": "尾气有很重的汽油味或排气管冒黑烟",
+        "keywords": ["尾气臭", "汽油味", "冒黑烟", "排放异常", "黑烟"],
+        "conditions": ["怠速", "冷启动", "加速时"],
+        "severity": "warning"
+      },
+      {
+        "description": "加速时排气管有哗啦哗啦的响声",
+        "keywords": ["排气管响", "哗啦声", "排气异响", "排气管哗啦"],
+        "conditions": ["加速时", "怠速"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "氧传感器故障",
+        "probability": 0.45,
+        "explanation": "氧传感器中毒（铅、硅、碳）或老化，无法正确检测排气中的氧含量，ECU无法精确控制空燃比，导致油耗升高和排放异常。",
+        "checkItems": ["读取氧传感器信号波形", "检查氧传感器加热器电阻", "读取长期燃油修正值"],
+        "repairMethod": "更换氧传感器（前氧/后氧视故障码而定）",
+        "parts": [
+          { "name": "前氧传感器", "oemPrice": 600, "aftermarketPrice": 200, "brandPrice": 380 },
+          { "name": "后氧传感器", "oemPrice": 500, "aftermarketPrice": 180, "brandPrice": 320 }
+        ],
+        "laborHours": 1,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "P0420不一定是三元催化坏了，先换后氧传感器试试",
+          "有些情况下清洗氧传感器也能恢复工作",
+          "品牌件（如NGK、电装）质量可靠，比原厂件便宜很多"
+        ]
+      },
+      {
+        "name": "三元催化器堵塞/失效",
+        "probability": 0.25,
+        "explanation": "长期使用劣质燃油或机油导致三元催化器中毒或堵塞，排气背压升高影响动力，排放超标。",
+        "checkItems": ["测量排气背压", "用红外测温枪测催化器前后温差", "读取催化效率数据"],
+        "repairMethod": "轻度堵塞可清洗，严重失效需更换",
+        "parts": [
+          { "name": "三元催化器", "oemPrice": 3000, "aftermarketPrice": 800, "brandPrice": 1500 }
+        ],
+        "laborHours": 2,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "原厂三元催化非常贵（3000-8000元），品牌件完全可以替代",
+          "先排除氧传感器问题再动三元催化",
+          "清洗三元催化（300-600元）可以先尝试",
+          "年检不过不一定是三元坏了，也可能是氧传感器或火花塞的问题"
+        ]
+      },
+      {
+        "name": "排气管漏气/接口垫损坏",
+        "probability": 0.20,
+        "explanation": "排气管接口垫老化或排气管锈蚀穿孔，导致排气泄漏产生异响，同时影响氧传感器读数。",
+        "checkItems": ["目视检查排气管有无锈蚀穿孔", "检查各接口垫片", "用手感受有无漏气"],
+        "repairMethod": "更换接口垫片或修补/更换排气管段",
+        "parts": [
+          { "name": "排气管接口垫", "oemPrice": 50, "aftermarketPrice": 15, "brandPrice": 30 },
+          { "name": "排气管中段", "oemPrice": 600, "aftermarketPrice": 200, "brandPrice": 380 }
+        ],
+        "laborHours": 1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "小孔可以用排气管修补胶临时封堵，几十元搞定",
+          "不需要换整根排气管，可以只换损坏的那一段"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0420", "P0430", "P0130", "P0131", "P0133", "P0135", "P0141"],
+    "commonInModels": ["大众速腾", "丰田凯美瑞", "本田雅阁", "别克君威", "现代索纳塔"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-007",
+    "category": "engine",
+    "subcategory": "正时系统",
+    "symptoms": [
+      {
+        "description": "发动机冷启动时有哗啦哗啦的金属声，过一会儿消失",
+        "keywords": ["冷启动异响", "哗啦声", "正时链条响", "启动金属声"],
+        "conditions": ["冷启动", "长时间停放后"],
+        "severity": "warning"
+      },
+      {
+        "description": "发动机动力下降，加速发闷，油耗升高",
+        "keywords": ["动力下降", "加速发闷", "正时偏差", "油耗升高"],
+        "conditions": ["行驶中", "加速时"],
+        "severity": "warning"
+      },
+      {
+        "description": "发动机故障灯亮，读码显示凸轮轴/曲轴位置相关性故障",
+        "keywords": ["正时故障", "凸轮轴位置", "P0016", "P0017", "正时偏差"],
+        "conditions": ["故障灯亮时"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "正时链条拉长/张紧器失效",
+        "probability": 0.50,
+        "explanation": "正时链条长期使用后拉长，或链条张紧器液压失效导致链条松弛，冷启动时链条拍打导轨产生异响。大众EA888 Gen2、宝马N47/N20等机型较常见。",
+        "checkItems": ["读取凸轮轴正时偏差数据", "拆检链条张紧器伸出长度", "检查导轨磨损情况"],
+        "repairMethod": "更换正时链条套装（链条+张紧器+导轨）",
+        "parts": [
+          { "name": "正时链条套装", "oemPrice": 1500, "aftermarketPrice": 500, "brandPrice": 900 },
+          { "name": "链条张紧器", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 350 }
+        ],
+        "laborHours": 5,
+        "severity": "critical",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "正时链条正常寿命应在20万公里以上，过早出问题可能是设计缺陷，查一下是否有厂家TSB",
+          "工时费高是因为需要拆很多部件，但要确保对正时准确",
+          "只换张紧器不换链条是治标不治本"
+        ]
+      },
+      {
+        "name": "正时皮带老化/跳齿",
+        "probability": 0.30,
+        "explanation": "正时皮带老化开裂或因张紧轮失效导致跳齿，轻则正时偏差影响动力，重则皮带断裂导致顶气门（干涉式发动机）。",
+        "checkItems": ["拆检正时皮带外观（裂纹、掉齿）", "检查张紧轮和惰轮", "核实保养记录是否按时更换"],
+        "repairMethod": "更换正时皮带套装（皮带+张紧轮+惰轮），如已跳齿需检查气门损伤",
+        "parts": [
+          { "name": "正时皮带套装", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 }
+        ],
+        "laborHours": 4,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "正时皮带必须按厂家周期更换（一般6-10万公里），不要心存侥幸",
+          "皮带断了顶气门的修理费用可达1-3万元，远比换皮带贵",
+          "建议同时换水泵（如果水泵由正时皮带驱动），省一次工时费"
+        ]
+      },
+      {
+        "name": "VVT/VANOS电磁阀故障",
+        "probability": 0.15,
+        "explanation": "可变气门正时系统的电磁阀卡滞或线圈故障，导致气门正时调节异常。",
+        "checkItems": ["检查电磁阀电阻值", "拆检电磁阀滤网有无堵塞", "读取VVT实际值和设定值"],
+        "repairMethod": "清洗或更换VVT电磁阀",
+        "parts": [
+          { "name": "VVT电磁阀", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 260 }
+        ],
+        "laborHours": 0.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "很多时候清洗电磁阀滤网就能解决，不需要换新的",
+          "先检查机油品质和液位，脏机油会堵塞VVT系统"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0011", "P0014", "P0016", "P0017", "P0340", "P0335"],
+    "commonInModels": ["大众迈腾", "大众途观", "宝马3系", "宝马5系", "奥迪A4L", "标致408"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-008",
+    "category": "engine",
+    "subcategory": "发动机抖动/异响",
+    "symptoms": [
+      {
+        "description": "冷车启动时发动机抖动很明显，热车后好很多",
+        "keywords": ["冷车抖动", "冷启动抖", "热车好转", "启动抖动"],
+        "conditions": ["冷启动", "冬季早晨", "停放一夜后"],
+        "severity": "info"
+      },
+      {
+        "description": "怠速时坐在车里能明显感觉到方向盘和座椅在抖，但转速表很稳",
+        "keywords": ["怠速抖", "方向盘抖", "座椅抖", "转速稳但抖"],
+        "conditions": ["怠速", "等红灯", "挂D挡踩刹车"],
+        "severity": "info"
+      },
+      {
+        "description": "发动机有持续的哒哒声或咔咔声，随转速升高频率加快",
+        "keywords": ["哒哒响", "咔咔声", "发动机噪音", "金属声", "异响"],
+        "conditions": ["怠速", "加速", "各种工况"],
+        "severity": "warning"
+      },
+      {
+        "description": "加速时发动机发出清脆的叮叮声，像金属敲击",
+        "keywords": ["爆震", "敲缸", "叮叮声", "金属敲击", "加速爆震"],
+        "conditions": ["加速时", "上坡", "低转速高负荷"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "发动机机脚胶（支架垫）老化",
+        "probability": 0.40,
+        "explanation": "机脚胶是发动机和车身之间的减震垫，老化后失去减震效果，发动机振动直接传到车身。特点是转速稳但车身抖。",
+        "checkItems": ["目视检查机脚胶有无开裂、塌陷", "用撬棍检查机脚胶间隙", "怠速时观察发动机有无异常晃动"],
+        "repairMethod": "更换老化机脚胶（通常2-4个，视损坏情况）",
+        "parts": [
+          { "name": "发动机机脚胶", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 260 },
+          { "name": "变速箱机脚胶", "oemPrice": 350, "aftermarketPrice": 130, "brandPrice": 230 }
+        ],
+        "laborHours": 2,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "通常只需要换坏的那个，不必全换（除非都老化了）",
+          "品牌件质量足够好，不必非用原厂件",
+          "如果修理工说需要换发动机支架（金属部分），多半是在忽悠，只需换橡胶垫"
+        ]
+      },
+      {
+        "name": "气门间隙异常/液压挺柱故障",
+        "probability": 0.25,
+        "explanation": "气门间隙过大或液压挺柱失效导致气门机构产生哒哒异响。冷车时机油压力低更明显。",
+        "checkItems": ["用听诊器定位异响来源", "检查机油压力和品质", "测量气门间隙（可调式）"],
+        "repairMethod": "调整气门间隙或更换液压挺柱",
+        "parts": [
+          { "name": "液压挺柱（单个）", "oemPrice": 200, "aftermarketPrice": 80, "brandPrice": 130 }
+        ],
+        "laborHours": 4,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先换好机油试试，很多时候好机油能解决冷车哒哒声",
+          "轻微的气门声是正常的，不必过度修理",
+          "液压挺柱更换需要拆凸轮轴，工时费较高属正常"
+        ]
+      },
+      {
+        "name": "爆震（敲缸）",
+        "probability": 0.20,
+        "explanation": "燃油辛烷值过低、燃烧室积碳严重或点火提前角过大导致混合气不正常燃烧，产生金属敲击声。长期爆震会损坏活塞和气缸。",
+        "checkItems": ["检查使用的燃油标号", "用内窥镜检查燃烧室积碳", "读取爆震传感器数据"],
+        "repairMethod": "使用正确标号燃油，清洗燃烧室积碳，检查爆震传感器",
+        "parts": [
+          { "name": "爆震传感器", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 200 }
+        ],
+        "laborHours": 1,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先换高标号燃油试试，有时候就是油品问题",
+          "积碳清洗（打吊瓶）200-400元即可，不必被忽悠做大项目",
+          "爆震传感器很少坏，不要一上来就换传感器"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0325", "P0326", "P0327", "P0300", "P0301"],
+    "commonInModels": ["大众朗逸", "丰田卡罗拉", "本田思域", "日产轩逸", "别克英朗"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-009",
+    "category": "engine",
+    "subcategory": "节气门/怠速控制",
+    "symptoms": [
+      {
+        "description": "松开油门后转速下降很慢，或者怠速偏高降不下来",
+        "keywords": ["怠速高", "转速降不下来", "怠速偏高", "松油门转速高"],
+        "conditions": ["松油门", "停车怠速", "冷车"],
+        "severity": "info"
+      },
+      {
+        "description": "冷车启动后怠速特别高（1500转以上），很久才降下来",
+        "keywords": ["冷车怠速高", "启动转速高", "暖机慢"],
+        "conditions": ["冷启动", "冬季"],
+        "severity": "info"
+      },
+      {
+        "description": "怠速时发动机抖动甚至偶尔会熄火",
+        "keywords": ["怠速熄火", "怠速不稳", "停车熄火", "等红灯熄火"],
+        "conditions": ["怠速", "等红灯", "开空调怠速"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "节气门积碳严重",
+        "probability": 0.50,
+        "explanation": "节气门阀板和阀座积碳导致密封不严或开度控制不精准，怠速进气量不稳定。",
+        "checkItems": ["拆管检查节气门积碳情况", "读取节气门开度值", "检查怠速空气控制"],
+        "repairMethod": "拆洗节气门，做节气门匹配学习",
+        "parts": [
+          { "name": "节气门清洗剂", "oemPrice": 30, "aftermarketPrice": 15, "brandPrice": 25 }
+        ],
+        "laborHours": 0.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "清洗节气门100-200元足够，超过300元偏贵",
+          "清洗后怠速可能短暂偏高，属于正常现象，行驶一段会自适应",
+          "不必每次保养都清洗，2-3万公里清洗一次即可"
+        ]
+      },
+      {
+        "name": "怠速控制阀（IAC阀）故障",
+        "probability": 0.25,
+        "explanation": "老款车型使用独立的怠速控制阀控制怠速进气量，阀体积碳卡滞会导致怠速异常。新款电子节气门车型无此部件。",
+        "checkItems": ["检查怠速控制阀电阻", "通电测试阀体动作", "清洗阀体检查是否恢复"],
+        "repairMethod": "清洗怠速控制阀，无效则更换",
+        "parts": [
+          { "name": "怠速控制阀", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 200 }
+        ],
+        "laborHours": 0.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先清洗试试，很多时候清洗就能解决",
+          "2010年后的电子节气门车型没有独立的怠速控制阀"
+        ]
+      },
+      {
+        "name": "电子节气门电机/传感器故障",
+        "probability": 0.15,
+        "explanation": "电子节气门内部驱动电机或位置传感器故障，导致节气门无法正确控制开度。",
+        "checkItems": ["读取节气门位置传感器1和2的信号", "检查节气门电机驱动", "检查节气门线束插头"],
+        "repairMethod": "更换电子节气门总成",
+        "parts": [
+          { "name": "电子节气门总成", "oemPrice": 1200, "aftermarketPrice": 400, "brandPrice": 700 }
+        ],
+        "laborHours": 1,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "先排除线束接触不良的问题，有时候只是插头松了",
+          "品牌件质量可靠，不必非用原厂件",
+          "更换后需要做匹配学习"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0505", "P0506", "P0507", "P0121", "P0122", "P0222", "P2101"],
+    "commonInModels": ["大众宝来", "丰田花冠", "本田飞度", "日产骐达", "福特福克斯"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-010",
+    "category": "engine",
+    "subcategory": "EGR废气再循环",
+    "symptoms": [
+      {
+        "description": "发动机故障灯亮，读码显示EGR流量不足或过多",
+        "keywords": ["EGR故障", "废气再循环", "EGR阀", "P0401", "P0402"],
+        "conditions": ["故障灯亮时"],
+        "severity": "warning"
+      },
+      {
+        "description": "低速行驶时发动机抖动、顿挫，加速不顺畅",
+        "keywords": ["低速抖动", "加速顿挫", "不顺畅", "低速发闯"],
+        "conditions": ["低速行驶", "城市道路"],
+        "severity": "warning"
+      },
+      {
+        "description": "怠速不稳，有时候怠速会突然熄火",
+        "keywords": ["怠速不稳", "怠速熄火", "EGR导致熄火"],
+        "conditions": ["怠速", "低速"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "EGR阀积碳卡滞",
+        "probability": 0.55,
+        "explanation": "EGR阀长期工作后积碳堆积导致阀体卡滞，无法正常开闭。卡死在开位导致怠速不稳，卡死在关位导致排放超标。",
+        "checkItems": ["拆检EGR阀积碳情况", "通电测试阀体动作", "检查EGR通道积碳"],
+        "repairMethod": "清洗EGR阀和EGR通道，无效则更换",
+        "parts": [
+          { "name": "EGR阀", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 350 }
+        ],
+        "laborHours": 1.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先尝试清洗（100-300元），清洗很多时候就能解决",
+          "EGR通道也要一起清洗，否则很快又会卡",
+          "不要被建议更换整个进气歧管"
+        ]
+      },
+      {
+        "name": "EGR电磁阀/电机故障",
+        "probability": 0.25,
+        "explanation": "EGR阀的驱动电磁线圈或电机损坏，无法驱动阀体动作。",
+        "checkItems": ["测量电磁阀电阻", "检查供电和搭铁", "用诊断仪做执行器测试"],
+        "repairMethod": "更换EGR阀总成",
+        "parts": [
+          { "name": "EGR阀总成", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 350 }
+        ],
+        "laborHours": 1,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "确认是电器故障再换，不要清洗都没试就直接换"
+        ]
+      },
+      {
+        "name": "EGR位置传感器故障",
+        "probability": 0.10,
+        "explanation": "EGR阀位置传感器漂移或损坏，ECU无法准确获知EGR阀实际开度。",
+        "checkItems": ["读取EGR位置传感器数据", "对比指令位置和实际位置"],
+        "repairMethod": "更换传感器或EGR阀总成",
+        "parts": [
+          { "name": "EGR位置传感器", "oemPrice": 200, "aftermarketPrice": 80, "brandPrice": 140 }
+        ],
+        "laborHours": 0.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "有些车型传感器集成在EGR阀内，需要换总成"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0400", "P0401", "P0402", "P0403", "P0404", "P0405", "P0406"],
+    "commonInModels": ["大众捷达", "大众宝来", "福特福克斯", "标致408", "雪铁龙C4L"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-011",
+    "category": "engine",
+    "subcategory": "涡轮增压系统",
+    "symptoms": [
+      {
+        "description": "加速时动力明显不如以前，涡轮介入的感觉变弱了",
+        "keywords": ["涡轮无力", "动力下降", "加速慢", "涡轮迟滞", "增压不足"],
+        "conditions": ["加速时", "高速行驶"],
+        "severity": "warning"
+      },
+      {
+        "description": "发动机舱有尖锐的哨声或嘶嘶声，特别是加速和减速时",
+        "keywords": ["涡轮哨声", "嘶嘶声", "涡轮异响", "泄压声"],
+        "conditions": ["加速", "收油时"],
+        "severity": "warning"
+      },
+      {
+        "description": "排气管冒大量蓝烟或白烟，机油消耗增大",
+        "keywords": ["冒蓝烟", "涡轮漏油", "烧机油", "排气冒烟"],
+        "conditions": ["加速时", "怠速"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "涡轮增压器轴承磨损/漏油",
+        "probability": 0.40,
+        "explanation": "涡轮增压器轴承磨损导致叶轮径向间隙增大，密封失效后机油渗入进气侧或排气侧被烧掉。",
+        "checkItems": ["拆下进气管检查涡轮叶轮间隙", "检查涡轮进气侧有无机油", "检查中冷器有无积油"],
+        "repairMethod": "更换涡轮增压器总成或机芯",
+        "parts": [
+          { "name": "涡轮增压器总成", "oemPrice": 5000, "aftermarketPrice": 2000, "brandPrice": 3500 },
+          { "name": "涡轮机芯（芯体）", "oemPrice": 3000, "aftermarketPrice": 1200, "brandPrice": 2000 }
+        ],
+        "laborHours": 5,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "可以只换机芯不换总成，省不少钱",
+          "品牌涡轮（如博格华纳、三菱、IHI）比原厂件便宜很多且质量有保障",
+          "翻新涡轮也是可行选择，但要注意选择靠谱的供应商",
+          "换涡轮后要检查进排气系统是否干净，残留碎片会打坏新涡轮"
+        ]
+      },
+      {
+        "name": "废气旁通阀（Wastegate）故障",
+        "probability": 0.30,
+        "explanation": "废气旁通阀卡滞或执行器膜片破损，导致增压压力控制异常。",
+        "checkItems": ["检查旁通阀动作是否灵活", "检查真空管和执行器", "读取增压压力数据"],
+        "repairMethod": "修复或更换旁通阀执行器",
+        "parts": [
+          { "name": "废气旁通阀执行器", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 350 }
+        ],
+        "laborHours": 2,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "旁通阀问题不需要换整个涡轮",
+          "有时候只是真空管脱落或破损，几十元就能解决"
+        ]
+      },
+      {
+        "name": "中冷器/进气管路泄漏",
+        "probability": 0.20,
+        "explanation": "中冷器或增压后进气管路漏气，增压压力泄漏导致实际进入气缸的空气量减少。",
+        "checkItems": ["压力测试中冷器和管路", "检查各管卡连接处", "目视检查中冷器有无损伤"],
+        "repairMethod": "更换漏气的管路或中冷器",
+        "parts": [
+          { "name": "中冷器", "oemPrice": 1200, "aftermarketPrice": 400, "brandPrice": 700 },
+          { "name": "增压管路", "oemPrice": 200, "aftermarketPrice": 80, "brandPrice": 130 }
+        ],
+        "laborHours": 2,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先检查管路连接是否松脱，很多时候只是管卡松了",
+          "中冷器品牌件完全可用"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0234", "P0235", "P0236", "P0237", "P0238", "P0299", "P0033", "P0034"],
+    "commonInModels": ["大众途观", "大众迈腾", "奥迪A4L", "别克昂科威", "福特翼虎", "沃尔沃XC60"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-012",
+    "category": "engine",
+    "subcategory": "发动机密封/漏油",
+    "symptoms": [
+      {
+        "description": "发动机表面有油渍，特别是气门室盖和油底壳附近",
+        "keywords": ["发动机漏油", "油渍", "渗油", "发动机表面油"],
+        "conditions": ["日常检查", "保养时"],
+        "severity": "info"
+      },
+      {
+        "description": "停车后地面有油滴，位置在发动机下方",
+        "keywords": ["地面有油", "滴油", "发动机下方漏油"],
+        "conditions": ["停车后", "长时间停放"],
+        "severity": "warning"
+      },
+      {
+        "description": "机油消耗加快但排气管不冒蓝烟，找不到机油去哪了",
+        "keywords": ["机油少", "外漏", "机油消耗", "找不到漏点"],
+        "conditions": ["日常检查"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "气门室盖垫老化漏油",
+        "probability": 0.40,
+        "explanation": "气门室盖密封垫（橡胶或软木材质）老化变硬失去弹性，机油从密封面渗出。这是最常见的发动机漏油原因。",
+        "checkItems": ["目视检查气门室盖周围有无油渍", "检查火花塞孔有无进油"],
+        "repairMethod": "更换气门室盖垫，清理结合面",
+        "parts": [
+          { "name": "气门室盖垫", "oemPrice": 150, "aftermarketPrice": 40, "brandPrice": 90 }
+        ],
+        "laborHours": 1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "垫片很便宜，主要费用是工时",
+          "如果火花塞孔也进油，需要同时更换火花塞孔密封圈",
+          "有些车型气门室盖是塑料的容易变形，可能需要连盖一起换"
+        ]
+      },
+      {
+        "name": "曲轴前后油封漏油",
+        "probability": 0.30,
+        "explanation": "曲轴油封橡胶老化硬化导致密封失效。前油封漏油容易看到，后油封漏油需要拆变速箱才能看到。",
+        "checkItems": ["检查曲轴前油封（皮带轮端）有无漏油", "检查变速箱与发动机结合面有无漏油（后油封）"],
+        "repairMethod": "更换曲轴油封",
+        "parts": [
+          { "name": "曲轴前油封", "oemPrice": 80, "aftermarketPrice": 25, "brandPrice": 50 },
+          { "name": "曲轴后油封", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 4,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "后油封本身很便宜，但需要拆变速箱，工时费高（500-1000元）属正常",
+          "如果正在换离合器或变速箱，顺便换后油封可以省一次工时费",
+          "轻微渗漏不一定需要立即修，观察发展情况"
+        ]
+      },
+      {
+        "name": "油底壳密封不良",
+        "probability": 0.20,
+        "explanation": "油底壳密封垫或密封胶老化导致漏油，或者之前保养时放油螺栓没有拧紧。",
+        "checkItems": ["检查油底壳周围有无油渍", "检查放油螺栓是否拧紧", "检查机油滤清器是否安装到位"],
+        "repairMethod": "更换油底壳密封垫或重新打胶",
+        "parts": [
+          { "name": "油底壳密封垫", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 1.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先检查是不是放油螺栓没拧紧或机滤没装好，这些是最简单的原因",
+          "有些车型用密封胶而非垫片，重打胶即可"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["宝马3系", "宝马5系", "奥迪A4L", "大众帕萨特", "别克君威", "奔驰C级"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-013",
+    "category": "engine",
+    "subcategory": "散热风扇/辅助散热",
+    "symptoms": [
+      {
+        "description": "堵车或低速行驶时水温升高，跑起来又正常了",
+        "keywords": ["堵车水温高", "低速水温高", "跑起来正常", "走走停停水温高"],
+        "conditions": ["堵车", "低速行驶", "怠速"],
+        "severity": "warning"
+      },
+      {
+        "description": "开空调后水温升高，或者开空调时发动机温度明显偏高",
+        "keywords": ["开空调水温高", "空调导致水温高", "冷凝器散热差"],
+        "conditions": ["开空调", "夏季"],
+        "severity": "warning"
+      },
+      {
+        "description": "停车熄火后散热风扇还在转，或者风扇一直不转",
+        "keywords": ["风扇不转", "风扇一直转", "风扇不停", "散热风扇异常"],
+        "conditions": ["熄火后", "怠速"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "散热风扇电机/继电器故障",
+        "probability": 0.45,
+        "explanation": "散热风扇电机碳刷磨损或继电器触点烧蚀，导致风扇不转或只有高速挡。",
+        "checkItems": ["直接给风扇电机供电测试", "检查风扇继电器", "检查风扇保险丝", "检查温控开关"],
+        "repairMethod": "更换风扇电机或继电器",
+        "parts": [
+          { "name": "散热风扇电机", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 350 },
+          { "name": "风扇继电器", "oemPrice": 80, "aftermarketPrice": 30, "brandPrice": 50 }
+        ],
+        "laborHours": 1,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "先查继电器和保险丝，它们比电机便宜得多",
+          "有时候只是风扇插头接触不良",
+          "堵车时水温高很危险，建议尽快修理"
+        ]
+      },
+      {
+        "name": "冷凝器/散热器外部堵塞",
+        "probability": 0.30,
+        "explanation": "柳絮、树叶、灰尘等杂物堵塞冷凝器和散热器翅片，影响空气流通散热。春季柳絮季节特别常见。",
+        "checkItems": ["目视检查冷凝器/散热器正面有无杂物", "用手电筒照射检查翅片间隙"],
+        "repairMethod": "用压缩空气或低压水枪清洗冷凝器和散热器",
+        "parts": [],
+        "laborHours": 0.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "清洗费用50-150元即可，不需要更换冷凝器或散热器",
+          "可以自己用气枪从内向外吹，注意别弄倒翅片",
+          "建议加装防虫网，几十元可有效防止堵塞"
+        ]
+      },
+      {
+        "name": "水温传感器/温控开关故障",
+        "probability": 0.15,
+        "explanation": "水温传感器信号偏差导致ECU不能正确控制风扇启停温度。",
+        "checkItems": ["读取水温传感器数据与实际温度对比", "检查传感器电阻值"],
+        "repairMethod": "更换水温传感器",
+        "parts": [
+          { "name": "水温传感器", "oemPrice": 150, "aftermarketPrice": 50, "brandPrice": 100 }
+        ],
+        "laborHours": 0.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "传感器不贵，自己换也很简单",
+          "先排除风扇本身的问题再换传感器"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0480", "P0481", "P0115", "P0117", "P0118", "P0128"],
+    "commonInModels": ["大众帕萨特", "丰田凯美瑞", "本田雅阁", "日产天籁", "别克君威"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-014",
+    "category": "engine",
+    "subcategory": "曲轴箱通风系统（PCV）",
+    "symptoms": [
+      {
+        "description": "机油消耗增大，但没有明显外漏，排气管也不冒蓝烟",
+        "keywords": ["机油消耗大", "少机油", "找不到漏点", "PCV", "曲轴箱通风"],
+        "conditions": ["日常使用", "保养间隔内"],
+        "severity": "warning"
+      },
+      {
+        "description": "发动机有口哨声或啸叫声，打开机油加注口盖声音变化",
+        "keywords": ["口哨声", "啸叫", "打开机油盖声变", "真空异响"],
+        "conditions": ["怠速", "行驶中"],
+        "severity": "warning"
+      },
+      {
+        "description": "怠速不稳，有时伴有发动机故障灯亮，读码显示混合气异常",
+        "keywords": ["怠速不稳", "混合气异常", "P0171", "真空泄漏"],
+        "conditions": ["怠速", "故障灯亮"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "PCV阀/废气阀故障",
+        "probability": 0.55,
+        "explanation": "PCV阀卡滞在开位导致过量曲轴箱气体进入进气系统，引起机油消耗增大和怠速不稳。大众EA888的油气分离器故障率较高。",
+        "checkItems": ["拆检PCV阀检查阀芯动作", "检查PCV管路有无机油", "拔掉PCV管检查真空吸力"],
+        "repairMethod": "更换PCV阀或油气分离器",
+        "parts": [
+          { "name": "PCV阀", "oemPrice": 150, "aftermarketPrice": 50, "brandPrice": 100 },
+          { "name": "油气分离器", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 350 }
+        ],
+        "laborHours": 1,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "PCV阀很便宜，烧机油时务必先排除PCV问题再考虑大修",
+          "大众EA888油气分离器是通病，很多人因此被忽悠做大修",
+          "自己摇晃PCV阀能听到咔哒声说明基本正常"
+        ]
+      },
+      {
+        "name": "PCV管路/膜片破损",
+        "probability": 0.25,
+        "explanation": "PCV管路老化开裂或内部膜片破损导致真空泄漏和机油被吸入进气系统。",
+        "checkItems": ["检查PCV管路有无裂纹", "检查进气歧管内有无大量机油", "烟雾测试检查泄漏"],
+        "repairMethod": "更换PCV管路或气门室盖总成",
+        "parts": [
+          { "name": "PCV管路", "oemPrice": 150, "aftermarketPrice": 50, "brandPrice": 100 },
+          { "name": "气门室盖（集成PCV）", "oemPrice": 600, "aftermarketPrice": 250, "brandPrice": 400 }
+        ],
+        "laborHours": 1.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "有些车型PCV集成在气门室盖内，只能换总成",
+          "品牌气门室盖质量可靠，不必非用原厂"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0171", "P052E", "P053A"],
+    "commonInModels": ["大众迈腾", "大众途观", "奥迪A4L", "宝马3系", "别克昂科威"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-015",
+    "category": "engine",
+    "subcategory": "燃油蒸发控制系统（EVAP）",
+    "symptoms": [
+      {
+        "description": "发动机故障灯亮，读码显示EVAP系统泄漏或流量异常",
+        "keywords": ["EVAP故障", "蒸发排放", "P0442", "P0455", "碳罐"],
+        "conditions": ["故障灯亮时", "年检时"],
+        "severity": "info"
+      },
+      {
+        "description": "加油后车内有汽油味，或者油箱附近有汽油味",
+        "keywords": ["汽油味", "加油后有味", "油箱味", "碳罐味"],
+        "conditions": ["加油后", "停车时"],
+        "severity": "warning"
+      },
+      {
+        "description": "加油时油枪总是自动跳枪，加不满",
+        "keywords": ["加油跳枪", "加不满", "油枪跳", "加油困难"],
+        "conditions": ["加油时"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "油箱盖密封不良",
+        "probability": 0.35,
+        "explanation": "油箱盖密封圈老化或盖子没拧紧，EVAP系统检测到油箱蒸气泄漏。这是最简单也最常被忽略的原因。",
+        "checkItems": ["检查油箱盖是否拧紧（听到咔哒声）", "检查油箱盖密封圈", "用烟雾测试仪检查油箱盖密封"],
+        "repairMethod": "拧紧油箱盖或更换油箱盖",
+        "parts": [
+          { "name": "油箱盖", "oemPrice": 80, "aftermarketPrice": 30, "brandPrice": 50 }
+        ],
+        "laborHours": 0.1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先检查油箱盖有没有拧紧！很多EVAP故障码就是盖子没拧紧导致的",
+          "油箱盖很便宜，自己换一个就行",
+          "消除故障码后行驶几天，如果不再亮就没事了"
+        ]
+      },
+      {
+        "name": "碳罐/碳罐电磁阀故障",
+        "probability": 0.35,
+        "explanation": "活性碳罐饱和或碳罐电磁阀卡滞在开/关位置，导致油箱蒸气无法被正确吸附或吹扫。",
+        "checkItems": ["检查碳罐电磁阀电阻和动作", "检查碳罐有无汽油浸泡", "检查碳罐通气管路"],
+        "repairMethod": "更换碳罐或碳罐电磁阀",
+        "parts": [
+          { "name": "碳罐", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 280 },
+          { "name": "碳罐电磁阀", "oemPrice": 200, "aftermarketPrice": 70, "brandPrice": 130 }
+        ],
+        "laborHours": 1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先换电磁阀（便宜），不行再换碳罐",
+          "碳罐被汽油浸泡后基本就废了，加油不要加太满可以延长碳罐寿命",
+          "有些碳罐位置刁钻（在油箱附近底盘下），工时费会偏高"
+        ]
+      },
+      {
+        "name": "EVAP管路泄漏/堵塞",
+        "probability": 0.20,
+        "explanation": "EVAP系统的真空管路老化开裂导致泄漏，或管路被压扁导致堵塞。",
+        "checkItems": ["烟雾测试EVAP系统", "检查所有EVAP管路和连接"],
+        "repairMethod": "更换破损管路",
+        "parts": [
+          { "name": "EVAP管路", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "小泄漏可以用管子套管临时修复",
+          "P0455（大泄漏）先检查油箱盖，P0442（小泄漏）可能需要烟雾测试定位"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0440", "P0441", "P0442", "P0443", "P0446", "P0451", "P0452", "P0455"],
+    "commonInModels": ["丰田凯美瑞", "本田雅阁", "大众速腾", "别克英朗", "福特福克斯"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-016",
+    "category": "engine",
+    "subcategory": "气缸垫/冲缸",
+    "symptoms": [
+      {
+        "description": "防冻液里有油花，或者机油变成乳白色（像奶茶色）",
+        "keywords": ["机油乳化", "防冻液有油", "奶茶色机油", "油水混合", "乳白色"],
+        "conditions": ["检查机油时", "检查防冻液时"],
+        "severity": "critical"
+      },
+      {
+        "description": "排气管冒大量白烟，热车后也不消失，防冻液消耗很快",
+        "keywords": ["冒白烟", "大量白烟", "防冻液消耗快", "持续白烟"],
+        "conditions": ["行驶中", "热车后"],
+        "severity": "critical"
+      },
+      {
+        "description": "防冻液壶里有气泡不断冒出，或者水箱压力异常高",
+        "keywords": ["防冻液冒泡", "水箱气压高", "水箱冒泡", "副水壶冒泡"],
+        "conditions": ["怠速", "热车"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "气缸垫损坏（冲缸垫）",
+        "probability": 0.60,
+        "explanation": "气缸垫密封失效导致冷却液和机油通道互通，或燃烧气体窜入冷却系统。常见于发动机过热后或高里程车辆。",
+        "checkItems": ["检测冷却液中是否有燃烧气体（CO2测试）", "检查机油是否乳化", "缸压测试", "内窥镜检查气缸内有无冷却液"],
+        "repairMethod": "拆缸盖更换气缸垫，同时检查缸盖平面度，必要时铣平",
+        "parts": [
+          { "name": "气缸垫", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 200 },
+          { "name": "缸盖螺栓套装", "oemPrice": 200, "aftermarketPrice": 80, "brandPrice": 140 }
+        ],
+        "laborHours": 10,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "这是大工程，费用通常在3000-8000元（含工时），报价过低可能有猫腻",
+          "缸盖螺栓是一次性的，必须换新，如果修理厂不换要提醒",
+          "缸盖如果变形需要铣平（200-500元），这个步骤不能省",
+          "轻微机油乳化也可能是缸盖罩密封问题，不一定是冲缸垫，要确诊"
+        ]
+      },
+      {
+        "name": "缸盖裂纹",
+        "probability": 0.15,
+        "explanation": "发动机过热或冻裂导致缸盖产生裂纹，冷却液渗入气缸或油道。",
+        "checkItems": ["缸盖压力测试", "渗透探伤检测", "拆检缸盖"],
+        "repairMethod": "焊修或更换缸盖",
+        "parts": [
+          { "name": "缸盖总成", "oemPrice": 5000, "aftermarketPrice": 2000, "brandPrice": 3500 }
+        ],
+        "laborHours": 12,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "裂纹修复（焊接）比换新缸盖便宜很多",
+          "先确认是缸盖裂了还是缸垫冲了，两者症状相似但维修费用差很多"
+        ]
+      },
+      {
+        "name": "机油散热器/变速箱油冷器内漏",
+        "probability": 0.15,
+        "explanation": "机油散热器内部密封破损导致机油和冷却液互窜，症状类似冲缸垫但维修简单得多。",
+        "checkItems": ["拆检机油散热器", "加压测试散热器密封性"],
+        "repairMethod": "更换机油散热器",
+        "parts": [
+          { "name": "机油散热器", "oemPrice": 600, "aftermarketPrice": 250, "brandPrice": 400 }
+        ],
+        "laborHours": 2,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "如果机油散热器是外挂式的，更换比冲缸垫便宜很多",
+          "先排除散热器问题再考虑拆缸盖"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P2181", "P0217"],
+    "commonInModels": ["大众帕萨特", "宝马3系", "别克君威", "雪佛兰科鲁兹", "福特蒙迪欧"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-017",
+    "category": "engine",
+    "subcategory": "可变气门正时（VVT/VANOS）",
+    "symptoms": [
+      {
+        "description": "发动机故障灯亮，读码显示凸轮轴正时偏差超限",
+        "keywords": ["VVT故障", "凸轮轴正时", "VANOS", "P0011", "P0014", "正时偏差"],
+        "conditions": ["故障灯亮时"],
+        "severity": "warning"
+      },
+      {
+        "description": "低速时动力不足，加速发闷，但高速又感觉正常",
+        "keywords": ["低速无力", "加速发闷", "动力异常", "低速发肉"],
+        "conditions": ["低速行驶", "城市道路"],
+        "severity": "warning"
+      },
+      {
+        "description": "冷启动时有短暂的哗啦声，伴随发动机抖动",
+        "keywords": ["冷启动响", "VVT响", "短暂异响", "启动抖动"],
+        "conditions": ["冷启动"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "VVT电磁阀/OCV阀卡滞",
+        "probability": 0.45,
+        "explanation": "机油控制阀（OCV）因油泥或杂质卡滞，无法正常调节凸轮轴相位。这是最常见也最容易修的原因。",
+        "checkItems": ["拆检OCV阀滤网有无堵塞", "通电测试阀体动作", "读取VVT实际值与目标值偏差"],
+        "repairMethod": "清洗OCV阀及滤网，无效则更换",
+        "parts": [
+          { "name": "VVT电磁阀/OCV阀", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 260 }
+        ],
+        "laborHours": 0.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先清洗试试！很多时候拆出来清洗一下就好了",
+          "脏机油是VVT故障的元凶，换好机油和机滤可能也能改善",
+          "不要被建议更换VVT执行器（链轮），那贵得多，先排除电磁阀问题"
+        ]
+      },
+      {
+        "name": "VVT执行器（相位调节器）磨损",
+        "probability": 0.25,
+        "explanation": "VVT执行器内部叶片磨损或锁止销失效，导致凸轮轴相位无法精确调节。",
+        "checkItems": ["检查执行器锁止功能", "拆检执行器磨损情况", "检查机油压力是否足够"],
+        "repairMethod": "更换VVT执行器（通常需拆正时系统）",
+        "parts": [
+          { "name": "VVT执行器（进气）", "oemPrice": 1500, "aftermarketPrice": 600, "brandPrice": 1000 },
+          { "name": "VVT执行器（排气）", "oemPrice": 1500, "aftermarketPrice": 600, "brandPrice": 1000 }
+        ],
+        "laborHours": 5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "执行器很少坏，务必先排除电磁阀和机油问题",
+          "更换执行器需要拆正时系统，建议同时换正时链条/皮带",
+          "品牌件可以使用但建议选大厂品牌"
+        ]
+      },
+      {
+        "name": "机油压力不足/油道堵塞",
+        "probability": 0.20,
+        "explanation": "VVT系统依赖机油压力驱动，机油泵压力不足或油道油泥堵塞都会导致VVT工作异常。",
+        "checkItems": ["测量机油压力", "检查机油品质和液位", "检查机油滤清器是否堵塞"],
+        "repairMethod": "更换机油和滤清器，严重时需要清洗油道",
+        "parts": [
+          { "name": "全合成机油（4L）", "oemPrice": 400, "aftermarketPrice": 180, "brandPrice": 280 },
+          { "name": "机油滤清器", "oemPrice": 60, "aftermarketPrice": 20, "brandPrice": 40 }
+        ],
+        "laborHours": 1,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "很多时候换一次好机油就能解决问题",
+          "定期保养换机油是预防VVT故障的最佳方法",
+          "不要长期拖延保养，油泥是VVT系统的大敌"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0010", "P0011", "P0012", "P0013", "P0014", "P0015", "P0020", "P0021"],
+    "commonInModels": ["丰田凯美瑞", "丰田RAV4", "本田雅阁", "宝马3系", "大众迈腾", "马自达CX-5"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-018",
+    "category": "engine",
+    "subcategory": "发动机传感器/电控",
+    "symptoms": [
+      {
+        "description": "发动机故障灯亮，但开起来感觉没什么异常",
+        "keywords": ["故障灯亮", "没异常", "灯亮但正常", "传感器故障"],
+        "conditions": ["行驶中", "故障灯亮时"],
+        "severity": "warning"
+      },
+      {
+        "description": "车辆启动困难，或者启动后立即熄火",
+        "keywords": ["启动困难", "启动即熄火", "着车就灭", "不好启动"],
+        "conditions": ["启动时", "热车启动"],
+        "severity": "critical"
+      },
+      {
+        "description": "油耗突然升高，动力下降，加速时感觉发闷",
+        "keywords": ["油耗升高", "动力下降", "发闷", "加速慢"],
+        "conditions": ["日常驾驶", "加速时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "曲轴位置传感器/凸轮轴位置传感器故障",
+        "probability": 0.35,
+        "explanation": "曲轴/凸轮轴位置传感器是发动机最关键的传感器之一，信号丢失会导致ECU无法确定点火和喷油时机，造成启动困难或熄火。",
+        "checkItems": ["读取曲轴/凸轮轴传感器信号波形", "检查传感器电阻值", "检查传感器安装间隙和线路"],
+        "repairMethod": "更换故障传感器",
+        "parts": [
+          { "name": "曲轴位置传感器", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 200 },
+          { "name": "凸轮轴位置传感器", "oemPrice": 250, "aftermarketPrice": 80, "brandPrice": 170 }
+        ],
+        "laborHours": 1,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "传感器本身不贵，但位置可能不好拆，工时费会高一些",
+          "先读故障码确认是哪个传感器的问题，不要两个都换",
+          "热车熄火、凉车能启动——典型的曲轴位置传感器故障特征"
+        ]
+      },
+      {
+        "name": "空气流量计（MAF）故障",
+        "probability": 0.30,
+        "explanation": "空气流量计热膜/热线被污染或损坏，ECU无法准确计算进气量，导致空燃比失调。",
+        "checkItems": ["读取空气流量计数据（g/s）", "与实际进气量对比", "检查进气系统有无漏气"],
+        "repairMethod": "先用专用清洗剂清洗MAF，无效则更换",
+        "parts": [
+          { "name": "空气流量计", "oemPrice": 800, "aftermarketPrice": 250, "brandPrice": 450 }
+        ],
+        "laborHours": 0.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先清洗！MAF专用清洗剂20-50元，很多时候清洗就恢复了",
+          "千万不要用手或其他物品触碰MAF感应元件",
+          "品牌件（博世、电装）质量好，不必非用原厂件"
+        ]
+      },
+      {
+        "name": "进气压力传感器（MAP）故障",
+        "probability": 0.15,
+        "explanation": "进气压力传感器故障导致ECU无法准确获知进气歧管压力，喷油量计算偏差。",
+        "checkItems": ["读取MAP传感器数据", "与大气压力对比", "检查真空管连接"],
+        "repairMethod": "更换进气压力传感器",
+        "parts": [
+          { "name": "进气压力传感器", "oemPrice": 250, "aftermarketPrice": 80, "brandPrice": 160 }
+        ],
+        "laborHours": 0.3,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先检查传感器上的真空管有没有脱落或破损",
+          "传感器不贵，自己换也很简单"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0100", "P0101", "P0102", "P0103", "P0105", "P0106", "P0335", "P0340"],
+    "commonInModels": ["大众朗逸", "丰田卡罗拉", "本田思域", "别克英朗", "日产轩逸"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-019",
+    "category": "engine",
+    "subcategory": "二次空气喷射系统",
+    "symptoms": [
+      {
+        "description": "冷启动时发动机舱有嗡嗡声或排气声比平时大",
+        "keywords": ["冷启动声音大", "二次空气", "嗡嗡声", "排气声大"],
+        "conditions": ["冷启动", "冬季早晨"],
+        "severity": "info"
+      },
+      {
+        "description": "发动机故障灯亮，读码显示二次空气系统流量不足",
+        "keywords": ["二次空气故障", "P0410", "P0411", "AIR泵"],
+        "conditions": ["故障灯亮时"],
+        "severity": "info"
+      },
+      {
+        "description": "冷启动时排气有浓烈的汽油味",
+        "keywords": ["冷启动汽油味", "冷车尾气臭", "排放异常"],
+        "conditions": ["冷启动", "冬季"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "二次空气泵故障",
+        "probability": 0.45,
+        "explanation": "二次空气泵电机碳刷磨损或泵体损坏，无法在冷启动时向排气系统注入新鲜空气帮助催化器快速升温。",
+        "checkItems": ["冷启动时听二次空气泵是否工作", "检查泵供电和继电器", "检查空气泵出气管路"],
+        "repairMethod": "更换二次空气泵",
+        "parts": [
+          { "name": "二次空气泵", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 }
+        ],
+        "laborHours": 1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "二次空气系统故障不影响正常驾驶，只是冷启动排放稍差",
+          "不修也不影响用车，只是故障灯会亮",
+          "如果不想花钱修，可以只清除故障码"
+        ]
+      },
+      {
+        "name": "二次空气组合阀/管路堵塞",
+        "probability": 0.30,
+        "explanation": "排气侧的组合阀因积碳堵塞，二次空气无法进入排气歧管。",
+        "checkItems": ["拆检组合阀", "检查管路有无堵塞或破损"],
+        "repairMethod": "清洗或更换组合阀",
+        "parts": [
+          { "name": "二次空气组合阀", "oemPrice": 400, "aftermarketPrice": 150, "brandPrice": 280 }
+        ],
+        "laborHours": 1.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "可以尝试清洗组合阀，不一定需要换新的",
+          "这个系统不影响正常行驶，维修优先级可以放低"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0410", "P0411", "P0412", "P0413", "P0418"],
+    "commonInModels": ["大众帕萨特", "大众迈腾", "奥迪A4L", "奥迪A6L", "别克君威"],
+    "tsbReferences": []
+  },
+
+  {
+    "id": "engine-020",
+    "category": "engine",
+    "subcategory": "发动机积碳/养护",
+    "symptoms": [
+      {
+        "description": "冷启动抖动明显，热车后减轻，油耗比以前高了",
+        "keywords": ["冷车抖", "油耗高", "积碳", "启动抖"],
+        "conditions": ["冷启动", "城市行驶多"],
+        "severity": "info"
+      },
+      {
+        "description": "加速时有顿挫感，动力不如以前，发动机声音也变大了",
+        "keywords": ["加速顿挫", "动力下降", "声音变大", "发闷"],
+        "conditions": ["加速", "高速行驶"],
+        "severity": "warning"
+      },
+      {
+        "description": "怠速不稳，偶尔出现缺火抖动，尾气有时有刺鼻气味",
+        "keywords": ["怠速不稳", "缺火", "尾气刺鼻", "间歇性抖动"],
+        "conditions": ["怠速", "日常驾驶"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "进气道/气门背面严重积碳",
+        "probability": 0.40,
+        "explanation": "缸内直喷发动机（如大众EA888、宝马N20）的进气门背面特别容易积碳，因为没有汽油冲刷。积碳影响进气量和混合气质量。",
+        "checkItems": ["内窥镜检查进气门背面和进气道积碳", "检查节气门积碳", "读取长期燃油修正值"],
+        "repairMethod": "核桃砂/干冰清洗进气道积碳（推荐），或化学清洗",
+        "parts": [],
+        "laborHours": 3,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "核桃砂清洗（500-1000元）效果最好，比拆缸盖清理便宜得多",
+          "打吊瓶（化学清洗）效果有限，严重积碳基本没用",
+          "建议每3-5万公里做一次进气道清洗（直喷发动机）",
+          "不需要拆缸盖，那些说需要大修的都是在忽悠"
+        ]
+      },
+      {
+        "name": "燃烧室积碳",
+        "probability": 0.35,
+        "explanation": "活塞顶面和气缸盖燃烧室面积碳导致压缩比升高，容易引起爆震和冷启动抖动。",
+        "checkItems": ["内窥镜检查燃烧室积碳情况", "检查火花塞积碳", "测量缸压"],
+        "repairMethod": "化学清洗（打吊瓶/泡缸）或核桃砂清洗",
+        "parts": [
+          { "name": "燃烧室清洗剂", "oemPrice": 100, "aftermarketPrice": 40, "brandPrice": 70 }
+        ],
+        "laborHours": 1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "打吊瓶清洗200-400元，不必做太贵的清洗项目",
+          "燃油添加剂有一定预防效果，但不能替代专业清洗",
+          "轻微积碳是正常的，不必过度清洗"
+        ]
+      },
+      {
+        "name": "长期低速行驶/保养不当",
+        "probability": 0.15,
+        "explanation": "长期城市低速行驶、使用劣质燃油、保养间隔过长都会加速积碳形成。",
+        "checkItems": ["查看保养记录", "检查空滤和燃油滤芯", "了解日常行驶路况"],
+        "repairMethod": "更换全车滤芯和机油，之后定期跑跑高速，使用品质燃油",
+        "parts": [
+          { "name": "全合成机油（4L）", "oemPrice": 400, "aftermarketPrice": 180, "brandPrice": 280 },
+          { "name": "空气滤芯", "oemPrice": 80, "aftermarketPrice": 20, "brandPrice": 45 },
+          { "name": "燃油滤清器", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 1,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "定期跑高速（3000转以上持续10分钟）有助于减少积碳",
+          "使用正规加油站燃油，不必加高标号",
+          "保养按厂家手册来，不必被4S店推荐做各种'深度养护'"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0300", "P0171", "P0172"],
+    "commonInModels": ["大众途观", "大众迈腾", "宝马3系", "奥迪A4L", "别克昂科威", "福特翼虎"],
+    "tsbReferences": []
+  }
+]

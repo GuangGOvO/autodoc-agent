@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest *)",
+      "Bash(mv autodoc-agent/* autodoc-agent/.* .)",
+      "Bash(rmdir autodoc-agent *)",
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest *)",
+      "Bash(npm ls *)",
+      "Bash(npx next *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000/diagnose)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(python3 -c ' *)",
+      "Bash(node *)",
+      "Bash(npm run *)",
+      "Bash(timeout 10 sleep 5)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} → %{redirect_url}\\\\n\" http://localhost:3000/diagnose)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} → %{redirect_url}\\\\n\" http://localhost:3000/vehicles)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} → %{redirect_url}\\\\n\" http://localhost:3000/history)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} → %{redirect_url}\\\\n\" http://localhost:3000/profile)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} → %{redirect_url}\\\\n\" http://localhost:3000/used-car)",
+      "Bash(curl -s -w '\\\\nHTTP %{http_code}\\\\n' -X POST http://localhost:3000/api/diagnose/chat -H 'Content-Type: application/json' -d '{\"messages\":[],\"message\":\"test\"}')",
+      "Bash(curl -s -w '\\\\nHTTP %{http_code}\\\\n' -X POST http://localhost:3000/api/used-car/evaluate -H 'Content-Type: application/json' -d '{\"brand\":\"test\"}')"
+    ]
+  }
+}

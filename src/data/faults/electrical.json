@@ -1,0 +1,365 @@
+[
+  {
+    "id": "electrical-001",
+    "category": "electrical",
+    "subcategory": "电瓶亏电",
+    "symptoms": [
+      {
+        "description": "早上打不着火了，拧钥匙只听到'哒哒哒'的声音，车就是不着",
+        "keywords": ["打不着火", "哒哒响不着车", "启动无力", "电瓶没电"],
+        "conditions": ["长时间停放后", "冬季早晨", "忘记关灯后"],
+        "severity": "warning"
+      },
+      {
+        "description": "车灯越来越暗，怠速的时候更暗，加油门才亮一点",
+        "keywords": ["车灯暗", "灯光变暗", "怠速灯暗", "大灯不亮"],
+        "conditions": ["夜间怠速时", "开大灯时"],
+        "severity": "info"
+      },
+      {
+        "description": "每次停车几天就打不着火，明明电瓶才换了没多久",
+        "keywords": ["停几天就没电", "漏电", "暗电流大", "频繁亏电"],
+        "conditions": ["停放2-3天后", "频繁短途行驶后"],
+        "severity": "warning"
+      },
+      {
+        "description": "仪表盘提示电池电压低，或者自动启停功能不能用了",
+        "keywords": ["电池电压低", "启停不可用", "电池报警", "低电压提示"],
+        "conditions": ["行驶中", "启动后"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "电瓶寿命到期",
+        "probability": 0.45,
+        "explanation": "普通铅酸电瓶寿命一般2-4年，AGM/EFB启停电瓶3-5年。电瓶容量随使用逐渐衰减，到达寿命末期无法维持正常启动所需电量。冬季低温会进一步降低电瓶性能。",
+        "checkItems": ["用万用表测量静态电压（正常12.4-12.8V）", "用电瓶检测仪测试CCA和健康度", "检查电瓶有无鼓包和漏液", "确认电瓶使用时长"],
+        "repairMethod": "更换电瓶，注意选择与原厂规格一致的型号。启停车型必须使用AGM/EFB电瓶。",
+        "parts": [
+          { "name": "普通铅酸电瓶（60Ah）", "oemPrice": 600, "aftermarketPrice": 350, "brandPrice": 450 },
+          { "name": "AGM启停电瓶（70Ah）", "oemPrice": 1500, "aftermarketPrice": 800, "brandPrice": 1100 },
+          { "name": "EFB启停电瓶（65Ah）", "oemPrice": 1000, "aftermarketPrice": 600, "brandPrice": 800 }
+        ],
+        "laborHours": 0.3,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "4S店换电瓶通常比外面贵30-50%，电瓶品牌（瓦尔塔、骆驼、风帆）都一样",
+          "很多品牌提供上门安装服务，比去店里更方便且价格更低",
+          "启停车型必须用AGM/EFB电瓶，用普通电瓶会很快损坏",
+          "旧电瓶有回收价值（50-100元），以旧换新可以再便宜点",
+          "如果电瓶才用1-2年就不行了，可能不是电瓶的问题，要检查有无漏电"
+        ]
+      },
+      {
+        "name": "车辆漏电（暗电流过大）",
+        "probability": 0.25,
+        "explanation": "车辆熄火后某些电器设备仍在工作（如加装的行车记录仪、GPS定位器、不正确的接线），导致暗电流过大把电瓶耗尽。加装的电子设备是最常见的漏电原因。",
+        "checkItems": ["测量熄火后暗电流（正常<50mA）", "逐一拔掉保险丝排查漏电回路", "检查有无加装电子设备", "检查后备箱灯和手套箱灯是否常亮"],
+        "repairMethod": "找到漏电原因并修复，拆除不必要的加装设备或修正接线方式。",
+        "parts": [],
+        "laborHours": 2.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先自己检查一下有没有加装的行车记录仪接的常电（停车监控功能），这是最常见的漏电原因",
+          "排查漏电需要时间（可能1-2小时），工时费200-400元合理",
+          "有些4S店会说'全车电路检测'收费800+，实际上就是逐个拔保险丝",
+          "后备箱灯、手套箱灯、化妆镜灯这些不引人注意的灯如果开关坏了会一直亮"
+        ]
+      },
+      {
+        "name": "发电机充电不足",
+        "probability": 0.20,
+        "explanation": "发电机输出电压不足（正常13.8-14.5V），无法为电瓶充分充电。长时间短途行驶也会导致充电不足，因为启动消耗的电量在短途行驶中来不及补充。",
+        "checkItems": ["测量发动机运行时电瓶端电压（正常13.8-14.5V）", "开大灯和空调后电压是否明显下降", "检查发电机皮带是否打滑", "检查电瓶接线柱是否氧化松动"],
+        "repairMethod": "维修或更换发电机，清洁电瓶接线柱。",
+        "parts": [
+          { "name": "发电机总成", "oemPrice": 2000, "aftermarketPrice": 600, "brandPrice": 1100 }
+        ],
+        "laborHours": 2.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先检查电瓶接线柱是否松动氧化！拧紧或清洁可能就解决问题",
+          "发电机可以维修（换碳刷、整流器等），不一定需要换总成",
+          "品牌再制造发电机质量可靠，价格只有原厂新件的一半"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0562", "P0563", "P0620", "P0621"],
+    "commonInModels": ["大众朗逸", "丰田卡罗拉", "本田飞度", "日产轩逸", "别克英朗", "现代瑞纳", "雪佛兰科鲁兹"],
+    "tsbReferences": []
+  },
+  {
+    "id": "electrical-002",
+    "category": "electrical",
+    "subcategory": "发电机故障",
+    "symptoms": [
+      {
+        "description": "行驶中仪表盘突然亮起红色的电池灯，表示不充电了",
+        "keywords": ["电池灯亮", "充电指示灯亮", "红色电池灯", "不充电"],
+        "conditions": ["行驶中突然亮起"],
+        "severity": "critical"
+      },
+      {
+        "description": "晚上开大灯灯光忽明忽暗的，怠速时更明显",
+        "keywords": ["灯光忽明忽暗", "大灯闪烁", "怠速灯光不稳"],
+        "conditions": ["夜间行驶时", "怠速开灯时"],
+        "severity": "warning"
+      },
+      {
+        "description": "发动机舱有焦糊味或者冒烟，皮带那边有异响",
+        "keywords": ["焦糊味", "发电机异响", "皮带处冒烟", "发动机舱异味"],
+        "conditions": ["行驶中", "大负荷用电时"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "发电机碳刷/整流器磨损",
+        "probability": 0.45,
+        "explanation": "发电机碳刷是易损件，通常10-15万公里后磨损到极限。整流二极管老化也会导致输出电压不稳。磨损初期表现为充电不足，严重时完全不发电。",
+        "checkItems": ["测量发电机输出电压", "检查发电机皮带张紧力", "用诊断仪读取发电机负荷数据", "听发电机有无异响"],
+        "repairMethod": "更换发电机总成或维修（更换碳刷/整流器）。维修费用约为更换总成的1/3。",
+        "parts": [
+          { "name": "发电机总成", "oemPrice": 2500, "aftermarketPrice": 700, "brandPrice": 1300 },
+          { "name": "发电机碳刷", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 },
+          { "name": "发电机整流器", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 }
+        ],
+        "laborHours": 2.0,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "行驶中电池灯亮说明不充电了，车辆只靠电瓶供电，还能跑30-50公里，要尽快去修理厂",
+          "关闭所有不必要的电器（空调、音响、大灯）可以延长行驶距离",
+          "发电机维修比换新件便宜很多，但不是所有修理厂都愿意修（利润低），可以多问几家",
+          "品牌再制造发电机（博世、法雷奥）质量可靠，比原厂新件便宜一半"
+        ]
+      },
+      {
+        "name": "发电机皮带断裂/打滑",
+        "probability": 0.30,
+        "explanation": "发电机由发动机通过皮带驱动，皮带断裂或严重打滑会导致发电机停止工作。打滑通常伴有尖锐的吱吱声。",
+        "checkItems": ["目视检查皮带是否完好", "检查皮带张紧力", "检查张紧轮和惰轮", "检查皮带轮有无偏摆"],
+        "repairMethod": "更换皮带，同时检查张紧轮和惰轮。",
+        "parts": [
+          { "name": "发电机皮带/附件皮带", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 },
+          { "name": "皮带张紧轮", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 }
+        ],
+        "laborHours": 1.0,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "皮带断了除了不发电，还可能影响转向助力和水泵（视车型而定），需要立即停车",
+          "换皮带很简单，工时费100-200元",
+          "建议同时换张紧轮，只多100-200元工时费"
+        ]
+      },
+      {
+        "name": "发电机调节器故障",
+        "probability": 0.15,
+        "explanation": "电压调节器控制发电机输出电压，故障会导致电压过高（烧电器）或过低（充不上电）。部分车型的调节器可以单独更换。",
+        "checkItems": ["测量发电机输出电压是否稳定在13.8-14.5V", "检查电压是否随转速异常波动"],
+        "repairMethod": "更换电压调节器或发电机总成。",
+        "parts": [
+          { "name": "发电机调节器", "oemPrice": 400, "aftermarketPrice": 120, "brandPrice": 220 }
+        ],
+        "laborHours": 1.5,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "如果电压过高（>15V），立即停车！会烧坏车载电脑和其他电器",
+          "调节器可以单独更换，不需要换整个发电机"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0562", "P0563", "P0620", "P0621", "P0622"],
+    "commonInModels": ["大众速腾", "丰田凯美瑞", "本田雅阁", "日产天籁", "别克君威", "福特蒙迪欧", "现代索纳塔"],
+    "tsbReferences": []
+  },
+  {
+    "id": "electrical-003",
+    "category": "electrical",
+    "subcategory": "启动机故障",
+    "symptoms": [
+      {
+        "description": "拧钥匙一点反应都没有，连'哒哒'声都没有，完全静默",
+        "keywords": ["拧钥匙没反应", "无法启动", "启动无响应", "完全无声"],
+        "conditions": ["拧钥匙启动时", "按一键启动时"],
+        "severity": "critical"
+      },
+      {
+        "description": "拧钥匙有'哒'的一声但启动机不转，或者转得很慢很吃力",
+        "keywords": ["启动机转不动", "启动无力", "哒一声不转", "启动机卡住"],
+        "conditions": ["启动时", "冷车时"],
+        "severity": "critical"
+      },
+      {
+        "description": "发动机已经启动了但启动机还在转，有'呜呜'的打齿声",
+        "keywords": ["启动机不回位", "打齿声", "启动后启动机还转"],
+        "conditions": ["启动成功后"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "启动机电磁开关/碳刷磨损",
+        "probability": 0.45,
+        "explanation": "启动机电磁开关负责将齿轮推出啮合飞轮，碳刷负责传递电流。这两个部件都是易损件，通常10-15万公里后会出现问题。电磁开关故障表现为有'哒'声但不转，碳刷磨损则完全无响应。",
+        "checkItems": ["检查电瓶电压是否充足", "检查启动机供电线路", "敲击启动机外壳试能否启动（临时方法）", "测量启动机电磁开关信号线"],
+        "repairMethod": "更换启动机总成或维修（更换碳刷/电磁开关）。维修费用约为更换的1/3-1/2。",
+        "parts": [
+          { "name": "启动机总成", "oemPrice": 2000, "aftermarketPrice": 500, "brandPrice": 1000 },
+          { "name": "启动机碳刷", "oemPrice": 80, "aftermarketPrice": 25, "brandPrice": 45 }
+        ],
+        "laborHours": 1.5,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "先确认不是电瓶没电！用电瓶检测仪测一下电压和CCA",
+          "应急方法：用扳手轻敲启动机外壳可能临时恢复（碳刷接触不良时），但只能应急，仍需更换",
+          "品牌再制造启动机（博世、电装）质量可靠，价格只有原厂新件的一半",
+          "启动机维修（换碳刷）100-300元就行，但很多修理厂只换不修",
+          "4S店换启动机报价2000-4000元，修理厂用品牌件800-1500元"
+        ]
+      },
+      {
+        "name": "启动继电器/线路故障",
+        "probability": 0.25,
+        "explanation": "启动继电器负责将点火开关的小电流信号转为大电流驱动启动机。继电器故障、保险丝烧毁或线路接触不良都会导致启动机无法工作。",
+        "checkItems": ["检查启动相关保险丝", "检查启动继电器（可与同型号继电器对调测试）", "检查启动机供电线路连通性", "检查点火开关信号是否正常"],
+        "repairMethod": "更换故障的继电器、保险丝或修复线路。",
+        "parts": [
+          { "name": "启动继电器", "oemPrice": 80, "aftermarketPrice": 20, "brandPrice": 40 },
+          { "name": "保险丝", "oemPrice": 10, "aftermarketPrice": 3, "brandPrice": 5 }
+        ],
+        "laborHours": 0.5,
+        "severity": "moderate",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "先检查保险丝！这是最简单也最便宜的排查步骤",
+          "继电器对调测试是最快的判断方法，同型号继电器互换看问题是否转移",
+          "保险丝和继电器很便宜，不要被收高价"
+        ]
+      },
+      {
+        "name": "飞轮齿圈损坏",
+        "probability": 0.15,
+        "explanation": "飞轮齿圈是启动机齿轮啮合的对象，齿圈局部磨损缺齿会导致启动机无法啮合飞轮，表现为启动机空转或打齿。",
+        "checkItems": ["检查飞轮齿圈齿面状态", "尝试多次启动看不同位置是否能啮合", "拆下启动机检查齿轮状态"],
+        "repairMethod": "更换飞轮齿圈（需要拆变速箱），工程较大。",
+        "parts": [
+          { "name": "飞轮齿圈", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 }
+        ],
+        "laborHours": 6.0,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "飞轮齿圈损坏比较少见，先排除启动机本身的问题",
+          "更换齿圈需要拆变速箱，工时费很高（1500-3000元），确认是齿圈问题再修"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["P0615", "P0616", "P0617"],
+    "commonInModels": ["大众捷达", "丰田花冠", "本田飞度", "日产骊威", "现代悦动", "雪佛兰赛欧", "长安逸动"],
+    "tsbReferences": []
+  },
+  {
+    "id": "electrical-004",
+    "category": "electrical",
+    "subcategory": "车灯/电路故障",
+    "symptoms": [
+      {
+        "description": "一侧的大灯不亮了，远光近光都不亮",
+        "keywords": ["大灯不亮", "一侧灯不亮", "近光不亮", "远光不亮"],
+        "conditions": ["开灯时", "夜间行驶时"],
+        "severity": "warning"
+      },
+      {
+        "description": "转向灯闪得特别快，或者常亮不闪了",
+        "keywords": ["转向灯快闪", "转向灯不闪", "转向灯异常"],
+        "conditions": ["打转向灯时"],
+        "severity": "info"
+      },
+      {
+        "description": "车窗升降不了，按开关没反应或者很慢",
+        "keywords": ["车窗升降不了", "电动车窗故障", "玻璃升降慢", "车窗卡住"],
+        "conditions": ["操作车窗时"],
+        "severity": "info"
+      },
+      {
+        "description": "中控锁失灵了，锁不上或者解锁不了",
+        "keywords": ["中控锁失灵", "车门锁不上", "遥控钥匙失灵", "锁车没反应"],
+        "conditions": ["锁车/解锁时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "灯泡烧毁/灯座接触不良",
+        "probability": 0.40,
+        "explanation": "灯泡是消耗品，卤素灯泡寿命一般500-1000小时。灯座氧化松动也会导致接触不良，灯光时亮时灭。",
+        "checkItems": ["拆检灯泡是否烧毁", "检查灯座触点有无氧化", "检查灯泡保险丝", "检查灯光继电器"],
+        "repairMethod": "更换灯泡，清洁灯座触点。建议左右同时更换以保持亮度一致。",
+        "parts": [
+          { "name": "卤素大灯灯泡（H7）", "oemPrice": 80, "aftermarketPrice": 20, "brandPrice": 40 },
+          { "name": "氙气大灯灯泡（D2S）", "oemPrice": 500, "aftermarketPrice": 150, "brandPrice": 300 },
+          { "name": "LED大灯灯泡", "oemPrice": 300, "aftermarketPrice": 80, "brandPrice": 180 }
+        ],
+        "laborHours": 0.3,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "大部分车型的大灯灯泡可以自己更换，不需要去修理厂",
+          "品牌灯泡（欧司朗/Osram、飞利浦/Philips）质量可靠，不要买杂牌",
+          "换灯泡时手不要直接接触灯泡玻璃（会留油脂影响寿命），用干净纸巾或布",
+          "卤素灯升级LED灯泡要注意散热和光型，劣质LED会晃对面司机"
+        ]
+      },
+      {
+        "name": "保险丝/继电器烧毁",
+        "probability": 0.30,
+        "explanation": "各种电器设备都有对应的保险丝和继电器保护，过载或短路会导致保险丝熔断。这是很多电器故障最简单也最便宜的原因。",
+        "checkItems": ["查阅保险丝盒盖上的电路图找到对应保险丝", "目视或万用表检查保险丝是否熔断", "检查对应继电器", "排查导致保险丝烧毁的根本原因"],
+        "repairMethod": "更换同规格保险丝，如反复烧毁需排查短路原因。",
+        "parts": [
+          { "name": "保险丝（各规格）", "oemPrice": 5, "aftermarketPrice": 1, "brandPrice": 3 },
+          { "name": "继电器", "oemPrice": 80, "aftermarketPrice": 20, "brandPrice": 40 }
+        ],
+        "laborHours": 0.3,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "保险丝几块钱一个，自己换就行！很多车保险丝盒里有备用保险丝和拔取工具",
+          "如果换上新保险丝又烧了，说明有短路，不要反复换保险丝",
+          "转向灯快闪通常是某个转向灯泡烧了，不是闪光器的问题",
+          "修理厂如果收你200块换个保险丝，那就是在宰你"
+        ]
+      },
+      {
+        "name": "线路接触不良/断路",
+        "probability": 0.20,
+        "explanation": "线束老化、接头氧化松动、线束磨损搭铁等都会导致电路接触不良。车门铰链处的线束因反复弯折容易断路，是车窗和中控锁故障的常见原因。",
+        "checkItems": ["检查相关线束和接头", "重点检查车门铰链处线束弯折部位", "用万用表测量线路连通性", "检查搭铁点是否锈蚀"],
+        "repairMethod": "修复或更换损坏的线束段，清洁接头并涂抹导电脂。",
+        "parts": [
+          { "name": "线束修理包", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 },
+          { "name": "线束接头", "oemPrice": 30, "aftermarketPrice": 8, "brandPrice": 15 }
+        ],
+        "laborHours": 2.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "车窗升降不了先检查保险丝和开关，最后才查线束",
+          "车门线束断路是通病，维修费用不高但需要耐心排查",
+          "如果4S店说要换整个线束（几千元），多问几家，通常只需要修复损坏的那一段"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["B0001", "B0002", "B1200", "B1800"],
+    "commonInModels": ["大众宝来", "丰田卡罗拉", "本田思域", "日产轩逸", "现代朗动", "福特福克斯", "雪佛兰科鲁兹"],
+    "tsbReferences": []
+  }
+]

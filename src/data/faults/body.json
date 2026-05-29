@@ -1,0 +1,185 @@
+[
+  {
+    "id": "body-001",
+    "category": "body",
+    "subcategory": "车身锈蚀",
+    "symptoms": [
+      {
+        "description": "车门下沿、轮眉附近开始起泡，漆面鼓包，里面锈了",
+        "keywords": ["车身生锈", "漆面起泡", "鼓包", "锈蚀", "锈穿"],
+        "conditions": ["车辆使用5年以上", "沿海或北方撒盐地区"],
+        "severity": "warning"
+      },
+      {
+        "description": "底盘下面锈得很厉害，有些部件看着都要锈穿了",
+        "keywords": ["底盘锈蚀", "底盘锈穿", "排气管锈", "副车架锈"],
+        "conditions": ["检查底盘时", "冬季撒融雪剂地区"],
+        "severity": "warning"
+      },
+      {
+        "description": "车漆有划痕没处理，过一段时间划痕位置开始生锈了",
+        "keywords": ["划痕生锈", "剐蹭后锈蚀", "露底漆生锈"],
+        "conditions": ["漆面损伤后", "未及时处理划痕"],
+        "severity": "info"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "漆面损伤/老化导致钢板锈蚀",
+        "probability": 0.40,
+        "explanation": "车身钢板表面的油漆和电泳层是防锈的第一道防线。剐蹭、石子崩漆等损伤如果不及时处理，水汽侵入会导致钢板锈蚀。沿海地区盐雾和北方冬季融雪剂会大大加速锈蚀。",
+        "checkItems": ["全面检查车身漆面，重点关注车门下沿、轮眉、翼子板边缘", "检查底盘防锈涂层状态", "检查排水孔是否堵塞", "检查有无未修复的剐蹭和石子崩漆"],
+        "repairMethod": "轻微锈蚀打磨后补漆处理；严重锈蚀需要切割焊接修复或更换面板。底盘可做底盘装甲防护。",
+        "parts": [
+          { "name": "补漆笔/喷漆修复", "oemPrice": 300, "aftermarketPrice": 50, "brandPrice": 150 },
+          { "name": "底盘装甲施工", "oemPrice": 1500, "aftermarketPrice": 500, "brandPrice": 800 },
+          { "name": "车门钣金喷漆（单面）", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 }
+        ],
+        "laborHours": 4.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "小划痕及时用补漆笔处理（20-50元），别等锈了再修（几百到上千）",
+          "底盘装甲新车时做一次500-800元就够了，不要等锈蚀了再做",
+          "钣金喷漆一个面300-800元是合理范围，4S店一个面可能收1000-2000元",
+          "北方车主建议每年春季做一次底盘清洗，去除融雪剂残留",
+          "不要在已经锈蚀的底盘上直接喷底盘装甲，要先除锈处理"
+        ]
+      },
+      {
+        "name": "排水孔堵塞导致积水锈蚀",
+        "probability": 0.30,
+        "explanation": "车门、天窗、后备箱等位置都有排水孔，堵塞后雨水积聚在内部导致从里向外锈蚀。很多车主直到锈穿才发现，因为外表看不到。",
+        "checkItems": ["检查车门排水孔是否通畅（打开车门底部可见）", "天窗排水管是否堵塞", "后备箱密封条和排水孔", "检查门槛内部有无积水"],
+        "repairMethod": "疏通排水孔，对锈蚀部位进行除锈和防锈处理。",
+        "parts": [
+          { "name": "除锈防锈处理", "oemPrice": 200, "aftermarketPrice": 80, "brandPrice": 120 }
+        ],
+        "laborHours": 2.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "自己用牙签或铁丝就能疏通车门排水孔，不花钱",
+          "洗车的时候注意不要用高压水枪直冲车门排水孔",
+          "天窗排水管堵塞可能导致车内进水，疏通费用50-100元"
+        ]
+      },
+      {
+        "name": "制造质量/防锈工艺不足",
+        "probability": 0.20,
+        "explanation": "部分品牌的车身防锈工艺较差（如早期的某些自主品牌和韩系车），使用5-8年即开始出现锈蚀。镀锌钢板使用比例低、电泳工艺不到位是主因。",
+        "checkItems": ["了解车型的防锈口碑", "检查常见锈蚀位置", "评估锈蚀程度"],
+        "repairMethod": "根据锈蚀程度进行修复，严重的可能需要更换车身面板。预防性做底盘装甲和定期清洗是最佳方案。",
+        "parts": [
+          { "name": "翼子板更换（单侧）", "oemPrice": 1500, "aftermarketPrice": 500, "brandPrice": 900 },
+          { "name": "轮眉更换", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 }
+        ],
+        "laborHours": 3.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "如果车辆在质保期内出现锈蚀，可以要求4S店免费处理（部分品牌有防锈质保）",
+          "副厂翼子板和门板价格便宜，但可能防锈处理不如原厂",
+          "更换锈蚀面板后一定要做好新件的防锈处理"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["现代伊兰特", "起亚K3", "雪佛兰科鲁兹", "长安逸动", "吉利帝豪", "比亚迪F3", "奇瑞艾瑞泽5"],
+    "tsbReferences": []
+  },
+  {
+    "id": "body-002",
+    "category": "body",
+    "subcategory": "密封条老化漏水",
+    "symptoms": [
+      {
+        "description": "下雨后副驾驶脚垫下面有一滩水，或者后备箱进水了",
+        "keywords": ["车内进水", "脚垫下面有水", "后备箱进水", "漏水"],
+        "conditions": ["下雨后", "洗车后"],
+        "severity": "warning"
+      },
+      {
+        "description": "跑高速的时候风噪特别大，感觉窗户没关严似的",
+        "keywords": ["风噪大", "高速风噪", "窗户漏风", "密封不好"],
+        "conditions": ["高速行驶时", "80km/h以上"],
+        "severity": "info"
+      },
+      {
+        "description": "车门密封条发硬开裂了，关门声音也没以前厚实了",
+        "keywords": ["密封条老化", "密封条开裂", "关门声音变", "密封条硬了"],
+        "conditions": ["检查车门时", "使用5年以上"],
+        "severity": "info"
+      },
+      {
+        "description": "天窗漏水了，A柱或者顶棚有水渍",
+        "keywords": ["天窗漏水", "A柱水渍", "顶棚漏水", "天窗密封不好"],
+        "conditions": ["下雨时", "洗车时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "车门/后备箱密封条老化",
+        "probability": 0.40,
+        "explanation": "橡胶密封条长期暴露在紫外线和温度变化中会逐渐老化变硬、开裂，失去密封性。一般5-8年后开始出现明显老化。洗车时使用强碱性清洁剂会加速老化。",
+        "checkItems": ["目视和手感检查密封条弹性", "检查密封条有无开裂和变形", "用水淋测试检查漏水位置", "检查密封条安装是否到位"],
+        "repairMethod": "更换老化密封条。更换时注意选择原厂规格，安装后涂抹橡胶保护剂延长寿命。",
+        "parts": [
+          { "name": "车门密封条（单门）", "oemPrice": 300, "aftermarketPrice": 80, "brandPrice": 160 },
+          { "name": "后备箱密封条", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 },
+          { "name": "橡胶保护剂/密封条保养剂", "oemPrice": 50, "aftermarketPrice": 20, "brandPrice": 35 }
+        ],
+        "laborHours": 1.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "密封条可以自己换！大多是卡扣或粘贴式安装，不需要专业工具",
+          "4S店换四个门密封条可能报价1500-2500元，自己买材料400-600元就搞定",
+          "轻微老化的密封条可以用橡胶修复剂恢复弹性（30-50元），不用换",
+          "每年涂一次橡胶保护剂可以有效延长密封条寿命"
+        ]
+      },
+      {
+        "name": "天窗排水管堵塞/脱落",
+        "probability": 0.30,
+        "explanation": "天窗四角各有一根排水管，通过A柱/C柱引导雨水到车底排出。排水管堵塞或接头脱落会导致雨水溢出到车内，表现为A柱或顶棚水渍。这是天窗漏水的常见原因。",
+        "checkItems": ["打开天窗向排水槽倒水检查排水速度", "检查A柱内饰有无水渍", "检查排水管接头有无脱落", "用压缩空气或细钢丝疏通排水管"],
+        "repairMethod": "疏通排水管或重新连接脱落的接头。严重堵塞可能需要拆A柱内饰板操作。",
+        "parts": [
+          { "name": "天窗排水管", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 1.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "天窗排水疏通很简单，自己用细铁丝从排水孔捅一下可能就通了",
+          "不要用高压气枪吹排水管！可能把接头吹脱落，问题更严重",
+          "4S店天窗漏水维修可能报价2000-5000元，很多时候只是管子堵了",
+          "不常开天窗的话排水孔更容易堵，建议每月开一次天窗并检查排水"
+        ]
+      },
+      {
+        "name": "挡风玻璃密封不良",
+        "probability": 0.15,
+        "explanation": "前/后挡风玻璃的密封胶老化或当初安装不到位会导致漏水。更换过挡风玻璃的车辆尤其要注意密封质量。",
+        "checkItems": ["检查挡风玻璃周围密封胶状态", "水淋测试定位漏水位置", "检查玻璃安装是否平整"],
+        "repairMethod": "重新打胶密封或拆下玻璃重新安装。",
+        "parts": [
+          { "name": "挡风玻璃密封胶", "oemPrice": 80, "aftermarketPrice": 30, "brandPrice": 50 }
+        ],
+        "laborHours": 3.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "如果是刚换过玻璃后漏水，回去找安装店免费重新密封",
+          "重新打胶不需要换玻璃，但工时费较高（300-600元）",
+          "不要自己在外面打一圈玻璃胶了事，要拆开处理才有效果"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众帕萨特", "丰田凯美瑞", "本田雅阁", "日产天籁", "福特蒙迪欧", "别克君威", "马自达6"],
+    "tsbReferences": []
+  }
+]

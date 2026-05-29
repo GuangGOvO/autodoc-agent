@@ -1,0 +1,342 @@
+[
+  {
+    "id": "braking-001",
+    "category": "braking",
+    "subcategory": "刹车异响",
+    "symptoms": [
+      {
+        "description": "踩刹车的时候有'吱吱'的尖锐声音，听着很不舒服",
+        "keywords": ["刹车响", "刹车吱吱响", "踩刹车尖锐声", "刹车异响"],
+        "conditions": ["轻踩刹车时", "低速刹车时", "冷车首次刹车时"],
+        "severity": "warning"
+      },
+      {
+        "description": "刹车的时候有'咕咕'或'咯咯'的声音，感觉刹车不太对劲",
+        "keywords": ["刹车咕咕响", "刹车沉闷异响", "制动异响"],
+        "conditions": ["中速刹车时", "连续刹车后"],
+        "severity": "warning"
+      },
+      {
+        "description": "刚换的刹车片就响，是不是换的不好",
+        "keywords": ["新刹车片响", "换片后异响", "磨合期响"],
+        "conditions": ["更换刹车片后", "磨合期内"],
+        "severity": "info"
+      },
+      {
+        "description": "刹车快停的时候有金属刮擦的声音，很刺耳",
+        "keywords": ["金属刮擦声", "刹车片磨完", "铁磨铁", "刹车尖叫"],
+        "conditions": ["刹车末段", "低速刹车时"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "刹车片磨损到极限（金属摩擦）",
+        "probability": 0.40,
+        "explanation": "刹车片摩擦材料磨完后，金属背板直接与刹车盘接触产生刺耳的金属刮擦声。部分刹车片带有磨损报警片，磨到极限时会发出尖锐的吱吱声提醒更换。这是最危险的情况。",
+        "checkItems": ["检查刹车片剩余厚度（标准<3mm需更换）", "检查刹车盘表面有无沟槽", "检查刹车片磨损报警片是否接触盘面", "检查四个轮的刹车片磨损是否均匀"],
+        "repairMethod": "立即更换刹车片，同时检查刹车盘是否需要光磨或更换。",
+        "parts": [
+          { "name": "前刹车片（一套/4片）", "oemPrice": 500, "aftermarketPrice": 120, "brandPrice": 280 },
+          { "name": "后刹车片（一套/4片）", "oemPrice": 400, "aftermarketPrice": 100, "brandPrice": 220 },
+          { "name": "刹车盘光磨", "oemPrice": 200, "aftermarketPrice": 100, "brandPrice": 150 }
+        ],
+        "laborHours": 1.5,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "刹车片磨到铁了必须立即更换！继续行驶会刮坏刹车盘，换盘的费用比换片贵得多",
+          "品牌刹车片（博世、天合/TRW、菲罗多/Ferodo）质量可靠，价格只有原厂的一半",
+          "陶瓷刹车片比半金属片贵100-200元但更安静、粉尘少，值得考虑",
+          "如果刹车盘沟槽不深（<1mm），光磨一下就行，不需要换新盘"
+        ]
+      },
+      {
+        "name": "刹车片/盘表面异物或材质问题",
+        "probability": 0.30,
+        "explanation": "刹车片和盘之间嵌入小石子或金属碎屑会产生异响。某些品牌的刹车片材质偏硬（如一些半金属片），使用初期会有噪音。新片磨合期（200-300公里）内轻微异响属正常。",
+        "checkItems": ["检查刹车片表面有无嵌入异物", "检查刹车盘表面状态", "确认刹车片品牌和材质", "确认是否处于磨合期"],
+        "repairMethod": "清理异物，对刹车片边缘做倒角处理，或在刹车片背面涂抹消音膏。新片磨合后异响通常会消失。",
+        "parts": [
+          { "name": "刹车消音膏", "oemPrice": 50, "aftermarketPrice": 20, "brandPrice": 35 }
+        ],
+        "laborHours": 0.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "新刹车片200-300公里内的轻微异响是正常的磨合现象，不用急着回去找修理厂",
+          "清理异物和涂消音膏很简单，收费不应超过100元",
+          "不要为了消除异响而换更贵的刹车片，先试消音膏"
+        ]
+      },
+      {
+        "name": "刹车卡钳导向销锈蚀/卡滞",
+        "probability": 0.20,
+        "explanation": "刹车卡钳通过导向销浮动，导向销锈蚀卡滞会导致刹车片不能正常回位，产生持续摩擦和异响，同时可能造成刹车片偏磨。",
+        "checkItems": ["检查刹车片内外侧磨损是否均匀", "检查导向销滑动是否顺畅", "检查导向销防尘套有无破损", "检查卡钳活塞回位是否正常"],
+        "repairMethod": "拆下导向销清洁并涂抹专用润滑脂，锈蚀严重的需要更换导向销或卡钳修理包。",
+        "parts": [
+          { "name": "卡钳导向销", "oemPrice": 80, "aftermarketPrice": 25, "brandPrice": 45 },
+          { "name": "卡钳修理包", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 }
+        ],
+        "laborHours": 1.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "导向销保养很简单，换刹车片的时候顺便做一下就行",
+          "如果修理厂说需要换整个卡钳（1000+元），先确认是否真的修不好",
+          "卡钳导向销润滑必须用专用硅基润滑脂，不能用普通黄油"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众朗逸", "丰田卡罗拉", "本田思域", "日产轩逸", "福特福克斯", "现代朗动", "雪佛兰科鲁兹"],
+    "tsbReferences": []
+  },
+  {
+    "id": "braking-002",
+    "category": "braking",
+    "subcategory": "刹车软/行程长",
+    "symptoms": [
+      {
+        "description": "刹车踏板踩下去软绵绵的，感觉刹不住，要踩很深才有制动效果",
+        "keywords": ["刹车软", "刹不住", "刹车行程长", "踏板软", "要踩很深"],
+        "conditions": ["正常刹车时", "紧急刹车时"],
+        "severity": "critical"
+      },
+      {
+        "description": "连续踩几脚刹车才有效果，第一脚踩下去没啥反应",
+        "keywords": ["第一脚刹车没反应", "多踩几脚", "刹车迟钝"],
+        "conditions": ["刚启动车辆时", "长时间行驶后"],
+        "severity": "critical"
+      },
+      {
+        "description": "刹车踩到底了车子还在慢慢往前走，制动效果很差",
+        "keywords": ["刹车踩到底", "制动力不足", "刹车距离长"],
+        "conditions": ["急刹车时", "下坡时"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "刹车系统有空气（需排空）",
+        "probability": 0.35,
+        "explanation": "刹车液压系统进入空气后，因为空气可压缩导致踏板行程增大、脚感变软。常见于更换刹车油后未充分排空，或刹车管路有微漏导致空气渗入。",
+        "checkItems": ["检查刹车油液位", "检查各管路接头有无渗漏", "反复踩刹车踏板感受是否有'弹性感'", "检查最近是否做过制动系统维修"],
+        "repairMethod": "对四个轮的刹车管路进行排空操作（从最远的轮开始），同时补充刹车油。",
+        "parts": [
+          { "name": "刹车油（DOT4，1L）", "oemPrice": 80, "aftermarketPrice": 30, "brandPrice": 50 }
+        ],
+        "laborHours": 1.0,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "排空操作很简单，工时费不应超过150元（含刹车油）",
+          "如果排空后还是软，说明有其他问题（如总泵内泄），不要反复排空浪费钱",
+          "刹车油建议每2年或4万公里更换一次，不要等到出问题才换"
+        ]
+      },
+      {
+        "name": "刹车总泵/分泵内泄",
+        "probability": 0.30,
+        "explanation": "刹车总泵皮碗磨损导致内泄，刹车油在泵内回流而非传递到分泵，表现为踏板缓慢下沉到底。分泵（卡钳活塞）密封不良也会导致类似问题。",
+        "checkItems": ["踩住刹车踏板保持压力，观察是否缓慢下沉", "检查分泵有无外泄", "踩刹车时观察各轮分泵是否正常推出", "检查刹车油液位是否下降"],
+        "repairMethod": "更换刹车总泵或故障的分泵（卡钳），更换后重新排空。",
+        "parts": [
+          { "name": "刹车总泵", "oemPrice": 800, "aftermarketPrice": 300, "brandPrice": 500 },
+          { "name": "刹车分泵/卡钳（单个）", "oemPrice": 1200, "aftermarketPrice": 400, "brandPrice": 700 }
+        ],
+        "laborHours": 2.0,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "刹车总泵内泄的测试方法：踩住踏板不放，如果缓慢下沉就是总泵问题",
+          "品牌总泵/分泵（博世、ATE、天合）质量可靠，价格比原厂便宜很多",
+          "更换卡钳后必须排空刹车系统，确保踏板脚感正常后再上路",
+          "4S店单个卡钳报价常在2000-3000元，品牌件600-1000元质量一样"
+        ]
+      },
+      {
+        "name": "刹车片/盘磨损严重",
+        "probability": 0.20,
+        "explanation": "刹车片和盘严重磨损后，卡钳活塞需要推出更多行程才能接触，导致踏板行程增大。同时摩擦面减小也降低了制动力。",
+        "checkItems": ["检查刹车片厚度", "检查刹车盘厚度和磨损状态", "检查卡钳活塞行程"],
+        "repairMethod": "更换刹车片和/或刹车盘。",
+        "parts": [
+          { "name": "前刹车片（一套）", "oemPrice": 500, "aftermarketPrice": 120, "brandPrice": 280 },
+          { "name": "前刹车盘（一对）", "oemPrice": 1200, "aftermarketPrice": 400, "brandPrice": 700 }
+        ],
+        "laborHours": 1.5,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "换刹车片时顺便检查刹车盘，如果盘也磨薄了要一起换",
+          "品牌刹车盘（布雷博/Brembo、天合/TRW）质量很好，比原厂便宜40-50%"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众捷达", "丰田花冠", "本田飞度", "日产阳光", "现代瑞纳", "雪佛兰赛欧", "长安悦翔"],
+    "tsbReferences": []
+  },
+  {
+    "id": "braking-003",
+    "category": "braking",
+    "subcategory": "刹车抖动",
+    "symptoms": [
+      {
+        "description": "高速踩刹车的时候方向盘抖得厉害，手都能感觉到",
+        "keywords": ["刹车方向盘抖", "高速刹车抖", "踩刹车方向抖"],
+        "conditions": ["高速刹车时", "80km/h以上刹车时"],
+        "severity": "warning"
+      },
+      {
+        "description": "刹车的时候整个车身都在抖，踏板也在抖",
+        "keywords": ["刹车车身抖", "踏板抖动", "全车抖动刹车"],
+        "conditions": ["中高速刹车时"],
+        "severity": "warning"
+      },
+      {
+        "description": "刹车的时候方向盘会往一边拽，刹不直",
+        "keywords": ["刹车跑偏", "刹车拽方向", "刹车方向偏"],
+        "conditions": ["刹车时", "直线刹车时"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "刹车盘变形/厚度不均（DTV）",
+        "probability": 0.55,
+        "explanation": "刹车盘在反复高温使用和急冷（如热盘涉水）后会产生翘曲变形或厚度不均（DTV），刹车片夹持变形盘面时产生脉动力，通过液压传递到踏板和方向盘。这是刹车抖动的最常见原因。",
+        "checkItems": ["用百分表测量刹车盘端面跳动量（标准<0.05mm）", "用千分尺测量盘面厚度变化", "目视检查盘面有无明显沟槽和蓝斑", "检查刹车盘安装面是否清洁"],
+        "repairMethod": "轻微变形可以光磨修复，严重变形或厚度不足需更换刹车盘。同时更换刹车片。",
+        "parts": [
+          { "name": "前刹车盘（单个）", "oemPrice": 600, "aftermarketPrice": 200, "brandPrice": 350 },
+          { "name": "刹车盘光磨（单个）", "oemPrice": 150, "aftermarketPrice": 80, "brandPrice": 100 }
+        ],
+        "laborHours": 1.5,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先量一下盘面跳动量，如果超差不大，光磨（80-150元/个）就能解决",
+          "光磨只能做一次，如果盘已经很薄了就直接换",
+          "换刹车盘时安装面必须清洁干净，否则新盘也会抖动",
+          "不要只换一侧的刹车盘，必须左右成对更换"
+        ]
+      },
+      {
+        "name": "刹车卡钳卡滞（制动力不均）",
+        "probability": 0.25,
+        "explanation": "一侧卡钳卡滞导致制动力不均，刹车时车身会向制动力大的一侧跑偏，同时也可能引起抖动。",
+        "checkItems": ["对比左右刹车盘温度", "检查各卡钳活塞回位情况", "检查导向销滑动顺畅度", "检查刹车片磨损是否左右均匀"],
+        "repairMethod": "保养或更换卡滞的卡钳，同时检查对侧状态。",
+        "parts": [
+          { "name": "刹车卡钳（单个）", "oemPrice": 1200, "aftermarketPrice": 400, "brandPrice": 700 },
+          { "name": "卡钳修理包", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 }
+        ],
+        "laborHours": 1.5,
+        "severity": "critical",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "刹车跑偏是严重的安全问题，需要尽快检修",
+          "有时候卡钳只需要保养（清洁+润滑），不一定要更换",
+          "如果修理厂建议换卡钳，问一下能不能先保养试试"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众迈腾", "丰田凯美瑞", "本田雅阁", "日产天籁", "别克君威", "福特蒙迪欧", "马自达6"],
+    "tsbReferences": []
+  },
+  {
+    "id": "braking-004",
+    "category": "braking",
+    "subcategory": "刹车失灵",
+    "symptoms": [
+      {
+        "description": "踩刹车踏板直接踩到底了，像踩在棉花上一样，完全没有制动",
+        "keywords": ["刹车失灵", "踩到底没刹车", "刹车没反应", "制动失效"],
+        "conditions": ["紧急刹车时", "行驶中"],
+        "severity": "critical"
+      },
+      {
+        "description": "刹车踏板越来越低，要踩很深才有一点效果",
+        "keywords": ["刹车踏板低", "刹车效果越来越差", "制动力下降"],
+        "conditions": ["连续刹车时", "长下坡时"],
+        "severity": "critical"
+      },
+      {
+        "description": "仪表盘上红色的刹车警示灯亮了，或者ABS灯也一起亮了",
+        "keywords": ["刹车灯亮", "ABS灯亮", "制动系统报警", "红色BRAKE灯"],
+        "conditions": ["行驶中突然亮起", "启动后常亮"],
+        "severity": "critical"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "刹车油严重泄漏",
+        "probability": 0.40,
+        "explanation": "刹车管路破裂、接头松脱或分泵严重泄漏导致刹车油大量流失，液压系统无法建立压力。这是最危险的制动故障，会导致完全失去制动能力。",
+        "checkItems": ["立即检查刹车油壶液位", "检查四个轮子和底盘有无油液泄漏", "检查刹车管路有无破损", "检查各接头和软管状态"],
+        "repairMethod": "立即停车！拖车到修理厂修复泄漏点，更换损坏的管路或部件，重新加注刹车油并排空。",
+        "parts": [
+          { "name": "刹车软管", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 },
+          { "name": "刹车硬管", "oemPrice": 150, "aftermarketPrice": 50, "brandPrice": 90 },
+          { "name": "刹车油（2L）", "oemPrice": 150, "aftermarketPrice": 60, "brandPrice": 100 }
+        ],
+        "laborHours": 3.0,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "刹车失灵时不要熄火！利用发动机阻力减速，间歇拉手刹辅助制动",
+          "必须拖车！绝对不要试图开去修理厂",
+          "刹车管路泄漏的维修本身不贵（几百块），但拖车费可能要200-500元",
+          "修复后必须反复测试刹车确保完全正常才能上路"
+        ]
+      },
+      {
+        "name": "真空助力器失效",
+        "probability": 0.30,
+        "explanation": "真空助力器利用发动机真空放大刹车踏板力度，失效后踏板变得非常硬，需要很大力才能制动（但仍有制动力，只是需要很大力量）。新手容易误认为'刹车失灵'。",
+        "checkItems": ["熄火后连续踩几脚刹车排尽真空，然后踩住踏板启动发动机，观察踏板是否下沉", "检查真空管有无脱落或破裂", "检查助力器密封性"],
+        "repairMethod": "检查真空管路，管路正常则更换真空助力器。",
+        "parts": [
+          { "name": "真空助力器", "oemPrice": 1500, "aftermarketPrice": 500, "brandPrice": 900 },
+          { "name": "真空管", "oemPrice": 100, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 2.0,
+        "severity": "critical",
+        "canDrive": false,
+        "overchargeWarnings": [
+          "先检查真空管有没有脱落！有时候只是管子松了，插回去就好了",
+          "真空助力器一般不会突然坏，如果是逐渐变硬可能是真空泄漏",
+          "更换助力器工时费较高（500-1000元），因为需要拆装踏板总成",
+          "品牌助力器质量可靠，价格比原厂便宜一半"
+        ]
+      },
+      {
+        "name": "ABS系统故障",
+        "probability": 0.20,
+        "explanation": "ABS模块或轮速传感器故障会导致ABS系统停止工作。基础制动仍然有效，但紧急刹车时车轮会抱死导致失控。部分车型ABS故障时EBD（电子制动力分配）也会同时失效。",
+        "checkItems": ["用诊断仪读取ABS故障码", "检查各轮速传感器和线路", "检查ABS泵和模块状态", "检查ABS保险丝和继电器"],
+        "repairMethod": "根据故障码更换损坏的传感器或维修ABS模块/泵。",
+        "parts": [
+          { "name": "轮速传感器（单个）", "oemPrice": 400, "aftermarketPrice": 120, "brandPrice": 250 },
+          { "name": "ABS泵/模块", "oemPrice": 5000, "aftermarketPrice": 1500, "brandPrice": 3000 }
+        ],
+        "laborHours": 2.0,
+        "severity": "critical",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "ABS灯亮不代表刹车完全失灵，基础制动还在，但要避免急刹车",
+          "轮速传感器故障最常见（80%的ABS问题），传感器本身不贵",
+          "ABS泵很贵，4S店报价5000-15000元，可以先尝试维修（2000-4000元）",
+          "有些ABS故障是线路接触不良，重新插拔插头可能就解决了"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["C0035", "C0040", "C0045", "C0050", "C0060", "C1201"],
+    "commonInModels": ["大众朗逸", "丰田卡罗拉", "本田思域", "日产轩逸", "福特福克斯", "别克英朗", "现代伊兰特"],
+    "tsbReferences": []
+  }
+]

@@ -1,0 +1,276 @@
+[
+  {
+    "id": "hvac-001",
+    "category": "hvac",
+    "subcategory": "空调不制冷",
+    "symptoms": [
+      {
+        "description": "大热天空调开到最低也不凉，出风口吹出来的是自然风",
+        "keywords": ["空调不凉", "空调不制冷", "出风口不冷", "空调吹自然风"],
+        "conditions": ["夏季高温时", "开空调制冷时"],
+        "severity": "warning"
+      },
+      {
+        "description": "空调刚开始还凉，开一会儿就不凉了",
+        "keywords": ["空调时好时坏", "空调刚开始凉", "制冷不稳定"],
+        "conditions": ["开空调一段时间后", "高温天气"],
+        "severity": "warning"
+      },
+      {
+        "description": "开空调的时候听到发动机舱有'嘶嘶'的声音，空调效果也不好",
+        "keywords": ["空调嘶嘶响", "空调异响", "压缩机异响"],
+        "conditions": ["开空调时", "怠速开空调时"],
+        "severity": "warning"
+      },
+      {
+        "description": "开空调后发动机水温升高，动力也明显下降",
+        "keywords": ["开空调水温高", "开空调动力下降", "空调负荷大"],
+        "conditions": ["夏季开空调时", "爬坡时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "制冷剂（氟利昂）不足/泄漏",
+        "probability": 0.45,
+        "explanation": "空调系统中的制冷剂会随时间缓慢渗漏，一般3-5年需要补充。如果短期内制冷效果急剧下降，说明存在较大的泄漏点。常见泄漏位置有冷凝器、蒸发器和管路接头。",
+        "checkItems": ["检查空调系统高低压力", "用荧光检漏剂或电子检漏仪查找泄漏点", "检查冷凝器表面有无损伤", "检查管路接头和O形圈"],
+        "repairMethod": "找到并修复泄漏点，抽真空后按标准量充注制冷剂。",
+        "parts": [
+          { "name": "制冷剂R134a（单罐300g）", "oemPrice": 80, "aftermarketPrice": 30, "brandPrice": 50 },
+          { "name": "制冷剂R1234yf（新型环保）", "oemPrice": 300, "aftermarketPrice": 150, "brandPrice": 220 },
+          { "name": "空调管路O形圈", "oemPrice": 15, "aftermarketPrice": 5, "brandPrice": 8 }
+        ],
+        "laborHours": 1.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "单纯加氟（补充制冷剂）一般100-200元，4S店可能收300-500元",
+          "如果加氟后很快又不凉了，说明有泄漏，不要反复加氟浪费钱",
+          "有些修理厂不管三七二十一上来就加氟，应该先检测压力再决定",
+          "新车型使用R1234yf制冷剂，比R134a贵很多，确认你的车用的哪种",
+          "路边'加氟100元'的店要当心，可能用的劣质制冷剂或充注量不够"
+        ]
+      },
+      {
+        "name": "空调压缩机故障",
+        "probability": 0.25,
+        "explanation": "空调压缩机是制冷系统的核心，内部磨损、电磁离合器故障或密封不良都会导致制冷失效。压缩机故障常伴有异响，且空调系统高低压差减小。",
+        "checkItems": ["检查压缩机电磁离合器是否吸合", "测量系统高低压力差", "听压缩机运转有无异响", "检查压缩机油有无泄漏"],
+        "repairMethod": "更换压缩机总成，同时更换干燥瓶和膨胀阀，清洗管路后重新充注。",
+        "parts": [
+          { "name": "空调压缩机总成", "oemPrice": 3000, "aftermarketPrice": 1000, "brandPrice": 1800 },
+          { "name": "干燥瓶/储液罐", "oemPrice": 200, "aftermarketPrice": 80, "brandPrice": 130 },
+          { "name": "膨胀阀", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 }
+        ],
+        "laborHours": 3.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "压缩机很贵！先确认不是其他简单原因（如缺氟、保险丝烧了）",
+          "品牌压缩机（三电/Sanden、电装/Denso）质量可靠，比原厂件便宜很多",
+          "换压缩机必须同时换干燥瓶，否则新压缩机可能很快损坏",
+          "4S店换压缩机报价4000-8000元，修理厂用品牌件2000-3500元"
+        ]
+      },
+      {
+        "name": "冷凝器堵塞/散热不良",
+        "probability": 0.15,
+        "explanation": "冷凝器安装在车头水箱前面，负责散热。长期行驶后表面积累灰尘、虫子和柳絮导致散热不良，空调制冷效果下降。行驶中比怠速时制冷效果好是典型特征。",
+        "checkItems": ["目视检查冷凝器表面有无脏污堵塞", "检查冷凝器风扇是否正常运转", "对比行驶中和怠速时的制冷效果", "检查冷凝器有无变形损伤"],
+        "repairMethod": "清洗冷凝器表面（用压缩空气从内向外吹或用水枪低压冲洗），修复风扇故障。",
+        "parts": [
+          { "name": "冷凝器（如需更换）", "oemPrice": 1200, "aftermarketPrice": 400, "brandPrice": 700 }
+        ],
+        "laborHours": 1.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先自己清洗冷凝器试试！用水枪从里往外冲一下可能就有效果",
+          "很多修理厂不会先检查冷凝器散热，而是直接让你加氟或换压缩机",
+          "春季柳絮过后建议清洗一次冷凝器，预防空调不凉",
+          "清洗冷凝器一般50-100元，不需要拆装"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["B1200", "B1201", "P0532", "P0533", "P0534"],
+    "commonInModels": ["大众朗逸", "丰田卡罗拉", "本田思域", "日产轩逸", "别克英朗", "现代悦动", "福特福克斯"],
+    "tsbReferences": []
+  },
+  {
+    "id": "hvac-002",
+    "category": "hvac",
+    "subcategory": "空调异味",
+    "symptoms": [
+      {
+        "description": "一开空调就有一股酸臭味/霉味，特别难闻",
+        "keywords": ["空调臭味", "酸臭味", "霉味", "空调出风有异味"],
+        "conditions": ["刚开空调时", "关闭AC后出风时", "潮湿天气"],
+        "severity": "info"
+      },
+      {
+        "description": "开空调有股烧焦的味道，像是塑料烧了",
+        "keywords": ["空调焦味", "烧焦味", "塑料烧味"],
+        "conditions": ["开暖风时", "开空调时"],
+        "severity": "warning"
+      },
+      {
+        "description": "空调出风口有甜甜的味道，前挡风玻璃里面有雾气",
+        "keywords": ["空调甜味", "防冻液味", "前挡起雾", "甜味"],
+        "conditions": ["开空调/暖风时"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "蒸发箱发霉/细菌滋生",
+        "probability": 0.55,
+        "explanation": "蒸发箱在制冷时表面会产生冷凝水，停车后潮湿环境容易滋生霉菌和细菌，产生酸臭霉味。这是空调异味最常见的原因。频繁短途行驶和不正确使用空调习惯会加重问题。",
+        "checkItems": ["闻空调出风口气味", "检查空调排水是否正常", "检查空调滤芯状态", "内窥镜检查蒸发箱表面"],
+        "repairMethod": "清洗空调蒸发箱（推荐可视化清洗，效果最彻底），更换空调滤芯。日常使用建议到达目的地前2-3分钟关闭AC、保持风机运转以吹干蒸发箱。",
+        "parts": [
+          { "name": "空调蒸发箱清洗服务", "oemPrice": 300, "aftermarketPrice": 100, "brandPrice": 180 },
+          { "name": "空调滤芯", "oemPrice": 120, "aftermarketPrice": 30, "brandPrice": 60 }
+        ],
+        "laborHours": 1.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "空调清洗从几十到几百不等，4S店的'可视化清洗'通常200-400元，效果确实比泡沫清洗好",
+          "泡沫清洗剂从出风口喷入的方式效果有限，不如可视化清洗",
+          "自己买空调清洗泡沫（30-50元）DIY也能有一定效果",
+          "养成好习惯：到达前2-3分钟关AC开外循环，可以有效预防蒸发箱发霉",
+          "空调滤芯（30-60元）建议每1万公里或半年更换一次"
+        ]
+      },
+      {
+        "name": "空调滤芯脏污/发霉",
+        "probability": 0.25,
+        "explanation": "空调滤芯过滤进入车内的空气，长期使用后积累灰尘和湿气会发霉产生异味。南方潮湿地区问题更加严重。",
+        "checkItems": ["拆出空调滤芯检查颜色和气味", "检查滤芯有无发霉", "确认上次更换时间"],
+        "repairMethod": "更换空调滤芯，建议选择带活性炭的滤芯过滤效果更好。",
+        "parts": [
+          { "name": "普通空调滤芯", "oemPrice": 80, "aftermarketPrice": 20, "brandPrice": 40 },
+          { "name": "活性炭空调滤芯", "oemPrice": 150, "aftermarketPrice": 40, "brandPrice": 80 }
+        ],
+        "laborHours": 0.2,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "大部分车型的空调滤芯可以自己更换（手套箱后面），不需要去修理厂",
+          "品牌滤芯（曼牌/Mann、马勒/Mahle）质量很好，比原厂便宜一半",
+          "4S店换空调滤芯收100-200元，自己买一个才20-40元",
+          "PM2.5滤芯和活性炭滤芯确实比普通滤芯好，但价格也不贵（40-80元）"
+        ]
+      },
+      {
+        "name": "暖风水箱泄漏（甜味）",
+        "probability": 0.10,
+        "explanation": "如果出风口有甜味且前挡风内侧起雾（油性雾气），可能是暖风水箱（蒸发箱总成内）泄漏防冻液。这是较严重的问题，需要尽快处理。",
+        "checkItems": ["检查防冻液液位是否下降", "检查副驾驶脚垫下方有无潮湿", "闻出风口是否有明显的甜味", "检查冷却系统压力"],
+        "repairMethod": "更换暖风水箱，需要拆装仪表台，工时费较高。",
+        "parts": [
+          { "name": "暖风水箱", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 320 }
+        ],
+        "laborHours": 5.0,
+        "severity": "moderate",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "暖风水箱更换需要拆仪表台，工时费高（800-1500元）是正常的",
+          "配件本身不贵（200-500元），不要为配件花冤枉钱",
+          "先确认是暖风水箱漏而不是其他原因导致的甜味"
+        ]
+      }
+    ],
+    "relatedFaultCodes": [],
+    "commonInModels": ["大众朗逸", "丰田卡罗拉", "本田飞度", "日产轩逸", "别克英朗", "现代悦动", "吉利帝豪"],
+    "tsbReferences": []
+  },
+  {
+    "id": "hvac-003",
+    "category": "hvac",
+    "subcategory": "暖风不热",
+    "symptoms": [
+      {
+        "description": "冬天开暖风吹出来的是凉风或者只是温温的，不热",
+        "keywords": ["暖风不热", "暖风凉", "出风口温度低", "暖风效果差"],
+        "conditions": ["冬季", "开暖风时"],
+        "severity": "info"
+      },
+      {
+        "description": "暖风一边热一边凉，左边出热风右边出凉风",
+        "keywords": ["暖风一边热一边凉", "左右温度不一致", "出风口温度不均"],
+        "conditions": ["开暖风时"],
+        "severity": "info"
+      },
+      {
+        "description": "暖风刚开还行，开一会儿就变凉了",
+        "keywords": ["暖风变凉", "暖风不持久", "暖风效果变差"],
+        "conditions": ["开暖风一段时间后"],
+        "severity": "warning"
+      }
+    ],
+    "possibleCauses": [
+      {
+        "name": "暖风水阀故障/暖风水箱堵塞",
+        "probability": 0.35,
+        "explanation": "暖风水阀控制热水流入暖风水箱，故障时热水无法进入导致无暖风。暖风水箱内部堵塞也会导致热水流通不畅，制热效果下降。",
+        "checkItems": ["检查暖风进出水管温度（两根都应很热）", "检查暖风水阀是否正常开合", "反冲洗暖风水箱", "检查冷却液液位和系统有无空气"],
+        "repairMethod": "更换暖风水阀或清洗/更换暖风水箱。先尝试反冲洗水箱，无效再更换。",
+        "parts": [
+          { "name": "暖风水阀", "oemPrice": 200, "aftermarketPrice": 60, "brandPrice": 120 },
+          { "name": "暖风水箱", "oemPrice": 500, "aftermarketPrice": 200, "brandPrice": 320 }
+        ],
+        "laborHours": 3.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先试试反冲洗暖风水箱（100-200元），很多时候冲一下就好了",
+          "暖风水阀几十块钱，但如果是电子水阀可能贵一些",
+          "换暖风水箱可能需要拆仪表台，工时费高是正常的",
+          "有些车型没有暖风水阀（靠混合风门调节温度），不要误换"
+        ]
+      },
+      {
+        "name": "冷却液不足/系统有空气",
+        "probability": 0.30,
+        "explanation": "冷却液不足或系统中有空气会导致热水无法正常流经暖风水箱。冷却液不足通常是因为泄漏或长期未补充。系统有空气常见于近期做过冷却系统维修后。",
+        "checkItems": ["检查冷却液液位", "检查冷却系统有无泄漏", "暖风水管有无'咕噜咕噜'声", "对冷却系统进行排空"],
+        "repairMethod": "补充冷却液并排空系统空气，如有泄漏需修复。",
+        "parts": [
+          { "name": "防冻液（4L）", "oemPrice": 120, "aftermarketPrice": 50, "brandPrice": 80 }
+        ],
+        "laborHours": 0.5,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "先检查冷却液液位！很多时候只是缺防冻液了，加一点就好",
+          "防冻液不要加水！长期加水会导致水箱锈蚀和冬天结冰",
+          "不同颜色的防冻液不要混加，不确定就全部换掉",
+          "排空空气很简单，自己也能做（打开排气螺丝，加液直到没有气泡）"
+        ]
+      },
+      {
+        "name": "温度混合风门故障",
+        "probability": 0.25,
+        "explanation": "温度混合风门（blend door）控制冷热空气的混合比例，风门电机故障或风门脱落会导致无法调到热风位置。一边热一边凉通常是左右风门不同步导致。",
+        "checkItems": ["调节温度时听风门电机运转声", "检查风门执行器/电机", "用诊断仪读取风门位置数据", "检查风门连杆有无脱落"],
+        "repairMethod": "更换风门电机或修复连杆/风门。部分车型需要拆仪表台。",
+        "parts": [
+          { "name": "风门执行器/电机", "oemPrice": 400, "aftermarketPrice": 120, "brandPrice": 250 }
+        ],
+        "laborHours": 3.0,
+        "severity": "minor",
+        "canDrive": true,
+        "overchargeWarnings": [
+          "风门故障是暖风不热的常见原因，但有些修理厂不熟悉会误判",
+          "有些车型的风门电机可以自己拆换（手套箱后面或方向盘下面），不需要拆整个仪表台",
+          "4S店可能要求更换整个HVAC总成（几千到上万），实际上可能只是一个小电机的问题"
+        ]
+      }
+    ],
+    "relatedFaultCodes": ["B1200", "B1205", "B1241"],
+    "commonInModels": ["大众帕萨特", "丰田凯美瑞", "本田雅阁", "日产天籁", "别克君威", "福特蒙迪欧", "现代索纳塔"],
+    "tsbReferences": []
+  }
+]
