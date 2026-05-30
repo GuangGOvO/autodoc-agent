@@ -29,6 +29,7 @@ import {
   deleteUsedCarEvaluation,
 } from '@/lib/storage';
 import type { UsedCarEvaluation, UsedCarInput } from '@/types/usedCar';
+import { apiFetch } from '@/lib/apiClient';
 import vehiclesData from '@/data/vehicles.json';
 
 const brands = [...new Set(vehiclesData.map(v => v.brand))];
@@ -105,7 +106,7 @@ export default function UsedCarPage() {
     scrollToResult();
 
     try {
-      const response = await fetch('/api/used-car/evaluate', {
+      const response = await apiFetch('/api/used-car/evaluate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(input),

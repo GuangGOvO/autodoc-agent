@@ -81,10 +81,31 @@ export async function signUp(email: string, password: string, username: string):
 }
 
 /**
- * 邮箱密码登录
+ * 邮箱/用户名密码登录
+ * @param identifier 邮箱或用户名（包含 @ 视为邮箱，否则视为用户名）
+ * @param password 密码
  */
-export async function signIn(email: string, password: string): Promise<{ user: AuthUser | null; error: string | null }> {
+export async function signIn(identifier: string, password: string): Promise<{ user: AuthUser | null; error: string | null }> {
   const supabase = getSupabaseBrowserClient();
+
+  let email = identifier;
+
+  // 如果不含 @，视为用户名，通过 RPC 查找对应邮箱
+  if (!identifier.includes('@')) {
+    const { data: resolvedEmail, error: rpcError } = await supabase.rpc('lookup_email_by_username', {
+      p_username: identifier,
+    });
+
+    if (rpcError) {
+      return { user: null, error: '查询用户名失败：' + rpcError.message };
+    }
+
+    if (!resolvedEmail) {
+      return { user: null, error: '用户名不存在' };
+    }
+
+    email = resolvedEmail;
+  }
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -92,6 +113,10 @@ export async function signIn(email: string, password: string): Promise<{ user: A
   });
 
   if (error) {
+    // 将 Supabase 通用错误信息替换为更友好的中文提示
+    if (error.message.includes('Invalid login credentials')) {
+      return { user: null, error: '密码错误或账号不存在' };
+    }
     return { user: null, error: error.message };
   }
 

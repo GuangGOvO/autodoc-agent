@@ -1,8 +1,8 @@
-// 移动端抽屉菜单 — 独立顶层组件，避免 Header sticky 的 stacking context 限制
+// 移动端抽屉菜单 — 独立顶层组件，带打开/关闭动画
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { X, LogOut } from 'lucide-react';
@@ -15,9 +15,60 @@ interface MobileDrawerProps {
   onClose: () => void;
 }
 
+const ANIMATION_DURATION = 300; // ms — matches CSS transition duration
+
 export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
   const { user, loading } = useAuth();
   const router = useRouter();
+
+  // mounted = 是否渲染 DOM；open 变化时不立即卸载，先播关闭动画
+  const [mounted, setMounted] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // 同步 open prop → 内部状态
+  useEffect(() => {
+    if (open) {
+      // 打开：立即挂载 → 下一帧设为 visible（触发 transition）
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+      setMounted(true);
+      // 等一帧让 DOM 渲染后再触发 transition
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setVisible(true);
+        });
+      });
+    } else if (mounted) {
+      // 关闭：先设为不可见（触发 transition）→ 动画结束后卸载
+      setVisible(false);
+      closeTimerRef.current = setTimeout(() => {
+        setMounted(false);
+        closeTimerRef.current = null;
+      }, ANIMATION_DURATION);
+    }
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 清理定时器
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    };
+  }, []);
+
+  // 锁定 body 滚动
+  useEffect(() => {
+    if (visible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [visible]);
 
   const handleSignOut = async () => {
     onClose();
@@ -26,31 +77,23 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
     router.refresh();
   };
 
-  // 打开时锁定 body 滚动，关闭时恢复
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
-
-  if (!open) return null;
+  if (!mounted) return null;
 
   return (
     <div
       className="md:hidden fixed inset-0 z-[100]"
       onClick={onClose}
     >
-      {/* 遮罩 — 静态半透明黑色，不依赖动画库 */}
-      <div className="absolute inset-0 bg-black/50" />
-
-      {/* 抽屉面板 */}
+      {/* 遮罩 — opacity transition */}
       <div
-        className="absolute right-0 top-0 bottom-0 w-[280px] bg-white shadow-2xl drawer-slide-in overflow-y-auto"
+        className="absolute inset-0 bg-black/50 transition-opacity duration-300"
+        style={{ opacity: visible ? 1 : 0 }}
+      />
+
+      {/* 抽屉面板 — transform transition */}
+      <div
+        className="absolute right-0 top-0 bottom-0 w-[280px] bg-white shadow-2xl overflow-y-auto transition-transform duration-300 ease-out"
+        style={{ transform: visible ? 'translateX(0)' : 'translateX(100%)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* 顶部：用户信息 + 关闭按钮 */}

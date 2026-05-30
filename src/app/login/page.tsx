@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { signIn } from '@/lib/auth';
 
 function LoginForm() {
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ function LoginForm() {
     setError('');
     setLoading(true);
 
-    const { user, error } = await signIn(email, password);
+    const { user, error } = await signIn(identifier, password);
 
     setLoading(false);
 
@@ -55,14 +55,15 @@ function LoginForm() {
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email">邮箱</Label>
+              <Label htmlFor="identifier">邮箱 / 用户名</Label>
               <Input
-                id="email"
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id="identifier"
+                type="text"
+                placeholder="邮箱或用户名"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
                 required
+                autoComplete="username"
               />
             </div>
             <div className="space-y-2">
@@ -74,6 +75,7 @@ function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="current-password"
               />
             </div>
           </CardContent>

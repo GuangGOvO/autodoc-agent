@@ -19,6 +19,7 @@ import {
   addMessageToSession,
 } from '@/lib/storage';
 import { isDiagnosisReport } from '@/lib/reportParser';
+import { apiFetch } from '@/lib/apiClient';
 
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -254,7 +255,7 @@ export function ChatWindow() {
     try {
       // 追问模式：始终走 chat 接口，带上 followUpContext
       if (followUpMode) {
-        const response = await fetch('/api/diagnose/chat', {
+        const response = await apiFetch('/api/diagnose/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -275,7 +276,7 @@ export function ChatWindow() {
         await handleStreamResponse(response, assistantId, sid);
       } else if (messages.length === 0) {
         // 新会话首条消息
-        const response = await fetch('/api/diagnose/start', {
+        const response = await apiFetch('/api/diagnose/start', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ symptom: augmentedContent }),
@@ -289,7 +290,7 @@ export function ChatWindow() {
 
         await handleStreamResponse(response, assistantId, sid);
       } else {
-        const response = await fetch('/api/diagnose/chat', {
+        const response = await apiFetch('/api/diagnose/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
