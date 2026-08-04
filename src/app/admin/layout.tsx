@@ -52,7 +52,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* 移动端顶部导航 */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-white">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-background">
         <nav className="flex justify-around py-2">
           {navItems.map(item => {
             const Icon = item.icon;

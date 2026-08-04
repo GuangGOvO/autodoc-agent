@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { QuickDiagnose } from '@/components/home/QuickDiagnose';
 import {
   MessageSquare,
@@ -23,32 +22,27 @@ export default function HomePage() {
     <div className="flex flex-col">
 
       {/* ===== Hero 区域 ===== */}
-      <section className="relative bg-gradient-to-b from-primary/5 to-background pt-16 pb-20 md:pt-20 md:pb-28 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-primary/5 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-accent/5 blur-3xl" />
-        </div>
-
+      <section className="relative border-b border-border bg-background pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
         <div className="container mx-auto px-4 text-center max-w-3xl relative">
-          <Badge variant="secondary" className="mb-6 px-4 py-1.5 text-sm gap-1.5">
+          <p className="kicker text-muted-foreground mb-6 flex items-center justify-center gap-1.5">
             <Zap className="h-3.5 w-3.5" />
-            AI 驱动 · 智能诊断 · 防被宰
-          </Badge>
+            AutoDoc · AI 汽车预诊断 · Vol.01
+          </p>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground mb-5 leading-[1.2] tracking-tight">
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6 leading-[1.15] tracking-tight">
             修车前，先问 <span className="text-accent">AutoDoc</span>
           </h1>
 
-          <p className="text-xl md:text-2xl font-semibold text-primary mb-5">
+          <p className="font-heading text-xl md:text-2xl font-semibold text-accent mb-6">
             让每一分钱都花在刀刃上
           </p>
 
-          <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed">
             描述车辆问题，AI 技师帮您分析故障原因、给出维修方案和参考价格，
             附带防被宰提醒，修车不再踩坑。
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-12">
             <Link href="/diagnose" className={buttonVariants({ size: 'lg', className: 'text-base px-8 h-12' })}>
               <MessageSquare className="mr-2 h-5 w-5" />
               开始智能诊断
@@ -60,20 +54,20 @@ export default function HomePage() {
           </div>
 
           {/* 数据亮点 */}
-          <div className="inline-flex items-center gap-6 md:gap-8 text-sm text-muted-foreground bg-white/80 backdrop-blur rounded-full px-6 py-2.5 shadow-sm border">
-            <div className="flex items-center gap-1.5">
-              <span className="text-lg font-bold text-primary">42+</span>
-              <span>故障知识</span>
+          <div className="inline-flex items-center justify-center gap-6 md:gap-10 text-sm text-muted-foreground border-t border-b border-border px-2 py-4">
+            <div className="flex items-baseline gap-2">
+              <span className="folio-nb text-2xl text-foreground">42+</span>
+              <span className="text-xs">故障知识</span>
             </div>
-            <div className="w-px h-4 bg-border" />
-            <div className="flex items-center gap-1.5">
-              <span className="text-lg font-bold text-primary">8</span>
-              <span>大系统</span>
+            <div className="w-px h-5 bg-border" />
+            <div className="flex items-baseline gap-2">
+              <span className="folio-nb text-2xl text-foreground">8</span>
+              <span className="text-xs">大系统</span>
             </div>
-            <div className="w-px h-4 bg-border" />
+            <div className="w-px h-5 bg-border" />
             <div className="flex items-center gap-1.5">
               <ShieldAlert className="h-4 w-4 text-accent" />
-              <span>防被宰</span>
+              <span className="text-xs">防被宰</span>
             </div>
           </div>
         </div>
@@ -83,10 +77,10 @@ export default function HomePage() {
       <QuickDiagnose />
 
       {/* ===== 真实案例对比 ===== */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-card">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3">
               修车被宰有多常见？
             </h2>
             <p className="text-base text-muted-foreground max-w-lg mx-auto">
@@ -164,7 +158,8 @@ export default function HomePage() {
       {/* ===== 核心功能 ===== */}
       <section className="py-16 md:py-20 bg-muted/20">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">
+          <p className="kicker text-accent text-center mb-3">Core Features</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-3">
             核心功能
           </h2>
           <p className="text-base text-muted-foreground text-center mb-10 max-w-lg mx-auto">
@@ -172,8 +167,9 @@ export default function HomePage() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <Card className="border-0 shadow-sm bg-white">
+            <Card className="border-0 shadow-sm bg-card">
               <CardContent className="p-6 text-center">
+                <span className="folio-nb block text-xs text-accent mb-3">01</span>
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mx-auto mb-4">
                   <MessageSquare className="h-7 w-7 text-primary" />
                 </div>
@@ -184,8 +180,9 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-sm bg-white">
+            <Card className="border-0 shadow-sm bg-card">
               <CardContent className="p-6 text-center">
+                <span className="folio-nb block text-xs text-accent mb-3">02</span>
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 mx-auto mb-4">
                   <Wrench className="h-7 w-7 text-accent" />
                 </div>
@@ -196,8 +193,9 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-sm bg-white">
+            <Card className="border-0 shadow-sm bg-card">
               <CardContent className="p-6 text-center">
+                <span className="folio-nb block text-xs text-accent mb-3">03</span>
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100 mx-auto mb-4">
                   <ShieldAlert className="h-7 w-7 text-red-500" />
                 </div>
@@ -211,7 +209,7 @@ export default function HomePage() {
 
           {/* 附加功能 — 简洁两列 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
-            <Card className="border-0 shadow-sm bg-white">
+            <Card className="border-0 shadow-sm bg-card">
               <CardContent className="p-5 flex items-center gap-4">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 flex-shrink-0">
                   <CarFront className="h-5 w-5 text-accent" />
@@ -225,7 +223,7 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-sm bg-white">
+            <Card className="border-0 shadow-sm bg-card">
               <CardContent className="p-5 flex items-center gap-4">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 flex-shrink-0">
                   <FileSearch className="h-5 w-5 text-blue-600" />
@@ -243,9 +241,9 @@ export default function HomePage() {
       </section>
 
       {/* ===== 使用流程 ===== */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-card">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-3">
             三步搞定车辆诊断
           </h2>
           <p className="text-base text-muted-foreground text-center mb-12 max-w-md mx-auto">
@@ -275,7 +273,7 @@ export default function HomePage() {
                 },
               ].map(item => (
                 <div key={item.step} className="text-center relative">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white text-lg font-bold mx-auto mb-4 shadow-lg shadow-primary/20 relative z-10">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-primary text-primary-foreground font-heading text-2xl font-bold mx-auto mb-4 relative z-10">
                     {item.step}
                   </div>
                   <h3 className="text-base font-semibold mb-1.5">{item.title}</h3>
@@ -300,7 +298,7 @@ export default function HomePage() {
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 mb-3">
               <AlertTriangle className="h-5 w-5 text-accent" />
-              <h2 className="text-2xl md:text-3xl font-bold">修车常见套路</h2>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold">修车常见套路</h2>
             </div>
             <p className="text-base text-muted-foreground">AutoDoc 内置防被宰知识库，帮您识别这些陷阱</p>
           </div>
@@ -324,13 +322,13 @@ export default function HomePage() {
                 desc: '用副厂件、翻新件冒充原厂件，收你原厂件的价格',
               },
             ].map((item, idx) => (
-              <Card key={idx} className="border-orange-200/60 bg-white">
+              <Card key={idx} className="border-orange-200/60 bg-card">
                 <CardContent className="p-4 flex items-start gap-3">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-100 flex-shrink-0">
                     <AlertTriangle className="h-4 w-4 text-orange-600" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold mb-1">{item.title}</h3>
+                    <h3 className="font-heading text-base font-semibold mb-1">{item.title}</h3>
                     <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 </CardContent>
@@ -343,7 +341,7 @@ export default function HomePage() {
       {/* ===== 知识库覆盖 ===== */}
       <section className="py-16 md:py-20 bg-muted/20">
         <div className="container mx-auto px-4 max-w-3xl text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3">
             覆盖 8 大汽车系统
           </h2>
           <p className="text-base text-muted-foreground mb-8 max-w-md mx-auto">
@@ -361,9 +359,9 @@ export default function HomePage() {
               { name: '车身', count: '2+' },
               { name: '转向系统', count: '2+' },
             ].map(sys => (
-              <Card key={sys.name} className="bg-white">
+              <Card key={sys.name} className="bg-card">
                 <CardContent className="py-3 text-center">
-                  <p className="text-xl font-bold text-primary">{sys.count}</p>
+                  <p className="folio-nb text-2xl font-bold text-foreground">{sys.count}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{sys.name}</p>
                 </CardContent>
               </Card>
@@ -378,9 +376,9 @@ export default function HomePage() {
       </section>
 
       {/* ===== FAQ ===== */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-card">
         <div className="container mx-auto px-4 max-w-2xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-10">
             常见问题
           </h2>
           <div className="space-y-4">
@@ -404,7 +402,7 @@ export default function HomePage() {
             ].map((item, idx) => (
               <Card key={idx} className="bg-muted/20">
                 <CardContent className="p-5">
-                  <h3 className="text-sm font-semibold mb-2">{item.q}</h3>
+                  <h3 className="font-heading text-base font-semibold mb-2">{item.q}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
                 </CardContent>
               </Card>

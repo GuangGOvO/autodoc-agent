@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { X, LogOut } from 'lucide-react';
+import { X, LogOut, Car } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { signOut } from '@/lib/auth';
@@ -94,18 +94,21 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
 
       {/* 抽屉面板 — transform transition */}
       <div
-        className="absolute right-0 top-0 bottom-0 w-[280px] bg-white shadow-2xl overflow-y-auto transition-transform duration-300 ease-out"
+        className="absolute right-0 top-0 bottom-0 w-[280px] bg-background border-l border-border overflow-y-auto transition-transform duration-300 ease-out"
         style={{ transform: visible ? 'translateX(0)' : 'translateX(100%)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* 顶部：用户信息 + 关闭按钮 */}
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-4 border-b border-border">
           <div className="flex items-center gap-2 min-w-0">
+            <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-primary text-primary-foreground">
+              <Car className="h-4 w-4" />
+            </div>
             {user && (
-              <span className="text-sm font-medium truncate">{user.username || user.email}</span>
+              <span className="font-heading text-sm font-semibold truncate">{user.username || user.email}</span>
             )}
             {!user && !loading && (
-              <span className="text-sm text-muted-foreground">未登录</span>
+              <span className="font-heading text-sm font-semibold text-muted-foreground">AutoDoc 智驾医生</span>
             )}
           </div>
           <button
@@ -122,7 +125,7 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             <>
               <Link
                 href="/diagnose"
-                className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted"
+                className="flex items-center gap-3 min-h-[44px] px-4 py-3 rounded-sm text-sm font-medium text-muted-foreground hover:text-accent hover:bg-muted"
                 onClick={onClose}
               >
                 智能问诊

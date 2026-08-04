@@ -354,7 +354,7 @@ export function ChatWindow() {
     <div className="flex flex-col h-full">
       {/* 顶部信息栏 */}
       {(vehicleName || sessionComplete || sessionId || followUpMode) && (
-        <div className="border-b bg-white px-4 py-2 flex items-center justify-between">
+        <div className="border-b bg-background px-4 py-2 flex items-center justify-between">
           <div className="flex items-center gap-2 flex-wrap">
             {followUpMode && followUpSummary && (
               <Badge className="bg-blue-100 text-blue-800 border-blue-200 gap-1">
@@ -446,7 +446,7 @@ export function ChatWindow() {
       </div>
 
       {/* 输入区域 */}
-      <div className="chat-input-area border-t bg-white p-4 sticky bottom-0">
+      <div className="chat-input-area border-t bg-background p-4 sticky bottom-0">
         <div className="container mx-auto max-w-3xl">
           {/* 诊断完成提示横幅（不锁定输入） */}
           {sessionComplete && (

@@ -24,11 +24,11 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-white">
+          <Link href="/" className="flex items-center gap-2.5 font-heading font-bold text-xl text-foreground tracking-tight">
+            <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-primary text-primary-foreground">
               <Car className="h-5 w-5" />
             </div>
             <span>AutoDoc<span className="text-accent">智驾医生</span></span>
@@ -38,19 +38,19 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-6">
             {user && (
               <>
-                <Link href="/diagnose" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/diagnose" className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">
                   智能问诊
                 </Link>
-                <Link href="/vehicles" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/vehicles" className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">
                   我的车辆
                 </Link>
-                <Link href="/history" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/history" className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">
                   诊断历史
                 </Link>
-                <Link href="/used-car" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/used-car" className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors">
                   二手车评估
                 </Link>
-                <Link href="/diagnose" className={buttonVariants()}>
+                <Link href="/diagnose" className={buttonVariants({ size: 'sm' })}>
                   开始诊断
                 </Link>
               </>
@@ -59,7 +59,7 @@ export function Header() {
               <div className="flex items-center gap-2">
                 <Link href="/profile" className="inline-flex h-8 items-center gap-2 rounded-full hover:bg-muted px-3 transition-colors">
                   <User className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">{user.username || user.email}</span>
+                  <span className="text-sm font-medium text-muted-foreground">{user.username || user.email}</span>
                 </Link>
                 <button
                   onClick={handleSignOut}
@@ -71,10 +71,10 @@ export function Header() {
               </div>
             ) : !loading ? (
               <div className="flex items-center gap-2">
-                <Link href="/login" className={buttonVariants({ variant: 'outline' })}>
+                <Link href="/login" className={buttonVariants({ variant: 'outline', size: 'sm' })}>
                   登录
                 </Link>
-                <Link href="/register" className={buttonVariants()}>
+                <Link href="/register" className={buttonVariants({ size: 'sm' })}>
                   注册
                 </Link>
               </div>

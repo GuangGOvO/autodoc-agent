@@ -38,16 +38,17 @@ export function QuickDiagnose() {
   return (
     <section className="py-12 bg-background">
       <div className="container mx-auto px-4 max-w-2xl">
-        <Card className="border-2 border-primary/20 shadow-lg shadow-primary/5 overflow-hidden">
-          {/* 顶部渐变条 */}
-          <div className="h-1.5 bg-gradient-to-r from-primary via-accent to-primary" />
+        <Card className="border border-border shadow-sm overflow-hidden rounded-none">
+          {/* 顶部编辑红线 */}
+          <div className="h-0.5 bg-accent" />
 
           <CardContent className="pt-6 pb-7">
             {/* 标题 */}
             <div className="flex items-center gap-2 mb-1">
               <Sparkles className="h-5 w-5 text-accent" />
-              <h2 className="text-lg font-bold">试试 AI 诊断</h2>
+              <p className="kicker text-muted-foreground">Quick Diagnose</p>
             </div>
+            <h2 className="text-2xl font-heading font-bold tracking-tight mb-2">试试 AI 诊断</h2>
             <p className="text-sm text-muted-foreground mb-5">
               输入一个症状，立即开始 AI 智能问诊
             </p>
@@ -78,12 +79,12 @@ export function QuickDiagnose() {
 
             {/* 快捷标签 */}
             <div className="flex flex-wrap gap-2">
-              <span className="text-xs text-muted-foreground self-center mr-0.5">热门症状：</span>
+              <span className="kicker text-muted-foreground self-center mr-1">热门症状</span>
               {QUICK_SYMPTOMS.map(s => (
                 <button
                   key={s}
                   onClick={() => setSymptom(s)}
-                  className="px-3 py-1 text-xs rounded-full border border-border hover:border-accent hover:bg-accent/10 hover:text-accent transition-colors"
+                  className="px-3 py-1 text-xs rounded-sm border border-border hover:border-accent hover:bg-accent/10 hover:text-accent transition-colors"
                 >
                   {s}
                 </button>
