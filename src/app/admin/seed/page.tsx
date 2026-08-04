@@ -3,7 +3,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { ArrowLeft, Database, CheckCircle, AlertTriangle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -352,7 +351,6 @@ const demoUsedCar = {
 };
 
 export default function SeedDataPage() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{
     vehicles: number;
@@ -381,7 +379,20 @@ export default function SeedDataPage() {
   };
 
   useEffect(() => {
-    checkExisting();
+    let cancelled = false;
+    Promise.all([getVehicles(), getDiagnosisSessions(), getUsedCarEvaluations()]).then(
+      ([vehicles, sessions, evaluations]) => {
+        if (cancelled) return;
+        setExistingData({
+          vehicles: vehicles.length,
+          sessions: sessions.length,
+          evaluations: evaluations.length,
+        });
+      }
+    );
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // 清除所有数据
@@ -603,7 +614,7 @@ export default function SeedDataPage() {
       {cleared && (
         <div className="mt-4 flex items-center gap-2 text-sm text-green-700 bg-green-50 rounded-lg p-3">
           <CheckCircle className="h-4 w-4" />
-          所有本地数据已清除
+          所有数据已清除
         </div>
       )}
 
@@ -628,8 +639,8 @@ export default function SeedDataPage() {
             <div className="text-sm text-amber-900">
               <p className="font-medium mb-1">注意事项</p>
               <ul className="space-y-1 text-xs">
-                <li>• 演示数据保存在浏览器 localStorage 中，清除浏览器数据会丢失</li>
-                <li>• 多次点击"导入"会重复添加数据，建议先清除再导入</li>
+                <li>• 演示数据保存在您的账户下（Supabase），清除后不可恢复</li>
+                <li>• 多次点击「导入」会重复添加数据，建议先清除再导入</li>
                 <li>• 演示时建议先在诊断页面实际走一遍 AI 对话流程，效果更好</li>
               </ul>
             </div>

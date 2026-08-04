@@ -99,13 +99,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // 初始化：获取当前用户
   useEffect(() => {
+    // 初始化认证状态：同步外部系统（Supabase Auth），setState 发生在异步回调之后
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 监听认证状态变化 — 包括 TOKEN_REFRESHED 失败处理
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
       if (event === 'SIGNED_OUT') {
         setUser(null);
         router.push('/login');
@@ -129,7 +131,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!user && !isPublicPath) {
       router.push('/login');
     }
-  }, [user, loading, pathname]);
+  }, [user, loading, pathname, router]);
 
   return (
     <AuthContext.Provider value={{ user, loading, refreshUser: fetchUser }}>

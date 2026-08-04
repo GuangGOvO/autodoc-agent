@@ -3,7 +3,6 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import {
   CarFront,
   AlertTriangle,
@@ -21,16 +20,7 @@ interface UsedCarReportViewProps {
   rawMarkdown?: string;
 }
 
-const scoreColors: Record<string, string> = {
-  '优秀': 'text-green-600',
-  '良好': 'text-blue-600',
-  '一般': 'text-amber-600',
-  '较差': 'text-red-600',
-};
-
-export function UsedCarReportView({ report, rawMarkdown }: UsedCarReportViewProps) {
-  const scoreColor = scoreColors[report.scoreLabel] || 'text-foreground';
-
+export function UsedCarReportView({ report }: UsedCarReportViewProps) {
   return (
     <div className="space-y-6">
       {/* 综合评分大卡片 */}

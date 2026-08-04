@@ -8,7 +8,6 @@ import {
   LayoutDashboard,
   FileSearch,
   Car,
-  Users,
   CarFront,
   TrendingUp,
   ChevronRight,
@@ -16,7 +15,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { getStats, getDiagnosisSessions, getVehicles, getUsedCarEvaluations } from '@/lib/storage';
+import { getStats, getDiagnosisSessions } from '@/lib/storage';
 import { getAllFaults } from '@/lib/knowledge/graph';
 import type { DiagnosisSession } from '@/types/diagnosis';
 

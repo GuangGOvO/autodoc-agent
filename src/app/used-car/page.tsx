@@ -6,8 +6,6 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
   CarFront,
-  Send,
-  ArrowLeft,
   RotateCcw,
   FileSearch,
   ChevronRight,
@@ -22,7 +20,7 @@ import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import { UsedCarReportView } from '@/components/report/UsedCarReportView';
-import { parseUsedCarReport, isUsedCarReport } from '@/lib/usedCarParser';
+import { parseUsedCarReport } from '@/lib/usedCarParser';
 import {
   getUsedCarEvaluations,
   saveUsedCarEvaluation,
@@ -49,7 +47,6 @@ export default function UsedCarPage() {
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [streamContent, setStreamContent] = useState('');
   const [evaluationDone, setEvaluationDone] = useState(false);
-  const [savedId, setSavedId] = useState<string | null>(null);
 
   // 历史记录
   const [evaluations, setEvaluations] = useState<UsedCarEvaluation[]>([]);
@@ -148,8 +145,7 @@ export default function UsedCarPage() {
       }
 
       // 评估完成，保存
-      const saved = await saveUsedCarEvaluation({ input, reportMarkdown: fullContent });
-      setSavedId(saved.id);
+      await saveUsedCarEvaluation({ input, reportMarkdown: fullContent });
       setEvaluationDone(true);
       const evals = await getUsedCarEvaluations();
       setEvaluations(evals);
@@ -172,7 +168,6 @@ export default function UsedCarPage() {
     setDescription('');
     setStreamContent('');
     setEvaluationDone(false);
-    setSavedId(null);
   };
 
   // 删除历史

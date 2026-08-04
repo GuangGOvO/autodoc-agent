@@ -2,8 +2,8 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { Search, BookOpen, Filter, ChevronDown, ChevronUp, AlertTriangle, CheckCircle, Wrench } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Search, BookOpen, ChevronDown, ChevronUp, AlertTriangle, CheckCircle, Wrench } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -34,16 +34,11 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function KnowledgePage() {
-  const [faults, setFaults] = useState<FaultKnowledge[]>([]);
+  // 知识库为静态数据，用惰性初始化一次加载，避免 setState-in-effect
+  const [faults] = useState<FaultKnowledge[]>(() => getAllFaults());
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setFaults(getAllFaults());
-    setLoaded(true);
-  }, []);
 
   const filtered = useMemo(() => {
     let result = faults;
@@ -88,10 +83,6 @@ export default function KnowledgePage() {
     warning: '警告',
     info: '提示',
   };
-
-  if (!loaded) {
-    return <p className="text-muted-foreground">加载中...</p>;
-  }
 
   return (
     <div>

@@ -40,8 +40,8 @@
 | 前端框架 | Next.js 16 (App Router + Turbopack) |
 | 样式 | Tailwind CSS 4 + shadcn/ui (@base-ui/react) |
 | 语言 | TypeScript 5 |
-| LLM | DeepSeek API（SSE 流式） |
-| 数据存储 | localStorage（可迁移 Supabase） |
+| LLM | DeepSeek API — 原生 Responses API（SSE 流式） |
+| 数据存储 | Supabase (PostgreSQL + Auth + RLS) |
 | 图标 | Lucide React |
 | Markdown | react-markdown + remark-gfm |
 | 部署 | Vercel |
@@ -58,14 +58,19 @@
 ```bash
 # 克隆项目
 git clone <repo-url>
-cd CarAgentC
+cd autodoc-agent
 
 # 安装依赖
 npm install
 
 # 配置环境变量
 cp .env.example .env.local
-# 编辑 .env.local，填入 DeepSeek API Key
+# 编辑 .env.local，填入 DeepSeek API Key 和 Supabase 配置
+
+# 初始化 Supabase（登录、车辆、诊断记录等数据存储）
+# 1. 在 https://supabase.com 创建项目
+# 2. 在 SQL Editor 中依次执行 supabase/migrations/ 下的 SQL 脚本
+# 3. 把项目的 URL / anon key / service role key 填入 .env.local
 
 # 启动开发服务器
 npm run dev
@@ -79,13 +84,23 @@ npm run dev
 
 ```env
 # DeepSeek LLM
-DEEPSEEK_API_KEY=sk-your-api-key
+DEEPSEEK_API_KEY=sk-你的DeepSeek密钥
 DEEPSEEK_BASE_URL=https://api.deepseek.com
-DEEPSEEK_MODEL=deepseek-chat
+# Responses API 目前仅支持 deepseek-v4-flash
+DEEPSEEK_MODEL=deepseek-v4-flash
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://你的项目.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=你的anon-key
+SUPABASE_SERVICE_ROLE_KEY=你的service-role-key
 
 # App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
+
+> 注意：`supabase/migrations/` 目录下的 SQL 脚本必须全部执行（它们创建了
+> `profiles`、`vehicles`、`diagnosis_sessions`、`diagnosis_messages`、
+> `used_car_evaluations` 表、RLS 策略和用户名登录所需的 RPC）。
 
 ## 📁 项目结构
 
@@ -199,7 +214,8 @@ npm start
 - [x] **Phase 2** — 产品完整度（用户系统 + 车辆管理 + 报告页 + 历史）
 - [x] **Phase 3** — 比赛加分（二手车评估 + 管理后台 + 首页优化）
 - [x] **Phase 4** — 打磨（预设数据 + UI 优化 + 部署配置）
-- [ ] **Phase 5**（规划中） — Supabase 数据库迁移 + 用户认证 + 多模型支持
+- [x] **Phase 5** — Supabase 数据库迁移 + 用户认证（邮箱/用户名登录）+ 多模型支持
+- [ ] **Phase 6**（规划中） — 向量化知识检索 + 诊断报告 JSON 结构化输出
 
 ## ⚠️ 免责声明
 

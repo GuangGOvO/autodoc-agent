@@ -49,7 +49,7 @@ export function QuickDiagnose() {
               <h2 className="text-lg font-bold">试试 AI 诊断</h2>
             </div>
             <p className="text-sm text-muted-foreground mb-5">
-              输入一个症状，立即体验 AI 智能问诊，无需登录
+              输入一个症状，立即开始 AI 智能问诊
             </p>
 
             {/* 输入框 + 发送按钮 */}

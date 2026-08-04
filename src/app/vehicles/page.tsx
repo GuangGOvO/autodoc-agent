@@ -5,7 +5,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Car, Plus, Trash2, Edit, Gauge, Calendar, Settings } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { getVehicles, deleteVehicle, type Vehicle } from '@/lib/storage';

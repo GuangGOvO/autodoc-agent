@@ -403,19 +403,38 @@ export async function saveUsedCarEvaluation(evaluation: Omit<UsedCarEvaluation, 
 
 const CURRENT_SESSION_KEY = 'autodoc_current_session';
 
+// 内存缓存：避免重复读取 localStorage，并兼容隐私模式等抛异常场景
+let currentSessionIdCache: string | null | undefined;
+
 export function getCurrentSessionId(): string | null {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem(CURRENT_SESSION_KEY);
+  if (currentSessionIdCache !== undefined) return currentSessionIdCache;
+  try {
+    currentSessionIdCache = localStorage.getItem(CURRENT_SESSION_KEY);
+  } catch {
+    currentSessionIdCache = null;
+  }
+  return currentSessionIdCache;
 }
 
 export function setCurrentSessionId(id: string): void {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(CURRENT_SESSION_KEY, id);
+  currentSessionIdCache = id;
+  try {
+    localStorage.setItem(CURRENT_SESSION_KEY, id);
+  } catch {
+    // 隐私模式/配额超限时静默失败，仅内存缓存生效
+  }
 }
 
 export function clearCurrentSessionId(): void {
   if (typeof window === 'undefined') return;
-  localStorage.removeItem(CURRENT_SESSION_KEY);
+  currentSessionIdCache = null;
+  try {
+    localStorage.removeItem(CURRENT_SESSION_KEY);
+  } catch {
+    // 忽略
+  }
 }
 
 // ==================== 删除函数 ====================

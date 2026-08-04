@@ -8,14 +8,16 @@ import { getServerUser } from '@/lib/serverAuth';
 
 export async function POST(request: NextRequest) {
   try {
-    // 验证登录状态
-    const { user } = await getServerUser();
+    // 并行：解析请求体 + 验证登录状态
+    const [{ user }, body] = await Promise.all([getServerUser(), request.json()]);
     if (!user) {
       return NextResponse.json({ error: '请先登录后再使用诊断功能' }, { status: 401 });
     }
 
-    const body = await request.json();
     const { symptom } = body as { symptom?: string };
+    if (symptom && symptom.length > 1000) {
+      return NextResponse.json({ error: '症状描述过长，请精简到 1000 字以内' }, { status: 400 });
+    }
 
     // 获取相关知识
     const relevantKnowledge = symptom ? getRelevantKnowledge(symptom, 5) : [];

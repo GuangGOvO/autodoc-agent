@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { FileSearch, Clock, MessageSquare, Trash2, Search, ChevronRight, PlayCircle, HelpCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -16,7 +16,6 @@ import { ListSkeleton } from '@/components/ui/page-skeleton';
 
 export default function HistoryPage() {
   const [sessions, setSessions] = useState<DiagnosisSession[]>([]);
-  const [filtered, setFiltered] = useState<DiagnosisSession[]>([]);
   const [search, setSearch] = useState('');
   const [loaded, setLoaded] = useState(false);
 
@@ -24,25 +23,20 @@ export default function HistoryPage() {
     const loadData = async () => {
       const data = await getDiagnosisSessions();
       setSessions(data);
-      setFiltered(data);
       setLoaded(true);
     };
     loadData();
   }, []);
 
-  useEffect(() => {
-    if (!search) {
-      setFiltered(sessions);
-      return;
-    }
+  // 搜索过滤：渲染时派生计算，避免多余的 state + effect
+  const filtered = useMemo(() => {
+    if (!search) return sessions;
     const q = search.toLowerCase();
-    setFiltered(
-      sessions.filter(s =>
+    return sessions.filter(s =>
         s.initialSymptom.toLowerCase().includes(q) ||
         s.messages.some(m => m.content.toLowerCase().includes(q))
-      )
-    );
-  }, [search, sessions]);
+      );
+  }, [sessions, search]);
 
   const handleDelete = async (id: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -51,7 +45,6 @@ export default function HistoryPage() {
       await deleteDiagnosisSession(id);
       const updated = await getDiagnosisSessions();
       setSessions(updated);
-      setFiltered(updated);
     }
   };
 

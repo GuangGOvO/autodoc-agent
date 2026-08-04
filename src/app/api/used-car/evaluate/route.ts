@@ -8,13 +8,12 @@ import type { UsedCarInput } from '@/types/usedCar';
 
 export async function POST(request: NextRequest) {
   try {
-    // 验证登录状态
-    const { user } = await getServerUser();
+    // 并行：解析请求体 + 验证登录状态
+    const [{ user }, body] = await Promise.all([getServerUser(), request.json()]);
     if (!user) {
       return NextResponse.json({ error: '请先登录后再使用评估功能' }, { status: 401 });
     }
 
-    const body = await request.json();
     const input = body as UsedCarInput;
 
     // 校验必填字段
@@ -30,6 +29,15 @@ export async function POST(request: NextRequest) {
         { error: '请提供至少5个字的卖家描述' },
         { status: 400 }
       );
+    }
+    if (input.description.length > 4000) {
+      return NextResponse.json({ error: '卖家描述过长，请精简到 4000 字以内' }, { status: 400 });
+    }
+    if (input.mileage !== undefined && (!Number.isFinite(input.mileage) || input.mileage < 0)) {
+      return NextResponse.json({ error: '里程格式不正确' }, { status: 400 });
+    }
+    if (input.askingPrice !== undefined && (!Number.isFinite(input.askingPrice) || input.askingPrice < 0)) {
+      return NextResponse.json({ error: '报价格式不正确' }, { status: 400 });
     }
 
     // 构建用户描述

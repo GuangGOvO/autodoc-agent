@@ -7,7 +7,6 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, CarFront, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { UsedCarReportView } from '@/components/report/UsedCarReportView';
 import { getUsedCarEvaluationById } from '@/lib/storage';
 import { parseUsedCarReport } from '@/lib/usedCarParser';

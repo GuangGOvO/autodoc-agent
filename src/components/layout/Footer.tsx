@@ -71,7 +71,7 @@ export function Footer() {
         <div className="border-t pt-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
             <p>
-              © 2026 AutoDoc 智驾医生 · "经开智造" AI 智能体大赛参赛作品
+              © 2026 AutoDoc 智驾医生 · 「经开智造」 AI 智能体大赛参赛作品
             </p>
             <p>
               ⚠️ 本工具仅提供参考信息，不构成专业维修建议

@@ -9,13 +9,12 @@ import type { ChatMessage } from '@/types/diagnosis';
 
 export async function POST(request: NextRequest) {
   try {
-    // 验证登录状态
-    const { user } = await getServerUser();
+    // 并行：解析请求体 + 验证登录状态
+    const [{ user }, body] = await Promise.all([getServerUser(), request.json()]);
     if (!user) {
       return NextResponse.json({ error: '请先登录后再使用诊断功能' }, { status: 401 });
     }
 
-    const body = await request.json();
     const { messages: historyMessages, message: userMessage, turnCount, followUpContext } = body as {
       messages: ChatMessage[];
       message: string;
@@ -25,6 +24,12 @@ export async function POST(request: NextRequest) {
 
     if (!userMessage) {
       return NextResponse.json({ error: '请输入消息内容' }, { status: 400 });
+    }
+    if (userMessage.length > 2000) {
+      return NextResponse.json({ error: '消息内容过长，请精简到 2000 字以内' }, { status: 400 });
+    }
+    if (!Array.isArray(historyMessages) || historyMessages.length > 100) {
+      return NextResponse.json({ error: '对话历史异常，请重新发起诊断' }, { status: 400 });
     }
 
     // 追问模式：基于已有诊断报告继续提问

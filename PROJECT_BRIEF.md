@@ -25,10 +25,10 @@
 
 | 层级 | 选型 | 理由 |
 |------|------|------|
-| 前端 | Next.js 14 (App Router) + Tailwind CSS + shadcn/ui | 快速出活，组件丰富，部署方便 |
+| 前端 | Next.js 16 (App Router) + Tailwind CSS 4 + shadcn/ui | 快速出活，组件丰富，部署方便 |
 | 后端 | Next.js API Routes (全栈一体) | 减少架构复杂度 |
-| LLM | DeepSeek API（主） + 支持切换其他模型 | 性价比高，中文能力强 |
-| 数据库 | Supabase (PostgreSQL) | 已有经验，免费额度够用 |
+| LLM | DeepSeek API — 原生 Responses API（主） + 支持切换其他模型 | 性价比高，中文能力强 |
+| 数据库 | Supabase (PostgreSQL + Auth + RLS) | 已完成迁移，登录/数据存储统一 |
 | 知识库 | JSON/TypeScript 结构化数据 | 故障知识图谱用树形JSON存储 |
 | 部署 | Vercel | 一键部署，适合比赛Demo展示 |
 

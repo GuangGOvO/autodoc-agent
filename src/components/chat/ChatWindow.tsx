@@ -96,18 +96,6 @@ export function ChatWindow() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 首页快速体验：自动发送 pendingSymptom
-  useEffect(() => {
-    const pending = pendingSymptomRef.current;
-    if (pending && !isLoading && messages.length === 0) {
-      pendingSymptomRef.current = null;
-      // 清除 URL 参数，避免刷新重复发送
-      window.history.replaceState({}, '', '/diagnose');
-      sendMessage(pending);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // 智能自动滚动：检测用户是否在底部附近
   const handleScroll = useCallback(() => {
     const el = scrollContainerRef.current;
@@ -325,6 +313,18 @@ export function ChatWindow() {
       setMessages(prev => [...prev, errorMsg]);
     }
   };
+
+  // 首页快速体验：自动发送 pendingSymptom
+  useEffect(() => {
+    const pending = pendingSymptomRef.current;
+    if (pending && !isLoading && messages.length === 0) {
+      pendingSymptomRef.current = null;
+      // 清除 URL 参数，避免刷新重复发送
+      window.history.replaceState({}, '', '/diagnose');
+      sendMessage(pending);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // 新建对话
   const handleNewChat = () => {

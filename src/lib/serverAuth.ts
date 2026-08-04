@@ -18,7 +18,7 @@ export async function getServerUser() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll() {
           // API routes 中不需要设置 cookies
         },
       },

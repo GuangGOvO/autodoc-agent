@@ -34,6 +34,8 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
         clearTimeout(closeTimerRef.current);
         closeTimerRef.current = null;
       }
+      // 打开抽屉需先挂载 DOM 再触发过渡动画，同步 setState 是本模式所需
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMounted(true);
       // 等一帧让 DOM 渲染后再触发 transition
       requestAnimationFrame(() => {
