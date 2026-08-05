@@ -4,6 +4,8 @@
 
 面向中国 3 亿车主的 AI 自助预诊断智能体。通过多轮对话描述车辆症状，AI 给出可能故障原因、维修方案、透明报价和**防被宰提醒**，让修车不再踩坑。
 
+> 📄 想快速了解项目做什么，先看 [项目介绍](PROJECT_INTRODUCTION.md)。
+
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
