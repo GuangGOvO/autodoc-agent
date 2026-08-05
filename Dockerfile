@@ -20,6 +20,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# 确保 public/ 目录存在（Git 不跟踪空目录，CI 检出后可能缺失）
+RUN mkdir -p /app/public
+
 RUN npm run build
 
 ########################
