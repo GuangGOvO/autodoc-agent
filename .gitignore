@@ -34,8 +34,10 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # IDE
 .vscode/
 .idea/
+
+# 本地 Agent 配置（不提交）
+.claude/

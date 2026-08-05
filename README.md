@@ -117,50 +117,33 @@ JWT_SECRET=请设置一个足够长的随机字符串
 ## 📁 项目结构
 
 ```
-src/
-├── app/                          # 页面路由
-│   ├── page.tsx                  # 首页
-│   ├── diagnose/                 # 智能问诊
-│   │   ├── page.tsx              # 对话页
-│   │   └── [id]/page.tsx         # 诊断报告详情
-│   ├── used-car/                 # 二手车评估
-│   │   ├── page.tsx              # 评估表单
-│   │   └── [id]/page.tsx         # 评估报告详情
-│   ├── vehicles/                 # 车辆管理
-│   ├── history/                  # 诊断历史
-│   ├── profile/                  # 个人中心
-│   ├── admin/                    # 管理后台
-│   │   ├── page.tsx              # 数据概览
-│   │   ├── knowledge/page.tsx    # 知识库管理
-│   │   ├── stats/page.tsx        # 使用统计
-│   │   └── seed/page.tsx         # 预设演示数据
-│   └── api/                      # API 路由
-│       ├── diagnose/             # 诊断 API (SSE)
-│       └── used-car/             # 评估 API (SSE)
-├── components/
-│   ├── ui/                       # shadcn/ui 基础组件
-│   ├── chat/                     # 对话组件
-│   ├── report/                   # 报告展示组件
-│   ├── vehicle/                  # 车辆组件
-│   └── layout/                   # 布局组件
-├── lib/
-│   ├── llm/                      # LLM 调用封装
-│   ├── knowledge/                # 知识图谱引擎
-│   ├── storage.ts                # 本地存储层
-│   ├── reportParser.ts           # 报告解析器
-│   └── usedCarParser.ts          # 评估报告解析器
-├── data/
-│   ├── faults/                   # 故障知识图谱 (8 个系统)
-│   │   ├── engine.json           # 发动机 (20条)
-│   │   ├── transmission.json     # 变速箱
-│   │   ├── chassis.json          # 底盘悬挂
-│   │   ├── braking.json          # 制动系统
-│   │   ├── electrical.json       # 电气系统
-│   │   ├── hvac.json             # 空调系统
-│   │   ├── body.json             # 车身
-│   │   └── steering.json         # 转向系统
-│   └── vehicles.json             # Top 20 车型数据
-└── types/                        # TypeScript 类型
+autodoc-agent/
+├── Dockerfile / docker-compose.yml / Makefile / .dockerignore
+├── .github/workflows/ci.yml      # CI：lint/tsc/build + Docker 冒烟
+├── LICENSE / README.md / PROJECT_BRIEF.md / DEMO_SCRIPT.md
+├── db/
+│   └── migrations/               # 数据库迁移（0001 初始化 / 0002 用户角色）
+├── scripts/
+│   └── migrate.mjs               # 幂等迁移脚本（npm run db:migrate）
+└── src/
+    ├── app/                      # 页面路由
+    │   ├── page.tsx / login / register / error / loading / not-found
+    │   ├── diagnose/  vehicles/  history/  used-car/  profile/
+    │   ├── admin/                # 管理后台（仅 admin 角色）
+    │   └── api/                  # REST API（auth/vehicles/diagnose/used-car/profile/stats）
+    ├── components/
+    │   ├── ui/                   # shadcn/ui 基础组件
+    │   ├── chat/  report/  vehicle/  layout/  home/
+    │   └── auth/AuthProvider.tsx # 全局登录态
+    ├── lib/
+    │   ├── llm/                  # DeepSeek Responses API + prompts
+    │   ├── knowledge/            # 故障知识图谱 + 症状匹配
+    │   ├── session.ts / serverAuth.ts / auth.ts / password.ts  # 认证与会话
+    │   ├── storage.ts / apiClient.ts                           # API 数据层
+    │   ├── rateLimit.ts / sse.ts / db.ts
+    │   └── reportParser.ts / usedCarParser.ts / utils.ts
+    ├── hooks/  data/  types/     # hooks / 静态知识库 / 类型
+    └── proxy.ts                  # 路由保护（登录 + admin 角色）
 ```
 
 ## 🧠 故障知识库
@@ -198,6 +181,7 @@ src/
 ### 预设演示数据
 
 访问 `/admin/seed` 页面，一键导入预设的演示数据（3 辆车 + 4 个诊断会话 + 1 个二手车评估）。
+（实际导入：4 辆车 + 6 个诊断会话，其中 4 条已完成 + 1 个二手车评估）
 
 ## 🚀 部署
 

@@ -188,10 +188,13 @@ interface VehicleModel {
 | 页面 | 路径 | 内容 |
 |------|------|------|
 | 首页 | `/` | 产品介绍 + 快速开始诊断入口 |
+| 登录 | `/login` | 邮箱 / 用户名 + 密码登录 |
+| 注册 | `/register` | 邮箱 + 用户名 + 密码注册 |
 | 智能问诊 | `/diagnose` | 核心对话界面（类ChatGPT风格） |
 | 诊断报告 | `/diagnose/[id]` | 单次诊断结果详情页 |
 | 我的车辆 | `/vehicles` | 车辆管理列表 |
 | 添加车辆 | `/vehicles/add` | 车型选择 + 信息录入 |
+| 编辑车辆 | `/vehicles/edit/[id]` | 修改车辆信息 |
 | 诊断历史 | `/history` | 历史记录列表 + 搜索 |
 | 二手车评估 | `/used-car` | 二手车车况快评入口 |
 | 评估报告 | `/used-car/[id]` | 评估结果详情 |
@@ -202,14 +205,16 @@ interface VehicleModel {
 | 页面 | 路径 | 内容 |
 |------|------|------|
 | 后台首页 | `/admin` | 数据概览Dashboard |
-| 知识库管理 | `/admin/knowledge` | 故障条目CRUD |
+| 知识库管理 | `/admin/knowledge` | 故障条目只读浏览 + 检索 |
 | 诊断统计 | `/admin/stats` | 使用数据统计图表 |
+| 预设演示数据 | `/admin/seed` | 一键导入演示数据（仅 admin） |
 
 ### UI设计要求
 
-- **主色调：** 深蓝(#1e3a5f) + 白色，科技感+专业感
-- **强调色：** 橙色(#f97316) 用于CTA按钮和警告提示
-- **风格：** 简洁现代，卡片式布局，响应式适配移动端
+- **风格：** 杂志编辑风（电子杂志 × 电子墨水），卡片式布局，响应式适配移动端
+- **主色调：** 暖纸底 `oklch(0.955 0.006 90)` + 墨黑 `oklch(0.205 0 0)`
+- **强调色：** 编辑红 `oklch(0.52 0.16 28)` 用于 CTA 和警示
+- **标题字体：** 系统衬线栈（思源宋体/宋体/SimSun），配 kicker / folio / hairline 版式
 - **对话界面：** 参考ChatGPT/Claude的对话UI，支持Markdown渲染
 - **Logo：** 汽车+AI元素，文字"AutoDoc智驾医生"
 
@@ -231,6 +236,9 @@ interface VehicleModel {
 
 4. **价格数据** — 参考汽配平台公开价格，取区间值
    - 标注：价格仅供参考，实际价格因地区和渠道而异
+
+> 注：OBD 故障码库与独立配件价格库（prices.json）为规划项，尚未实现；
+> 当前知识库以 8 大系统 42 条故障图谱 JSON 为主，价格内嵌在每条故障数据中。
 
 ### 知识图谱构建Prompt模板
 
@@ -366,44 +374,69 @@ CREATE TABLE used_car_evaluations (
 
 ## 八、API接口设计
 
-### 对话诊断
+除认证接口外全部要求登录；认证与 LLM 接口内置限流（超限返回 429）。
+
+### 认证
+
+```
+POST /api/auth/register    { email, username, password } → 注册并写入会话 Cookie
+POST /api/auth/login       { identifier, password }      → 邮箱或用户名登录
+POST /api/auth/logout      → 清除会话 Cookie
+GET  /api/auth/me          → 当前登录用户
+GET  /api/auth/check-username?username=xxx
+```
+
+### 对话诊断（SSE 流式输出）
 
 ```
 POST /api/diagnose/start
-Body: { vehicleId?, symptom: string }
-Response: { sessionId, message: AssistantMessage }
+Body: { symptom?: string }
+Response: text/event-stream（SSE 增量文本）
 
 POST /api/diagnose/chat
-Body: { sessionId, message: string }
-Response: { message: AssistantMessage, report?: DiagnosisReport }
-// 流式输出使用 SSE
-
-GET /api/diagnose/[sessionId]
-Response: { session, messages[], report? }
+Body: { messages, message, turnCount?, followUpContext? }
+Response: text/event-stream（SSE 增量文本）
 ```
 
 ### 车辆管理
 
 ```
-GET /api/vehicles
-POST /api/vehicles
-PUT /api/vehicles/[id]
-DELETE /api/vehicles/[id]
+GET  /api/vehicles           # 我的车辆列表
+POST /api/vehicles           # 新增车辆
+PUT  /api/vehicles/[id]      # 更新车辆（校验归属）
+DELETE /api/vehicles/[id]    # 删除车辆（校验归属）
 ```
 
-### 诊断历史
+### 诊断会话与历史
 
 ```
-GET /api/history?page=1&limit=20
-GET /api/history/[sessionId]
+GET   /api/diagnose/sessions                # 会话列表（含消息）
+POST  /api/diagnose/sessions                # 创建会话 { initialSymptom }
+GET   /api/diagnose/sessions/[id]           # 会话详情（校验归属）
+PATCH /api/diagnose/sessions/[id]           # 更新 status / report
+DELETE /api/diagnose/sessions/[id]          # 删除会话
+POST  /api/diagnose/sessions/[id]/messages  # 追加消息 { role, content }
 ```
 
-### 二手车评估
+### 二手车评估（SSE 流式输出）与记录
 
 ```
 POST /api/used-car/evaluate
-Body: { brand, series, year, mileage, price, description, images? }
-Response: { report: UsedCarReport }
+Body: { brand, series, year, mileage?, askingPrice?, transferCount?, color?, description }
+Response: text/event-stream（SSE 增量文本）
+
+GET  /api/used-car/evaluations              # 评估记录列表
+POST /api/used-car/evaluations              # 保存评估结果 { input, reportMarkdown }
+GET  /api/used-car/evaluations/[id]         # 评估详情（校验归属）
+DELETE /api/used-car/evaluations/[id]       # 删除评估（校验归属）
+```
+
+### 个人中心 / 统计
+
+```
+GET  /api/profile          # 个人资料
+PATCH /api/profile         # 更新资料（邮箱格式校验，重复邮箱返回 409）
+GET  /api/stats            # 个人使用统计（会话/完成/车辆/评估数）
 ```
 
 ---

@@ -1,5 +1,8 @@
 # Responses API 迁移与项目优化实施计划
 
+> **已归档**：此计划为 Supabase 时代的历史文档；当前实现为自托管 PostgreSQL + JWT，
+> 请以 README.md / PROJECT_BRIEF.md 为准。
+
 > **For agentic workers:** Execution in this session is **inline** (no subagent dispatch). Steps use checkbox (`- [ ]`) syntax.
 
 **Goal:** 移除泄漏的 API Key，将 LLM 调用从 Chat Completions 迁移到 DeepSeek 原生 Responses API，并按 Vercel React/Next.js 最佳实践做一轮低风险优化。

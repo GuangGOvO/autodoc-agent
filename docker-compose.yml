@@ -9,6 +9,10 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-autodoc}
     volumes:
       - db-data:/var/lib/postgresql/data
+    ports:
+      # 本地开发：让宿主机可用 localhost:5432 跑 npm run db:migrate / psql
+      # 生产环境建议移除，避免端口暴露
+      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-autodoc} -d ${POSTGRES_DB:-autodoc}"]
       interval: 10s

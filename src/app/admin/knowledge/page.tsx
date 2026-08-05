@@ -9,18 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { getAllFaults } from '@/lib/knowledge/graph';
+import { categoryNames } from '@/data';
 import type { FaultKnowledge } from '@/types/knowledge';
-
-const categoryNames: Record<string, string> = {
-  engine: '发动机',
-  transmission: '变速箱',
-  chassis: '底盘悬挂',
-  braking: '制动系统',
-  electrical: '电气系统',
-  hvac: '空调系统',
-  body: '车身',
-  steering: '转向系统',
-};
 
 const categoryColors: Record<string, string> = {
   engine: 'bg-red-100 text-red-800',

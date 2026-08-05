@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "AutoDoc 智驾医生 — AI 汽车自助预诊断智能体",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
