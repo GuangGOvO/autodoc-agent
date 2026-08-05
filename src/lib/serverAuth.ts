@@ -4,6 +4,17 @@ import { cookies } from 'next/headers';
 import { verifySessionToken, SESSION_COOKIE } from './session';
 import { pool } from './db';
 
+// 管理员邮箱白名单（逗号分隔，来自环境变量 ADMIN_EMAILS）
+// 注册与登录时都会同步角色：命中白名单的邮箱自动获得 admin
+export const ADMIN_EMAILS: string[] = (process.env.ADMIN_EMAILS || '')
+  .split(',')
+  .map(e => e.trim().toLowerCase())
+  .filter(Boolean);
+
+export function isAdminEmail(email: string): boolean {
+  return ADMIN_EMAILS.includes(email.toLowerCase());
+}
+
 export interface ServerUser {
   id: string;
   email: string;

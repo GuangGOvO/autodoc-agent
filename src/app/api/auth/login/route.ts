@@ -5,6 +5,7 @@ import { pool } from '@/lib/db';
 import { verifyPassword } from '@/lib/password';
 import { createSessionToken, sessionCookieOptions, SESSION_COOKIE } from '@/lib/session';
 import { getClientIp, hitRateLimit, rateLimitedResponse } from '@/lib/rateLimit';
+import { isAdminEmail } from '@/lib/serverAuth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -53,12 +54,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: '密码错误或账号不存在' }, { status: 401 });
     }
 
+    // 登录时同步管理员角色：邮箱命中 ADMIN_EMAILS 白名单即升级（无需重新注册）
+    let role = user.role;
+    if (isAdminEmail(user.email) && user.role !== 'admin') {
+      await pool.query('update users set role = $1, updated_at = now() where id = $2', [
+        'admin',
+        user.id,
+      ]);
+      role = 'admin';
+    }
+
     const token = await createSessionToken({
       id: user.id,
       email: user.email,
       username: user.username,
       name: user.name,
-      role: user.role,
+      role,
     });
 
     const response = NextResponse.json({
@@ -68,7 +79,7 @@ export async function POST(request: NextRequest) {
         username: user.username,
         name: user.name || user.username,
         avatarUrl: user.avatar_url || '',
-        role: user.role,
+        role,
       },
     });
     response.cookies.set(SESSION_COOKIE, token, sessionCookieOptions);

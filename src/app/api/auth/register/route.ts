@@ -5,12 +5,7 @@ import { pool } from '@/lib/db';
 import { hashPassword } from '@/lib/password';
 import { createSessionToken, sessionCookieOptions, SESSION_COOKIE } from '@/lib/session';
 import { getClientIp, hitRateLimit, rateLimitedResponse } from '@/lib/rateLimit';
-
-// 管理员邮箱白名单（逗号分隔，来自环境变量 ADMIN_EMAILS）
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '')
-  .split(',')
-  .map(e => e.trim().toLowerCase())
-  .filter(Boolean);
+import { isAdminEmail } from '@/lib/serverAuth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
 
     const passwordHash = await hashPassword(password);
-    const role = ADMIN_EMAILS.includes(email) ? 'admin' : 'user';
+    const role = isAdminEmail(email) ? 'admin' : 'user';
     let userId: string;
     try {
       const { rows } = await pool.query<{ id: string }>(
