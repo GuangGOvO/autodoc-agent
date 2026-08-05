@@ -30,7 +30,7 @@
 | LLM | DeepSeek API — 原生 Responses API（主） + 支持切换其他模型 | 性价比高，中文能力强 |
 | 数据库 | Supabase (PostgreSQL + Auth + RLS) | 已完成迁移，登录/数据存储统一 |
 | 知识库 | JSON/TypeScript 结构化数据 | 故障知识图谱用树形JSON存储 |
-| 部署 | Vercel | 一键部署，适合比赛Demo展示 |
+| 部署 | Docker（自购云服务器） | 全栈容器化，独立可控 |
 
 ---
 
@@ -498,7 +498,7 @@ Response: { report: UsedCarReport }
 ### Phase 4 — 打磨（Day 7）
 13. 预设演示数据
 14. UI细节优化
-15. 部署到Vercel
+15. 部署到云服务器（Docker）
 16. 准备演示脚本
 
 ---

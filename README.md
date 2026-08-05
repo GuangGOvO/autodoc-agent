@@ -44,7 +44,7 @@
 | 数据存储 | Supabase (PostgreSQL + Auth + RLS) |
 | 图标 | Lucide React |
 | Markdown | react-markdown + remark-gfm |
-| 部署 | Vercel |
+| 部署 | Docker（自购云服务器） |
 
 ## 📦 快速开始
 
@@ -189,24 +189,59 @@ src/
 
 ## 🚀 部署
 
-### Vercel 部署（推荐）
-
-```bash
-# 安装 Vercel CLI
-npm i -g vercel
-
-# 部署
-vercel
-```
-
-在 Vercel 控制台中配置环境变量 `DEEPSEEK_API_KEY` 等。
-
-### 其他平台
+### 本地运行
 
 ```bash
 npm run build
 npm start
 ```
+
+### Docker 部署（自购云服务器）
+
+**环境要求**：Docker 20.10+、Docker Compose 2.x
+
+```bash
+# 1. 上传代码到服务器（git clone 或 scp）
+
+# 2. 配置环境变量（.env 已被 gitignore/.dockerignore 排除，不会进入镜像）
+cp .env.example .env
+# 编辑 .env，填入 DeepSeek 与 Supabase 真实值
+# 注意：NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY
+# 会在构建期内联进客户端代码，生产构建前务必先写入 .env 再执行第 3 步
+
+# 3. 构建并启动
+docker compose up -d --build
+
+# 4. 验证
+curl http://localhost:3000
+docker compose ps        # STATUS 应为 healthy
+
+# 常用命令
+docker compose logs -f app   # 查看日志
+docker compose restart app   # 重启
+docker compose down          # 停止并删除容器
+```
+
+**Nginx 反向代理示例**（80/443，配合域名）：
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;   # 保持 SSE 流式输出
+    }
+}
+```
+
+> 提示：智能问诊使用 SSE 流式响应，Nginx 反代务必保留 `proxy_buffering off`，否则打字机效果会被缓冲。
 
 ## 📋 开发路线
 

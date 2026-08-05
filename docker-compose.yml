@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # 构建期注入 NEXT_PUBLIC_*（从 compose 的 .env 或 shell 环境插值）
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-https://placeholder.supabase.co}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:-placeholder-anon-key}
+    image: autodoc-agent:latest
+    container_name: autodoc-agent
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    # 运行期注入环境变量（.env 已被 gitignore/.dockerignore 排除，不会打进镜像）
+    env_file:
+      - path: .env
+        required: false

@@ -5,7 +5,7 @@
 ### 环境检查清单
 - [ ] 网络连接正常
 - [ ] DeepSeek API Key 已配置
-- [ ] 浏览器打开 http://localhost:3000（或 Vercel 线上地址）
+- [ ] 浏览器打开 http://localhost:3000（或服务器线上地址）
 - [ ] 已导入预设演示数据（访问 /admin/seed）
 - [ ] 手机扫码地址准备好（评委可能用手机看）
 
