@@ -1,4 +1,4 @@
-.PHONY: build up down logs restart ps
+.PHONY: build up down logs restart ps migrate
 
 build:
 	docker compose build
@@ -17,3 +17,6 @@ restart:
 
 ps:
 	docker compose ps
+
+migrate:
+	docker compose exec -T app node scripts/migrate.mjs

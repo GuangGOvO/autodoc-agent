@@ -41,7 +41,8 @@
 | 样式 | Tailwind CSS 4 + shadcn/ui (@base-ui/react) |
 | 语言 | TypeScript 5 |
 | LLM | DeepSeek API — 原生 Responses API（SSE 流式） |
-| 数据存储 | Supabase (PostgreSQL + Auth + RLS) |
+| 数据存储 | PostgreSQL 16（自托管，Docker 卷持久化） |
+| 认证 | JWT 会话（自研，httpOnly Cookie + bcrypt） |
 | 图标 | Lucide React |
 | Markdown | react-markdown + remark-gfm |
 | 部署 | Docker（自购云服务器） |
@@ -65,12 +66,13 @@ npm install
 
 # 配置环境变量
 cp .env.example .env.local
-# 编辑 .env.local，填入 DeepSeek API Key 和 Supabase 配置
+# 编辑 .env.local，填入 DeepSeek API Key、数据库连接与 JWT_SECRET
 
-# 初始化 Supabase（登录、车辆、诊断记录等数据存储）
-# 1. 在 https://supabase.com 创建项目
-# 2. 在 SQL Editor 中依次执行 supabase/migrations/ 下的 SQL 脚本
-# 3. 把项目的 URL / anon key / service role key 填入 .env.local
+# 启动本地数据库（Docker Compose 的 db 服务）
+docker compose up -d db
+
+# 执行数据库迁移（db/migrations/ 下的 SQL 脚本）
+npm run db:migrate
 
 # 启动开发服务器
 npm run dev
@@ -89,18 +91,22 @@ DEEPSEEK_BASE_URL=https://api.deepseek.com
 # Responses API 目前仅支持 deepseek-v4-flash
 DEEPSEEK_MODEL=deepseek-v4-flash
 
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://你的项目.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=你的anon-key
-SUPABASE_SERVICE_ROLE_KEY=你的service-role-key
+# 数据库（本地开发连 localhost）
+DATABASE_URL=postgres://autodoc:你的数据库密码@localhost:5432/autodoc
+POSTGRES_USER=autodoc
+POSTGRES_PASSWORD=你的数据库密码
+POSTGRES_DB=autodoc
+
+# 会话签名密钥（生产环境务必更换为随机长字符串）
+JWT_SECRET=请设置一个足够长的随机字符串
 
 # App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-> 注意：`supabase/migrations/` 目录下的 SQL 脚本必须全部执行（它们创建了
-> `profiles`、`vehicles`、`diagnosis_sessions`、`diagnosis_messages`、
-> `used_car_evaluations` 表、RLS 策略和用户名登录所需的 RPC）。
+> 注意：`db/migrations/` 下的 SQL 脚本通过 `npm run db:migrate`（幂等）应用，
+> 它们创建 `users`、`vehicles`、`diagnosis_sessions`、`diagnosis_messages`、
+> `used_car_evaluations` 表与索引。
 
 ## 📁 项目结构
 
@@ -205,14 +211,15 @@ npm start
 
 # 2. 配置环境变量（.env 已被 gitignore/.dockerignore 排除，不会进入镜像）
 cp .env.example .env
-# 编辑 .env，填入 DeepSeek 与 Supabase 真实值
-# 注意：NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY
-# 会在构建期内联进客户端代码，生产构建前务必先写入 .env 再执行第 3 步
+# 编辑 .env，填入 DeepSeek API Key、数据库密码与 JWT_SECRET
 
-# 3. 构建并启动
+# 3. 构建并启动（自动拉起 db 服务）
 docker compose up -d --build
 
-# 4. 验证
+# 4. 执行数据库迁移（只需一次）
+docker compose exec -T app node scripts/migrate.mjs
+
+# 5. 验证
 curl http://localhost:3000
 docker compose ps        # STATUS 应为 healthy
 
@@ -249,8 +256,9 @@ server {
 - [x] **Phase 2** — 产品完整度（用户系统 + 车辆管理 + 报告页 + 历史）
 - [x] **Phase 3** — 比赛加分（二手车评估 + 管理后台 + 首页优化）
 - [x] **Phase 4** — 打磨（预设数据 + UI 优化 + 部署配置）
-- [x] **Phase 5** — Supabase 数据库迁移 + 用户认证（邮箱/用户名登录）+ 多模型支持
-- [ ] **Phase 6**（规划中） — 向量化知识检索 + 诊断报告 JSON 结构化输出
+- [x] **Phase 5** — 自托管数据库 + 用户认证（邮箱/用户名登录）+ 多模型支持
+- [x] **Phase 6** — 全自托管改造（PostgreSQL + JWT 会话，移除 Supabase）
+- [ ] **Phase 7**（规划中） — 向量化知识检索 + 诊断报告 JSON 结构化输出
 
 ## ⚠️ 免责声明
 

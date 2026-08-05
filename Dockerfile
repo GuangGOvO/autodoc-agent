@@ -17,13 +17,6 @@ WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# NEXT_PUBLIC_* 在构建期内联到客户端代码，必须在此注入
-# 生产构建请通过 --build-arg 或 compose build.args 传入真实值
-ARG NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co
-ARG NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder-anon-key
-ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY
-
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -47,6 +40,9 @@ RUN addgroup --system --gid 1001 nodejs \
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# 数据库迁移脚本（docker compose exec app node scripts/migrate.mjs）
+COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/db ./db
 
 USER nextjs
 

@@ -1,4 +1,4 @@
-// 聊天窗口主组件 — Supabase 持久化、会话恢复、追问
+// 聊天窗口主组件 — 持久化、会话恢复、追问
 
 'use client';
 
@@ -177,7 +177,7 @@ export function ChatWindow() {
         }
       }
 
-      // 流完成后（或中断后），持久化消息到 Supabase
+      // 流完成后（或中断后），持久化消息到数据库
       if (fullContent) {
         const finalMsg: ChatMessage = {
           id: assistantId,
@@ -233,7 +233,7 @@ export function ChatWindow() {
     setInput('');
     setIsLoading(true);
 
-    // 持久化用户消息到 Supabase
+    // 持久化用户消息到数据库
     await addMessageToSession(sid, userMessage);
 
     const assistantId = generateId();
