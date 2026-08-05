@@ -65,6 +65,9 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   const updates: string[] = ['updated_at = now()'];
   const values: unknown[] = [id, user.id];
   if (body.status) {
+    if (!['in_progress', 'completed'].includes(body.status)) {
+      return NextResponse.json({ error: '会话状态不正确' }, { status: 400 });
+    }
     values.push(body.status);
     updates.push(`status = $${values.length}`);
   }

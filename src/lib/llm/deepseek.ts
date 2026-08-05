@@ -27,12 +27,18 @@ if (!DEEPSEEK_API_KEY) {
 }
 
 /**
- * 创建带超时的 AbortSignal
+ * 创建带超时的 AbortSignal，并返回清理函数（请求结束后清除定时器，避免事件循环残留）
  */
-function createTimeoutSignal(timeoutMs: number): AbortSignal {
+function createTimeoutSignal(timeoutMs: number): {
+  signal: AbortSignal;
+  clear: () => void;
+} {
   const controller = new AbortController();
-  setTimeout(() => controller.abort(), timeoutMs);
-  return controller.signal;
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return {
+    signal: controller.signal,
+    clear: () => clearTimeout(timer),
+  };
 }
 
 /**
@@ -71,15 +77,22 @@ function buildResponsesBody(
  * 统一的非流式/流式请求入口（连接阶段 60s 超时）
  */
 async function postResponses(body: Record<string, unknown>, timeoutMs: number): Promise<Response> {
-  const response = await fetch(RESPONSES_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
-    },
-    body: JSON.stringify(body),
-    signal: createTimeoutSignal(timeoutMs),
-  });
+  const { signal, clear } = createTimeoutSignal(timeoutMs);
+  let response: Response;
+  try {
+    response = await fetch(RESPONSES_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+      },
+      body: JSON.stringify(body),
+      signal,
+    });
+  } finally {
+    // 连接阶段结束即清理：流式场景的读流超时由 chunk 计时器另行负责
+    clear();
+  }
 
   if (!response.ok) {
     const errorText = await response.text();

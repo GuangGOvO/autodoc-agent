@@ -2,9 +2,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
+import { getClientIp, hitRateLimit, rateLimitedResponse } from '@/lib/rateLimit';
 
 export async function GET(request: NextRequest) {
   try {
+    const ip = getClientIp(request);
+    const perIp = hitRateLimit({ scope: 'check-username:ip', key: ip, limit: 60 });
+    if (perIp.limited) return rateLimitedResponse(perIp.retryAfterSec);
+
     const username = (request.nextUrl.searchParams.get('username') || '').trim();
     if (!username) {
       return NextResponse.json({ available: true });

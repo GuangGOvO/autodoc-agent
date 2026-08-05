@@ -254,156 +254,113 @@ interface VehicleModel {
 ## 六、项目目录结构
 
 ```
-AutoDocAgent/
-├── PROJECT_BRIEF.md          # 本文件
-├── README.md                 # 项目说明
-├── package.json
-├── next.config.js
-├── tailwind.config.ts
-├── tsconfig.json
-│
-├── public/
-│   ├── logo.svg
-│   └── images/
-│
+autodoc-agent/
+├── README.md / PROJECT_BRIEF.md / DEMO_SCRIPT.md
+├── package.json / next.config.ts / tsconfig.json / eslint.config.mjs
+├── Dockerfile / docker-compose.yml / Makefile / .github/workflows/ci.yml
+├── public/                       # 静态资源
+├── db/
+│   └── migrations/               # 自托管数据库迁移（0001 初始化 + 0002 用户角色）
+│       ├── 0001_init.sql
+│       └── 0002_add_user_roles.sql
+├── scripts/
+│   └── migrate.mjs               # 幂等迁移脚本（npm run db:migrate）
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx        # 全局布局
-│   │   ├── page.tsx          # 首页
-│   │   ├── diagnose/
-│   │   │   ├── page.tsx      # 问诊对话页
-│   │   │   └── [id]/page.tsx # 诊断报告页
-│   │   ├── vehicles/
-│   │   │   ├── page.tsx      # 车辆列表
-│   │   │   └── add/page.tsx  # 添加车辆
-│   │   ├── history/page.tsx  # 诊断历史
-│   │   ├── used-car/
-│   │   │   ├── page.tsx      # 二手车评估
-│   │   │   └── [id]/page.tsx # 评估报告
-│   │   ├── profile/page.tsx  # 个人中心
-│   │   └── admin/
-│   │       ├── page.tsx      # 后台概览
-│   │       ├── knowledge/page.tsx
-│   │       └── stats/page.tsx
-│   │
+│   │   ├── layout.tsx / page.tsx / login / register / error / loading / not-found
+│   │   ├── diagnose/             # 智能问诊（对话页 + 报告页）
+│   │   ├── vehicles/             # 车辆管理（列表 / 添加 / 编辑）
+│   │   ├── history/              # 诊断历史
+│   │   ├── used-car/             # 二手车评估（表单 + 报告页）
+│   │   ├── profile/              # 个人中心
+│   │   ├── admin/                # 管理后台（仅 admin 角色）
+│   │   │   ├── page.tsx / knowledge / stats / seed
+│   │   └── api/                  # 全部 REST API（auth / vehicles / diagnose / used-car / profile / stats）
 │   ├── components/
-│   │   ├── ui/               # shadcn/ui 组件
-│   │   ├── chat/             # 对话相关组件
-│   │   │   ├── ChatWindow.tsx
-│   │   │   ├── MessageBubble.tsx
-│   │   │   ├── DiagnosisReport.tsx
-│   │   │   └── TypingIndicator.tsx
-│   │   ├── vehicle/          # 车辆相关组件
-│   │   ├── report/           # 报告展示组件
-│   │   └── layout/           # 布局组件（Header, Sidebar, Footer）
-│   │
+│   │   ├── ui/                   # shadcn/ui 基础组件
+│   │   ├── chat/ / report/ / vehicle/ / layout/ / home/
+│   │   └── auth/AuthProvider.tsx # 全局登录态
 │   ├── lib/
-│   │   ├── supabase/         # Supabase客户端配置
-│   │   ├── llm/              # LLM调用封装
-│   │   │   ├── deepseek.ts   # DeepSeek API
-│   │   │   └── prompts.ts    # System Prompt模板
-│   │   ├── knowledge/        # 知识图谱引擎
-│   │   │   ├── graph.ts      # 图谱查询
-│   │   │   ├── matcher.ts    # 症状匹配算法
-│   │   │   └── types.ts      # 类型定义
-│   │   └── utils.ts          # 通用工具函数
-│   │
-│   ├── hooks/                # 自定义Hooks
-│   │   ├── useChat.ts
-│   │   └── useDiagnosis.ts
-│   │
-│   ├── data/                 # 静态知识库数据
-│   │   ├── obd-codes.json    # OBD故障码
-│   │   ├── faults/           # 故障知识图谱（按系统分文件）
-│   │   │   ├── engine.json
-│   │   │   ├── transmission.json
-│   │   │   ├── chassis.json
-│   │   │   ├── braking.json
-│   │   │   ├── electrical.json
-│   │   │   ├── hvac.json
-│   │   │   ├── body.json
-│   │   │   └── steering.json
-│   │   ├── vehicles.json     # 车型数据库
-│   │   └── prices.json       # 配件价格参考
-│   │
-│   └── types/                # TypeScript类型定义
-│       ├── diagnosis.ts
-│       ├── vehicle.ts
-│       └── knowledge.ts
-│
-├── supabase/
-│   └── migrations/           # 数据库迁移脚本
-│       └── 001_init.sql
-│
-└── scripts/
-    ├── build-knowledge.ts    # 知识图谱构建脚本
-    └── import-obd.ts         # OBD数据导入脚本
+│   │   ├── llm/                  # deepseek.ts（Responses API + SSE）+ prompts.ts
+│   │   ├── knowledge/            # 知识图谱 graph.ts + 症状匹配 matcher.ts
+│   │   ├── session.ts            # JWT 会话（jose，edge 安全）
+│   │   ├── serverAuth.ts / auth.ts / password.ts / db.ts
+│   │   ├── storage.ts / apiClient.ts / reportParser.ts / usedCarParser.ts
+│   │   ├── rateLimit.ts          # 进程内限流
+│   │   └── sse.ts                # SSE 响应封装
+│   ├── data/                     # 静态知识库（faults/ 8 大系统 + vehicles.json）
+│   ├── types/                    # TypeScript 类型
+│   └── proxy.ts                  # 路由保护（登录 + admin 角色校验）
+└── .env.example                  # 环境变量模板（不含真实密钥）
 ```
 
 ---
 
-## 七、数据库Schema（Supabase/PostgreSQL）
+## 七、数据库Schema（自托管 PostgreSQL）
 
 ```sql
 -- 用户表
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  email TEXT UNIQUE,
-  phone TEXT,
+  email TEXT NOT NULL UNIQUE,
+  username TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,       -- bcrypt
   name TEXT,
+  phone TEXT,
   avatar_url TEXT,
-  created_at TIMESTAMPTZ DEFAULT now()
+  role TEXT NOT NULL DEFAULT 'user', -- admin / user（0002 迁移）
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 -- 用户车辆表
 CREATE TABLE vehicles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   brand TEXT NOT NULL,
   series TEXT NOT NULL,
   year TEXT,
   engine TEXT,
   transmission TEXT,
-  mileage INTEGER,
-  vin TEXT,
+  mileage NUMERIC DEFAULT 0,
   license_plate TEXT,
   notes TEXT,
-  created_at TIMESTAMPTZ DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 -- 诊断会话表
 CREATE TABLE diagnosis_sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id),
-  vehicle_id UUID REFERENCES vehicles(id),
-  status TEXT DEFAULT 'in_progress', -- in_progress / completed
-  initial_symptom TEXT,              -- 初始症状描述
-  final_report JSONB,               -- 最终诊断报告
-  created_at TIMESTAMPTZ DEFAULT now(),
-  updated_at TIMESTAMPTZ DEFAULT now()
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  status TEXT NOT NULL DEFAULT 'in_progress', -- in_progress / completed
+  initial_symptom TEXT,
+  report JSONB,                    -- 最终诊断报告
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 -- 对话消息表
 CREATE TABLE diagnosis_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  session_id UUID REFERENCES diagnosis_sessions(id),
+  session_id UUID NOT NULL REFERENCES diagnosis_sessions(id) ON DELETE CASCADE,
   role TEXT NOT NULL,                -- user / assistant / system
   content TEXT NOT NULL,
-  metadata JSONB,                    -- 附加信息（如提取的结构化数据）
-  created_at TIMESTAMPTZ DEFAULT now()
+  metadata JSONB,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- 用户反馈表
-CREATE TABLE feedback (
+-- 二手车评估表
+CREATE TABLE used_car_evaluations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  session_id UUID REFERENCES diagnosis_sessions(id),
-  user_id UUID REFERENCES users(id),
-  rating INTEGER CHECK (rating >= 1 AND rating <= 5),
-  accurate BOOLEAN,                -- 诊断是否准确
-  comment TEXT,
-  created_at TIMESTAMPTZ DEFAULT now()
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  input JSONB NOT NULL,
+  report_markdown TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 ```
+
+迁移由 `db/migrations/*.sql` + `scripts/migrate.mjs` 幂等应用（`schema_migrations` 记录已执行项）。
 
 ---
 
@@ -507,17 +464,23 @@ Response: { report: UsedCarReport }
 
 ```env
 # LLM
-DEEPSEEK_API_KEY=sk-xxx
+DEEPSEEK_API_KEY=sk-你的DeepSeek密钥（请勿提交真实 Key）
 DEEPSEEK_BASE_URL=https://api.deepseek.com
-DEEPSEEK_MODEL=deepseek-chat
+DEEPSEEK_MODEL=deepseek-v4-flash
 
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=xxx
-SUPABASE_SERVICE_ROLE_KEY=xxx
+# 数据库（自托管 PostgreSQL）
+DATABASE_URL=postgres://autodoc:你的数据库密码@localhost:5432/autodoc
+POSTGRES_USER=autodoc
+POSTGRES_PASSWORD=你的数据库密码
+POSTGRES_DB=autodoc
 
-# App
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+# 会话签名密钥（生产环境必须 ≥32 字符随机字符串，openssl rand -base64 48）
+JWT_SECRET=请设置一个足够长的随机字符串
+
+# 可选
+# COOKIE_SECURE=true            # 显式控制会话 Cookie 的 Secure 标记
+# ADMIN_EMAILS=admin@example.com # 管理员邮箱白名单（逗号分隔）
+# NEXT_PUBLIC_DEV_ORIGINS=      # 开发环境允许的来源（逗号分隔）
 ```
 
 ---

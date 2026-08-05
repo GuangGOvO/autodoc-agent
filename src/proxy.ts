@@ -22,6 +22,13 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // ========== 非管理员访问管理后台 → 回到首页 ==========
+  if (user && request.nextUrl.pathname.startsWith('/admin') && user.role !== 'admin') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/';
+    return NextResponse.redirect(url);
+  }
+
   // ========== 已登录访问登录/注册页 → 重定向到首页 ==========
   if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/register')) {
     const url = request.nextUrl.clone();

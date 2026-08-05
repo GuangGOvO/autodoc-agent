@@ -5,6 +5,8 @@ import { chatCompletionStream } from '@/lib/llm/deepseek';
 import { buildUsedCarPrompt } from '@/lib/llm/prompts';
 import { getServerUser } from '@/lib/serverAuth';
 import type { UsedCarInput } from '@/types/usedCar';
+import { getClientIp, hitRateLimit, rateLimitedResponse } from '@/lib/rateLimit';
+import { sseResponse } from '@/lib/sse';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,6 +15,12 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: '请先登录后再使用评估功能' }, { status: 401 });
     }
+
+    // 限流：按用户 10 次/分钟 + 按 IP 30 次/分钟
+    const perUser = hitRateLimit({ scope: 'used-car:user', key: user.id, limit: 10 });
+    if (perUser.limited) return rateLimitedResponse(perUser.retryAfterSec);
+    const perIp = hitRateLimit({ scope: 'used-car:ip', key: getClientIp(request), limit: 30 });
+    if (perIp.limited) return rateLimitedResponse(perIp.retryAfterSec);
 
     const input = body as UsedCarInput;
 
@@ -41,11 +49,16 @@ export async function POST(request: NextRequest) {
     }
 
     // 构建用户描述
+    // 文本字段统一截断，防止超长输入挤爆上下文
+    const brand = String(input.brand || '').slice(0, 100);
+    const series = String(input.series || '').slice(0, 100);
+    const year = String(input.year || '').slice(0, 20);
+
     const userPrompt = `请帮我评估一辆二手车：
 
-品牌：${input.brand}
-车系：${input.series}
-年款：${input.year}
+品牌：${brand}
+车系：${series}
+年款：${year}
 表显里程：${input.mileage}万公里
 卖家报价：${input.askingPrice}万元${input.transferCount !== undefined ? `\n过户次数：${input.transferCount}次` : ''}${input.color ? `\n颜色：${input.color}` : ''}
 
@@ -85,13 +98,7 @@ ${input.description}
       },
     });
 
-    return new Response(sseStream, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
-    });
+    return sseResponse(sseStream);
   } catch (error) {
     console.error('Used car evaluate error:', error);
     return NextResponse.json(

@@ -5,6 +5,7 @@
 import { createContext, useContext, useCallback, useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { AUTH_CHANGED_EVENT, type AuthUser } from '@/lib/auth';
+import { UNAUTHORIZED_EVENT, UNAUTHORIZED_REDIRECT_KEY } from '@/lib/apiClient';
 
 interface AuthContextType {
   user: AuthUser | null;
@@ -69,6 +70,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     window.addEventListener(AUTH_CHANGED_EVENT, handler);
     return () => window.removeEventListener(AUTH_CHANGED_EVENT, handler);
   }, [fetchUser]);
+
+  // 401 事件：由 apiFetch 触发，统一跳转登录页并保留原路径
+  useEffect(() => {
+    const handler = () => {
+      if (pathname.startsWith('/login')) return;
+      const redirect = window.sessionStorage.getItem(UNAUTHORIZED_REDIRECT_KEY);
+      const target = redirect
+        ? `/login?redirect=${encodeURIComponent(redirect)}`
+        : '/login';
+      router.push(target);
+    };
+    window.addEventListener(UNAUTHORIZED_EVENT, handler);
+    return () => window.removeEventListener(UNAUTHORIZED_EVENT, handler);
+  }, [pathname, router]);
 
   // 路由保护：未登录访问受保护页面时跳转
   useEffect(() => {

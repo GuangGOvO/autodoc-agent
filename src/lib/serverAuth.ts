@@ -11,6 +11,7 @@ export interface ServerUser {
   name: string | null;
   avatarUrl: string | null;
   phone: string | null;
+  role: string;
 }
 
 /** 从请求 Cookie 读取会话（服务端组件 / API 路由） */
@@ -40,8 +41,9 @@ export async function getServerUser(): Promise<{
       name: string | null;
       avatar_url: string | null;
       phone: string | null;
+      role: string;
     }>(
-      `select id, email, username, name, avatar_url, phone
+      `select id, email, username, name, avatar_url, phone, role
        from users
        where id = $1
        limit 1`,
@@ -58,6 +60,7 @@ export async function getServerUser(): Promise<{
         name: row.name,
         avatarUrl: row.avatar_url,
         phone: row.phone,
+        role: row.role || 'user',
       },
       error: null,
     };

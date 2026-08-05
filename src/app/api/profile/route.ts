@@ -34,19 +34,29 @@ export async function PATCH(request: NextRequest) {
 
   try {
     const body = await request.json();
-    await pool.query(
-      `update users
-       set name = $1, phone = $2, email = $3, avatar_url = $4, updated_at = now()
-       where id = $5`,
-      [
-        String(body.name || '') || null,
-        String(body.phone || '') || null,
-        String(body.email || '') || null,
-        String(body.avatarUrl || '') || null,
-        user.id,
-      ]
-    );
-    return NextResponse.json({ ok: true });
+    const email = String(body.email || '').trim().toLowerCase();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: '邮箱格式不正确' }, { status: 400 });
+    }
+    const name = String(body.name || '').trim().slice(0, 50) || null;
+    const phone = String(body.phone || '').trim().slice(0, 30) || null;
+    const avatarUrl = String(body.avatarUrl || '').trim().slice(0, 500) || null;
+
+    try {
+      await pool.query(
+        `update users
+         set name = $1, phone = $2, email = $3, avatar_url = $4, updated_at = now()
+         where id = $5`,
+        [name, phone, email, avatarUrl, user.id]
+      );
+      return NextResponse.json({ ok: true });
+    } catch (err) {
+      const msg = (err as { message?: string }).message || '';
+      if (msg.includes('users_email_key') || (msg.includes('duplicate key') && msg.includes('email'))) {
+        return NextResponse.json({ error: '该邮箱已被使用' }, { status: 409 });
+      }
+      throw err;
+    }
   } catch (error) {
     console.error('[profile] update error:', error);
     return NextResponse.json({ error: '保存失败，请稍后重试' }, { status: 500 });

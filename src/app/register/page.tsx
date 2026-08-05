@@ -54,8 +54,8 @@ export default function RegisterPage() {
       return;
     }
 
-    if (password.length < 6) {
-      setError('密码至少 6 个字符');
+    if (password.length < 8) {
+      setError('密码至少 8 个字符');
       return;
     }
 
@@ -145,11 +145,11 @@ export default function RegisterPage() {
               <Input
                 id="password"
                 type="password"
-                placeholder="至少 6 个字符"
+                placeholder="至少 8 个字符"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                minLength={6}
+                minLength={8}
               />
             </div>
             <div className="space-y-2">

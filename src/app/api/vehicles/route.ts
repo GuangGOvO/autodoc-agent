@@ -56,6 +56,13 @@ export async function POST(request: NextRequest) {
     if (!brand || !series) {
       return NextResponse.json({ error: '请填写品牌和车系' }, { status: 400 });
     }
+    const mileage =
+      body.mileage === undefined || body.mileage === null || body.mileage === ''
+        ? 0
+        : Number(body.mileage);
+    if (!Number.isFinite(mileage) || mileage < 0) {
+      return NextResponse.json({ error: '里程格式不正确' }, { status: 400 });
+    }
 
     const { rows } = await pool.query<VehicleRow>(
       `insert into vehicles (user_id, brand, series, year, engine, transmission, mileage, license_plate, notes)
@@ -68,7 +75,7 @@ export async function POST(request: NextRequest) {
         body.year || null,
         body.engine || null,
         body.transmission || null,
-        Number(body.mileage) || 0,
+        mileage,
         body.licensePlate || null,
         body.notes || null,
       ]

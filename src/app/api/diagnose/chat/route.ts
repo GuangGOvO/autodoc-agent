@@ -6,6 +6,8 @@ import { buildSystemPrompt, buildFollowUpPrompt, formatKnowledgeContext } from '
 import { getRelevantKnowledge } from '@/lib/knowledge/matcher';
 import { getServerUser } from '@/lib/serverAuth';
 import type { ChatMessage } from '@/types/diagnosis';
+import { getClientIp, hitRateLimit, rateLimitedResponse } from '@/lib/rateLimit';
+import { sseResponse } from '@/lib/sse';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,6 +16,12 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: '请先登录后再使用诊断功能' }, { status: 401 });
     }
+
+    // 限流：按用户 20 次/分钟 + 按 IP 60 次/分钟
+    const perUser = hitRateLimit({ scope: 'diagnose:chat:user', key: user.id, limit: 20 });
+    if (perUser.limited) return rateLimitedResponse(perUser.retryAfterSec);
+    const perIp = hitRateLimit({ scope: 'diagnose:chat:ip', key: getClientIp(request), limit: 60 });
+    if (perIp.limited) return rateLimitedResponse(perIp.retryAfterSec);
 
     const { messages: historyMessages, message: userMessage, turnCount, followUpContext } = body as {
       messages: ChatMessage[];
@@ -31,6 +39,13 @@ export async function POST(request: NextRequest) {
     if (!Array.isArray(historyMessages) || historyMessages.length > 100) {
       return NextResponse.json({ error: '对话历史异常，请重新发起诊断' }, { status: 400 });
     }
+    // 服务端过滤：仅允许 user/assistant 角色，且单条消息限长，防止伪造 system 注入或打爆上下文
+    const sanitizedHistory = historyMessages
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .map(m => ({
+        role: m.role as 'user' | 'assistant',
+        content: String(m.content || '').slice(0, 4000),
+      }));
 
     // 追问模式：基于已有诊断报告继续提问
     const isFollowUp = !!followUpContext;
@@ -68,11 +83,8 @@ export async function POST(request: NextRequest) {
     // 构建完整消息列表
     const apiMessages = [
       { role: 'system' as const, content: systemPrompt },
-      // 历史消息
-      ...historyMessages.map(m => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content,
-      })),
+      // 历史消息（已做角色白名单与长度截断）
+      ...sanitizedHistory,
       // 当前用户消息
       { role: 'user' as const, content: userMessage },
     ];
@@ -101,13 +113,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return new Response(sseStream, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
-    });
+    return sseResponse(sseStream);
   } catch (error) {
     console.error('Diagnose chat error:', error);
     return NextResponse.json(

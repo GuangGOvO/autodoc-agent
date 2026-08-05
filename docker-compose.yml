@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-autodoc}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-autodoc}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?请在 .env 中设置 POSTGRES_PASSWORD（cp .env.example .env 后修改）}
       POSTGRES_DB: ${POSTGRES_DB:-autodoc}
     volumes:
       - db-data:/var/lib/postgresql/data
@@ -31,9 +31,9 @@ services:
     # 运行期注入环境变量（.env 已被 gitignore/.dockerignore 排除，不会打进镜像）
     env_file:
       - path: .env
-        required: false
+        required: true
     environment:
-      DATABASE_URL: postgres://${POSTGRES_USER:-autodoc}:${POSTGRES_PASSWORD:-autodoc}@db:5432/${POSTGRES_DB:-autodoc}
+      DATABASE_URL: postgres://${POSTGRES_USER:-autodoc}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD 未设置}@db:5432/${POSTGRES_DB:-autodoc}
 
 volumes:
   db-data:

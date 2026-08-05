@@ -5,6 +5,8 @@ import { chatCompletionStream } from '@/lib/llm/deepseek';
 import { buildSystemPrompt, formatKnowledgeContext, buildGreetingPrompt } from '@/lib/llm/prompts';
 import { getRelevantKnowledge } from '@/lib/knowledge/matcher';
 import { getServerUser } from '@/lib/serverAuth';
+import { getClientIp, hitRateLimit, rateLimitedResponse } from '@/lib/rateLimit';
+import { sseResponse } from '@/lib/sse';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,6 +15,12 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: '请先登录后再使用诊断功能' }, { status: 401 });
     }
+
+    // 限流：LLM 调用消耗 API 余额，按用户 10 次/分钟 + 按 IP 30 次/分钟
+    const perUser = hitRateLimit({ scope: 'diagnose:start:user', key: user.id, limit: 10 });
+    if (perUser.limited) return rateLimitedResponse(perUser.retryAfterSec);
+    const perIp = hitRateLimit({ scope: 'diagnose:start:ip', key: getClientIp(request), limit: 30 });
+    if (perIp.limited) return rateLimitedResponse(perIp.retryAfterSec);
 
     const { symptom } = body as { symptom?: string };
     if (symptom && symptom.length > 1000) {
@@ -54,13 +62,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return new Response(sseStream, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
-    });
+    return sseResponse(sseStream);
   } catch (error) {
     console.error('Diagnose start error:', error);
     return NextResponse.json(

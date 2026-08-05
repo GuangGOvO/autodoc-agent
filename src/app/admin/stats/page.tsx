@@ -40,16 +40,28 @@ export default function StatsPage() {
   }, []);
 
   // 按日统计诊断数量（最近7天）
+  // 用本地时区切日，避免 toISOString()（UTC）导致凌晨数据归到前一天
+  const toLocalDateKey = (d: Date): string =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+      d.getDate()
+    ).padStart(2, '0')}`;
+
   const dailyStats = useMemo(() => {
     const stats: { date: string; label: string; count: number }[] = [];
     const now = new Date();
 
+    const countByLocalDay = new Map<string, number>();
+    sessions.forEach(s => {
+      const key = toLocalDateKey(new Date(s.createdAt));
+      countByLocalDay.set(key, (countByLocalDay.get(key) || 0) + 1);
+    });
+
     for (let i = 6; i >= 0; i--) {
       const d = new Date(now);
       d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().split('T')[0];
+      const dateStr = toLocalDateKey(d);
       const label = i === 0 ? '今天' : i === 1 ? '昨天' : `${d.getMonth() + 1}/${d.getDate()}`;
-      const count = sessions.filter(s => s.createdAt.startsWith(dateStr)).length;
+      const count = countByLocalDay.get(dateStr) || 0;
       stats.push({ date: dateStr, label, count });
     }
 
